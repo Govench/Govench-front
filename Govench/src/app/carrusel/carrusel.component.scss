@@ -1,8 +1,30 @@
 body {
     background: url(https://img.pikbest.com/origin/09/18/09/14spIkbEsTkRF.jpg!w700wp);
-    width: 1920px;
+    width: 1904px;
     height: 1080px;
-    background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    color: #FFF;
 }
+
+.columnaP{
+    padding-top: 290px;
+}
+.title{
+    padding-left: 120px;
+    font-size: 80px;
+    .ah{
+        color: #90bbbb;
+    }
+}
+
+.decription{
+    padding-left: 180px;
+    font-size: 30px;
+}
+
+.boton{
+    padding-top: 20px;
+    padding-left: 180px;
+}
+

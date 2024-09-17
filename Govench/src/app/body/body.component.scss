@@ -1,3 +1,30 @@
 body {
     background: linear-gradient(192deg, #FFF 23.99%, #8B8EA3 48.58%, #010635 83.26%);
 }
+
+.noso{
+    color: #010635;
+    font-size: 80px;
+}
+
+.card-title{
+    color: #000000;
+    font-size: 60px;
+}
+
+.card-text{
+    font-size: 20px;
+}
+.team-section{
+    color: #FFF;
+    img{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+    .subTitle{
+        font-size: 80px;
+    }
+}

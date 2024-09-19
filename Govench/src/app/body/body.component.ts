@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './body.component.scss'
 })
 export class BodyComponent {
-  // items = ['First', 'Second', 'Third'];
+  
 }

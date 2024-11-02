@@ -1,0 +1,107 @@
+<body>
+<div class="container-fluid">
+    <div class="row p-3 ">
+        <h1>Eventos Component</h1>
+        <div class="col-md-3 ">
+            <form class="d-flex p-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar ..." aria-label="...">
+                <button class="btn btn-info" type="submit">Buscar</button>
+            </form>
+            <div class="card-body">
+                <h5 class="card-title text-center p-2">Filtros</h5>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                          Fecha
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                          <strong>Fecha</strong>  <code>.accordion-body</code>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            Etiquetas
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            Experiencia
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            Ubicacion
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong>  
+                          </div>
+                        </div>
+                      </div>
+                      
+                </div>
+            </div>
+
+               
+            </div>
+           
+        </div>
+        <div class="col-md-9">
+            <div class="row p-3 ">
+                
+                <div class="col-md-4  p-2" *ngFor="let evento of eventos" >
+                    <div class="card " style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{evento.tittle}}</h5>
+                            <p class="card-text">Desc: {{evento.description}} </p>
+                            <p class="card-text">Fecha: {{evento.date}} </p>
+                            <p class="card-text">Dirección:
+                                  {{evento.location.address}}, 
+                                  {{evento.location.district}}, 
+                                  {{evento.location.province}}, 
+                                  {{evento.location.departament}}
+                            </p>
+                            <p *ngIf="evento.cost!=0">
+                                precio: {{evento.cost}}
+                            </p>
+                            <p *ngIf="evento.cost==0">
+                                Evento Gratuito
+                          </p>
+                            <a href="#" class="btn btn-info">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+  
+            </div>
+
+        </div>
+    </div>
+   
+   
+
+</div>
+
+<router-outlet></router-outlet>
+</body>
+
+

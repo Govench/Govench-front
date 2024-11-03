@@ -14,7 +14,7 @@ export class AuthServiceService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService)
   constructor() { }
-
+  
   login(autRequest : AuthRequest) : Observable<AuthResponse>{
     return this.http.post<AuthResponse>(`${this.baseURL}/login`,autRequest).pipe(
       tap(response => this.storageService.setAuthData(response))
@@ -26,11 +26,18 @@ export class AuthServiceService {
     this.storageService.clearAuthData();
   }
 
-  isAuthenticated():boolean {
-    return this.storageService.getAuthData()== null;
+  isAuthenticated(): boolean {
+    return this.storageService.getAuthData() !== null;
   }
+
   getUser():AuthResponse | null {
     const authData= this.storageService.getAuthData();
     return authData ? authData : null;
   }
+
+  getRole():String | null {
+    const authData = this.storageService.getAuthData();
+    return authData ? authData.role : null;
+  }
+
 }

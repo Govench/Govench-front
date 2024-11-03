@@ -4,6 +4,7 @@ import { NavComponent } from "../../../shared/components/nav/nav.component";
 import { FooterComponent } from "../../../shared/components/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-participant-layout',
@@ -14,9 +15,14 @@ import { AuthServiceService } from '../../../core/services/auth/auth.service';
 })
 export class ParticipantLayoutComponent {
   authService = inject(AuthServiceService);
-  
+  private router = inject(Router);
+
   logout() :void
   {
     this.authService.logout();
+  }
+
+  isActive(route: string): boolean {
+    return this.router.url === route;
   }
 }

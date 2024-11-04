@@ -1,1 +1,32 @@
-<p>organizer-layout works!</p>
+<app-nav/>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="color col-md-1 d-grid gap-2">
+            <div class=" row p-0">
+                <button class="btn" 
+                    [ngClass]="{'btn-outline-light': !isActive(['/organizer/profile', '/organizer/profile/update']), 'btn-primary': isActive(['/organizer/profile', '/organizer/profile/update'])}" 
+                    routerLink="/organizer/profile">
+                    <i class="fa-regular fa-user"></i> Cuenta           
+                </button>
+            </div>
+            <div class="row p-0 text-light">
+                <button class="btn" 
+                    [ngClass]="{'btn-outline-light': !isActive(['/organizer/eventos']), 'btn-primary': isActive(['/organizer/eventos'])}" 
+                    routerLink="/organizer/eventos">
+                    <i class="fa-regular fa-calendar"></i> Eventos
+                </button>
+            </div>
+            <div class="row p-0 text-light">
+                <button class="btn" 
+                    [ngClass]="{'btn-outline-light': !isActive(['/organizer/comunidades']), 'btn-primary': isActive(['/organizer/comunidades'])}" 
+                    routerLink="/organizer/comunidades">
+                    <i class="fa-regular fa-comment"></i> Comunidad
+                </button>
+            </div>
+        </div>
+        <div class="col-md-10 p-0 pt-3 ">
+            <router-outlet></router-outlet>
+        </div>     
+    </div>
+</div>
+<app-footer/>

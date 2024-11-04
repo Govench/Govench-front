@@ -33,5 +33,11 @@ export class UserProfileService {
 
     return this.http.post(`${this.photoURL}/upload/profile-photo`, formData,{ responseType: 'text' });
   }
+
+  deleteProfileImage()
+  {
+    return this.http.delete(`${this.photoURL}/profile-photo/delete`,{ responseType: 'text' });
+  }
+
   
 }

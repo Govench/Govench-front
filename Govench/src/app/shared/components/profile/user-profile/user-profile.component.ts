@@ -55,7 +55,14 @@ export class UserProfileComponent implements OnInit {
     }
   }
   navigateToUpdateProfile(): void{
-    this.router.navigate(['/participant/profile/update'])
+    if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+    {
+      this.router.navigate(['/organizer/profile/update'])
+    }
+    else
+    {
+      this.router.navigate(['/participant/profile/update'])
+    }
 
   }
 

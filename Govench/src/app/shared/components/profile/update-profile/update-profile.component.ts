@@ -103,7 +103,14 @@ export class UpdateProfileComponent {
                 }
               });
             }
-             
+            if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+              {
+                this.router.navigate(['/organizer/profile'])
+              }
+              else
+              {
+                this.router.navigate(['/participant/profile'])
+              }
           },
           error: (error) => {
             this.showSnackBar(error.error?.message || 'Error al actualizar el perfil');
@@ -116,20 +123,41 @@ export class UpdateProfileComponent {
 
   refreshProfileImage(userId: number): void {
     // Elimina el blob anterior para evitar referencias sin uso
-    if (this.profileImageUrl) {
+
       URL.revokeObjectURL(this.profileImageUrl as string);
-      this.router.navigate(['/participant/profile']);
-    }
-  
+      if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+        {
+          this.router.navigate(['/organizer/profile'])
+        }
+        else
+        {
+          this.router.navigate(['/participant/profile'])
+        }
+
     this.userService.getProfileImage(userId).subscribe({
       next: (blob: Blob) => {
         const objectURL = URL.createObjectURL(blob);
         this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
       },
       error: (error) => {
-        console.error('Error al cargar la imagen de perfil:', error);
+        console.error('No tienes ninguna foto asociada', error);
       }
     });
+  }
+
+  removeProfileImage():void{
+    this.userService.deleteProfileImage().subscribe(
+      {
+        next: () =>
+        {
+          this.showSnackBar('Foto eliminada correctamente');
+          this.refreshProfileImage(this.profile.id);
+        },
+        error : (error) => {
+          this.showSnackBar(error.error?.message || 'Error al eliminar la foto de perfil');
+        }
+      }
+    );
   }
 
   controlHasError(control : string, error: string)
@@ -140,6 +168,7 @@ export class UpdateProfileComponent {
     const formArray = this.profileform.get(control) as FormArray;
     return formArray.at(index).hasError(error) && (formArray.at(index).touched || formArray.at(index).dirty);
 }
+
 
   private showSnackBar(message:string) : void{
     this.snackbar.open(message,'Close',{

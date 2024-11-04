@@ -35,6 +35,9 @@
               <label for="formFile" class="form-label">Seleccionar Imagen: </label>
               <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
             </div>
+            <div class="row mt-3">
+                <button class="btn btn-outline-danger" (click)="removeProfileImage()" type="button">Quitar foto</button>
+            </div>
           </div>
 
         <div class="col-md-6">

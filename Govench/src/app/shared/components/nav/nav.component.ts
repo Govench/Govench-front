@@ -14,11 +14,12 @@ export class NavComponent {
   router = inject(Router)
   isAuthenticated: boolean = false;
   data : AuthResponse | null;
-
+  link: string;
   ngOnInit()
   {
     this.isAuthenticated = this.authService.isAuthenticated();
     this.data = this.authService.getUser();
+    this.setLinkTipe();
   }
 
   logout():void{
@@ -27,4 +28,15 @@ export class NavComponent {
     this.router.navigate(['/auth/login']);
   }
 
+  setLinkTipe()
+  {
+    if(this.authService.getUser()?.role==='ROLE_ORGANIZER')
+      {
+        this.link='organizer/profile';
+      }
+      else
+      {
+        this.link='participant/profile';
+      }
+  }
 }

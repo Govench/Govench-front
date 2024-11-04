@@ -9,7 +9,6 @@ export const authInverseGuard: CanActivateFn = (route, state) => {
   if(authService.isAuthenticated())
   {
     const userRole = authService.getUser();
-
     if (userRole?.role==='ROLE_ORGANIZER')
     {
       router.navigate(['/organizer']);
@@ -18,7 +17,7 @@ export const authInverseGuard: CanActivateFn = (route, state) => {
     }
     if(userRole?.role==='ROLE_ADMIN')
     {
-      router.navigate(['/admin'])
+      router.navigate(['/participant'])
     }
     return false;
   }

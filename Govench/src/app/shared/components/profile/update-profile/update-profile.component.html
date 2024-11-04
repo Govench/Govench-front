@@ -1,1 +1,140 @@
-<p>update-profile works!</p>
+<div class="row">
+    <div class="col-md-1 p-0">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="ms-5 fa-solid fa-bars"></i>
+          </button>
+    </div>
+    <div class="col-md-10">
+        <p>Perfil de : {{profile.name}} {{profile.lastname}}</p>
+        
+    </div>
+    <div class="ms-4 line p-0">
+        <p class="p-0 border border-dark border-2 opacity-100">
+    </div>
+</div>
+    
+    <form class="row" [formGroup]="profileform" (ngSubmit)="onSubmit()">
+        <div class="col-md-2  p-0 ">
+            <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+                <ul class="p-0 ms-5">
+                    <li><a href="adsa">Pefil</a></li>
+                    <li><a>Seguidores</a></li>
+                    <li><a>Seguidos</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="row p-0 text-center">
+              <img *ngIf="profileImageUrl; else defaultImage" [src]="profileImageUrl" alt="Profile Image" class="img-thumbnail">
+              <ng-template #defaultImage>
+                <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img-thumbnail rounded-circle">
+              </ng-template>
+            </div>
+            <div class="row mb-3">
+              <label for="formFile" class="form-label">Seleccionar Imagen: </label>
+              <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
+            </div>
+          </div>
+
+        <div class="col-md-6">
+            <div class="row"> <!--datos-->
+                <div class="row p-2">
+                    <div class="col">
+                        <input class="form-control" formControlName="name" placeholder="Nombre"/>
+                        <div *ngIf="controlHasError('name', 'required')" class="text-danger" [hidden]= "profileform.pristine">
+                            El nombre es obligatorio.
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" formControlName="lastname" placeholder="Apellido" />
+                        <div *ngIf="controlHasError('lastname', 'required')" class="text-danger" [hidden]= "profileform.pristine">
+                            El apellido es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col">
+                        <input class="form-control" formControlName="profileDesc" placeholder="Descripcion" />
+                        <div *ngIf="controlHasError('profileDesc', 'required')" class="text-danger" [hidden]= "profileform.pristine">
+                            La descripcion no puede ser nula.
+                        </div>
+                    </div> 
+                </div>
+                <div class="row p-2">
+                    <div class="col-md-6">
+                      <input class="form-control" formControlName="email" placeholder="Correo" />
+                      <div *ngIf="controlHasError('email','required')" class="text-danger" [hidden]= "profileform.pristine">
+                        El correo es obligatorio.
+                    </div>
+                    <div *ngIf="profileform.get('email')?.errors?.['email'] && !profileform.pristine" class="text-danger">
+                        Introduzca un correo válido.
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-select" formControlName="gender" placeholder="Genero">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input class="form-control" type="date" formControlName="birthday" placeholder="Fecha Nacimiento"  min="1935-01-01" max="2024-12-31" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2 p-3"> <!--listas-->  
+                <div class="row mt-2">
+                    <div formArrayName="interest" class="col">
+                        <h6 class="fw-bold">INTERESES:</h6>
+                        <div *ngFor="let interest of interest.controls; let i = index">
+
+                          <input [formControlName]="i" placeholder="Interest" class="mt-1 border border-primary rounded">
+                        
+                          <button type="button" (click)="removeInterest(i)" class="ms-2 btn btn-outline-primary"><i class="fa-solid fa-x"></i></button>
+                          <div *ngIf="controlHasArrayError('interest', 'required', i)" class="text-danger" [hidden]="profileform.pristine">
+                            campo requerido
+                          </div>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary" (click)="addInterest('')">Add Interest</button>
+                    </div>
+                      
+                    <div formArrayName="skills" class="col">
+                        <h6 class="fw-bold">HABILIDADES:</h6>
+                        <div *ngFor="let skill of skills.controls; let i = index">
+                          <input [formControlName]="i" placeholder="Skill" class="mt-1 border border-primary rounded">
+                          <button type="button" (click)="removeSkill(i)" class="ms-2 btn btn-outline-primary" ><i class="fa-solid fa-x"></i></button>
+                          <div *ngIf="controlHasArrayError('skills', 'required', i)" class="text-danger" [hidden]="profileform.pristine">
+                            campo requerido
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" (click)="addSkill('')">Add Skill</button>
+                        
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div formArrayName="links">
+                        <h6 class="fw-bold">LINKS:</h6>
+                        <div *ngFor="let link of links.controls; let i = index">
+                          <input [formControlName]="i" placeholder="Link" class="mt-1 border border-primary rounded">
+                          <button type="button" (click)="removeLink(i)" class="ms-2 btn btn-outline-primary" ><i class="fa-solid fa-x"></i></button>
+                          <div *ngIf="controlHasArrayError('links', 'required', i)" class="text-danger" [hidden]="profileform.pristine">
+                            campo requerido
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" (click)="addLink('')">Add Link</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3 p-3">
+                    <div class="col-md-3 offset-md-6">
+                        <button type="button" class="btn btn-outline-dark" routerLink="/participant/profile">Cancelar</button>
+                    </div>
+                    <div class="col-md-3 ">
+                        <button class="btn color" type="submit">Guardar</button>
+                    </div>
+            </div>
+        </div>
+    </form>

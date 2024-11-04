@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
 import { AuthResponse } from '../../models/auth/auth-response-model';
 @Component({
@@ -11,6 +11,7 @@ import { AuthResponse } from '../../models/auth/auth-response-model';
 })
 export class NavComponent {
   private authService = inject(AuthServiceService);
+  router = inject(Router)
   isAuthenticated: boolean = false;
   data : AuthResponse | null;
 
@@ -23,6 +24,7 @@ export class NavComponent {
   logout():void{
     this.authService.logout();
     this.isAuthenticated=false;
+    this.router.navigate(['/auth/login']);
   }
 
 }

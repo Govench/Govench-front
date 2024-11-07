@@ -33,16 +33,6 @@ export class UserProfileComponent implements OnInit {
     const userId = authData?.id;
 
     if (userId) {
-      this.userProfileService.getUserProfile(userId).subscribe({
-        next: (profile) => {
-          this.profile = profile;
-          this.showSnackBar('Perfil cargado con éxito.');
-        },
-        error: (error) => {
-          this.showSnackBar('Error al cargar el perfil');
-        }
-      });
-    
       this.userProfileService.getProfileImage(userId).subscribe({
         next: (blob: Blob) => {
           const objectURL = URL.createObjectURL(blob);
@@ -53,10 +43,26 @@ export class UserProfileComponent implements OnInit {
           console.error('Error al cargar la imagen de perfil:', error);
         }
       });
+      this.userProfileService.getUserProfile(userId).subscribe({
+        next: (profile) => {
+          this.profile = profile;
+          this.showSnackBar('Perfil cargado con éxito.');
+        },
+        error: (error) => {
+          this.showSnackBar('Error al cargar el perfil');
+        }
+      }); 
     }
   }
   navigateToUpdateProfile(): void{
-    this.router.navigate(['participant/profile/update'])
+    if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+    {
+      this.router.navigate(['/organizer/profile/update'])
+    }
+    else
+    {
+      this.router.navigate(['/participant/profile/update'])
+    }
 
   }
 

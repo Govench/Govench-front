@@ -19,7 +19,12 @@ export const routes: Routes = [
         loadChildren : () => import ("././pages/organizer/organizer.routes").then(o => o.participantRoutes),
         canActivate:[authGuard]
     },
-    { path: '**', redirectTo: '/participant' } //provisorio hasta crear una pagina de notfount
-    
+    // { path: '**', redirectTo: '/participant' }, //provisorio hasta crear una pagina de notfount
+    {
+        path: 'inicio',
+        loadChildren : () => import ("./pages/inicio/inicio.routes").then(i => i.inicioRoutes)
+    },
+    { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
+    { path: '**', redirectTo: '/inicio' } // Redirige cualquier ruta no encontrada a 'inicio'
 ];
 

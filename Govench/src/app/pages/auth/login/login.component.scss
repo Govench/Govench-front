@@ -1,3 +1,9 @@
+.inicio{
+
+    min-height: 60vh;
+
+}
+
 .espaciado{
     height: 70vh;
     display: flex;
@@ -12,10 +18,10 @@
 
 .input-c{
     width: 100%; /* Ancho completo */
-    padding: 5px; /* Espaciado interno */
+    padding: 8px; /* Espaciado interno */
     border: 2px solid #084AAA; /* Borde transparente inicialmente */
     border-radius: 50px; /* Bordes redondeados */
-    font-size: 14px; /* Tamaño de la fuente */
+    font-size: 16px; /* Tamaño de la fuente */
 }
 
 .subtitle{
@@ -31,6 +37,23 @@
 .caja i{
     font-size: 1.5rem;
     
+}
+
+.formulario{
+    
+    label{
+        font-size: 24px;
+        color: #084AAA;
+        padding: 10px;
+    }
+
+    .btn{
+        background-color: #084AAA;
+        color: #FFF;
+        border: none;
+        font-size: 20px;
+        transition: background-color 0.3s;
+    }
 }
 
 

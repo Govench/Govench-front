@@ -5,7 +5,7 @@ import { AuthResponse } from '../../models/auth/auth-response-model';
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [RouterLink,RouterOutlet],
+  imports: [RouterLink],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })

@@ -21,8 +21,13 @@ export class ParticipantLayoutComponent {
   {
     this.authService.logout();
   }
-
+  
   isActive(route: string): boolean {
-    return this.router.url === route;
+    return this.router.isActive(route, {
+      paths: 'exact',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
 }

@@ -1,66 +1,50 @@
-.inicio{
-
-    min-height: 60vh;
-
+.caja{
+    padding: 60px; 
 }
-
-.espaciado{
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    flex-direction: column;
+.p-3 .container .col-8{
+    padding: 20px;
 }
-
-.bg-1{
+.bg-1 {
     background: linear-gradient(90deg, #084AAA 0%, #010635 100%);
 }
 
-.input-c{
-    width: 100%; /* Ancho completo */
-    padding: 8px; /* Espaciado interno */
-    border: 2px solid #084AAA; /* Borde transparente inicialmente */
-    border-radius: 50px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de la fuente */
+.input-c {
+    width: 100%;
+    border: 2px solid #084AAA;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none; 
+    border-radius: 93px;
 }
 
-.subtitle{
-    border-radius: 50px;
+#profileDescription {
+    border-radius: 23px;
+}
+
+.subtitle {
+    border-radius: 116px;
 }
 
 /*Caja - espaciado y centrado dinamico para la flecha*/
 
-.caja{
+.caja {
     width: 10%;
 }
 
-.caja i{
-    font-size: 1.5rem;
-    
+.caja i {
+    font-size: 1.3rem;
 }
 
-.formulario{
-    
-    label{
-        font-size: 24px;
-        color: #084AAA;
-        padding: 10px;
+.formulario {
+
+    label {
+        font-size: 20px;
     }
 
-    .btn{
+    .btn {
         background-color: #084AAA;
         color: #FFF;
-        border: none;
         font-size: 20px;
         transition: background-color 0.3s;
     }
-}
-
-/* Ajustar el textarea al contenedor */
-.input-c {
-  width: 100%;  /* Asegura que el campo ocupe todo el ancho disponible */
-  box-sizing: border-box;  /* Asegura que los márgenes y el padding no se salgan del tamaño */
-  resize: none;  /* Evita que el usuario cambie el tamaño del campo */
-  padding: 8px;  /* Añadir un poco de padding para que el texto no toque los bordes */
-  border-radius: 5px;  /* Bordes redondeados para un mejor estilo */
 }

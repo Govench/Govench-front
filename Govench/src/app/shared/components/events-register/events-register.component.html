@@ -1,0 +1,43 @@
+<h5>Registrados</h5>
+        <div class="table-responsive" *ngIf="eventsIncriptions.length > 0; else noEvents">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Ubicacion</th>
+                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Hora de Inicio</th>
+                        <th>Fecha Inscripcion</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="event-row" *ngFor="let eventsIn of eventsIncriptions, let i = index">
+                        <td>{{eventsIn.tittle}}</td>
+                        <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
+                        <td>{{eventsIn.type}}</td>
+                        <td>{{eventsIn.date}}</td>
+                        <td>{{eventsIn.startTime}}</td>
+                        <td>{{eventsIn.registrationDate}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm"><i class="fa-solid fa-bell"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <button class="btn ins"><i class="fa-solid fa-plus"></i> Inscribite en más</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <ng-template #noEvents>
+            <strong>No estás inscrito a ningún evento en este momento.</strong>
+        </ng-template>
+

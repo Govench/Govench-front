@@ -39,31 +39,28 @@ export class RegisterComponent {
       ],
       birthDate: [
         '', 
-        [Validators.required, this.validateBirthDate] // Validación personalizada para la fecha de nacimiento
+        [Validators.required, this.validateBirthDate]
       ],
       gender: ['', Validators.required],
       profileDescription: ['', Validators.maxLength(250)],
-      termsAccepted: [false, Validators.requiredTrue] // Checkbox de términos y condiciones
+      termsAccepted: [false, Validators.requiredTrue]
     }, { 
-      validators: this.passwordsMatchValidator // Validación de contraseñas coincidentes
+      validators: this.passwordsMatchValidator
     });
   }
 
-  // Validación personalizada para la fecha de nacimiento
   validateBirthDate(control: any) {
     const selectedDate = new Date(control.value);
     const today = new Date();
     return selectedDate > today ? { invalidDate: true } : null;
   }
 
-  // Validación personalizada para coincidir las contraseñas
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  // Método para verificar si un control tiene un error específico
   controlHasError(control: string, error: string) {
     return this.registerForm.controls[control].hasError(error);
   }

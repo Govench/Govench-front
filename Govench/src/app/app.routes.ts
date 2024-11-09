@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth/auth.guard';
 import { authInverseGuard } from './core/guards/auth/auth-inverse.guard';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
    
@@ -24,6 +25,7 @@ export const routes: Routes = [
         path: 'inicio',
         loadChildren : () => import ("./pages/inicio/inicio.routes").then(i => i.inicioRoutes)
     },
+    {path:'eventos', component:HomeComponent},
     { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
     { path: '**', redirectTo: '/inicio' } // Redirige cualquier ruta no encontrada a 'inicio'
 ];

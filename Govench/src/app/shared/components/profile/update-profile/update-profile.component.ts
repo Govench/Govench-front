@@ -8,6 +8,7 @@ import { UserProfileService } from '../../../../core/services/user/user.profile.
 import { AuthServiceService } from '../../../../core/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { timeout } from 'rxjs';
 @Component({
   selector: 'app-update-profile',
   standalone: true,
@@ -103,14 +104,8 @@ export class UpdateProfileComponent {
                 }
               });
             }
-            if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
-              {
-                this.router.navigate(['/organizer/profile'])
-              }
-              else
-              {
-                this.router.navigate(['/participant/profile'])
-              }
+
+           
           },
           error: (error) => {
             this.showSnackBar(error.error?.message || 'Error al actualizar el perfil');
@@ -122,18 +117,12 @@ export class UpdateProfileComponent {
   }
 
   refreshProfileImage(userId: number): void {
-    // Elimina el blob anterior para evitar referencias sin uso
-
+   
+    if (this.profileImageUrl) {
       URL.revokeObjectURL(this.profileImageUrl as string);
-      if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
-        {
-          this.router.navigate(['/organizer/profile'])
-        }
-        else
-        {
-          this.router.navigate(['/participant/profile'])
-        }
-
+      this.profileImageUrl = ""; 
+    }
+  
     this.userService.getProfileImage(userId).subscribe({
       next: (blob: Blob) => {
         const objectURL = URL.createObjectURL(blob);
@@ -141,17 +130,29 @@ export class UpdateProfileComponent {
       },
       error: (error) => {
         console.error('No tienes ninguna foto asociada', error);
+        this.profileImageUrl = ""; 
       }
     });
+    if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+      {
+        this.router.navigate(['/organizer/profile'])
+      }
+      else
+      {
+        this.router.navigate(['/participant/profile'])
+      }
   }
 
-  removeProfileImage():void{
+  removeProfileImage(userId:number):void{
     this.userService.deleteProfileImage().subscribe(
       {
         next: () =>
         {
           this.showSnackBar('Foto eliminada correctamente');
-          this.refreshProfileImage(this.profile.id);
+          if (this.profileImageUrl) {
+            URL.revokeObjectURL(this.profileImageUrl as string);
+            this.profileImageUrl = ""; // O asigna una URL de imagen predeterminada
+          }
         },
         error : (error) => {
           this.showSnackBar(error.error?.message || 'Error al eliminar la foto de perfil');

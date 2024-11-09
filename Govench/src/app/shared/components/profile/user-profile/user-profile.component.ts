@@ -43,6 +43,7 @@ export class UserProfileComponent implements OnInit {
           console.error('Error al cargar la imagen de perfil:', error);
         }
       });
+      
       this.userProfileService.getUserProfile(userId).subscribe({
         next: (profile) => {
           this.profile = profile;

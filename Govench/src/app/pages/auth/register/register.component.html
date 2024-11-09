@@ -18,25 +18,27 @@
         <div class="row">
             <!-- Columna izquierda -->
             <div class="col-md-6">
-                <!-- Campo Nombre -->
-                <div class="mb-3">
-                    <label for="name">Nombre</label>
-                    <input id="name" class="input-c p-2" formControlName="name" type="text"
-                        placeholder="Ingrese su nombre">
-                    <div *ngIf="controlHasError('name', 'required') && registerForm.controls['name'].touched"
-                        class="alert alert-danger">El nombre es obligatorio.</div>
-                    <div *ngIf="controlHasError('name', 'pattern') && registerForm.controls['name'].touched"
-                        class="alert alert-danger">Solo se permiten letras en el nombre.</div>
-                </div>
-                <!-- Campo Apellido -->
-                <div class="mb-3">
-                    <label for="lastname">Apellido</label>
-                    <input id="lastname" class="input-c p-2" formControlName="lastname" type="text"
-                        placeholder="Ingrese su apellido">
-                    <div *ngIf="controlHasError('lastname', 'required') && registerForm.controls['lastname'].touched"
-                        class="alert alert-danger">El apellido es obligatorio.</div>
-                    <div *ngIf="controlHasError('lastname', 'pattern') && registerForm.controls['lastname'].touched"
-                        class="alert alert-danger">Solo se permiten letras en el apellido.</div>
+                <div class="row">
+                    <!-- Campo Nombre -->
+                    <div class="col-md-6 mb-3">
+                        <label for="name">Nombre</label>
+                        <input id="name" class="input-c p-2" formControlName="name" type="text"
+                            placeholder="Ingrese su nombre">
+                        <div *ngIf="controlHasError('name', 'required') && registerForm.controls['name'].touched"
+                            class="alert alert-danger">El nombre es obligatorio.</div>
+                        <div *ngIf="controlHasError('name', 'pattern') && registerForm.controls['name'].touched"
+                            class="alert alert-danger">Solo se permiten letras en el nombre.</div>
+                    </div>
+                    <!-- Campo Apellido -->
+                    <div class="col-md-6 mb-3">
+                        <label for="lastname">Apellido</label>
+                        <input id="lastname" class="input-c p-2" formControlName="lastname" type="text"
+                            placeholder="Ingrese su apellido">
+                        <div *ngIf="controlHasError('lastname', 'required') && registerForm.controls['lastname'].touched"
+                            class="alert alert-danger">El apellido es obligatorio.</div>
+                        <div *ngIf="controlHasError('lastname', 'pattern') && registerForm.controls['lastname'].touched"
+                            class="alert alert-danger">Solo se permiten letras en el apellido.</div>
+                    </div>
                 </div>
                 <!-- Campo Correo -->
                 <div class="mb-3">
@@ -87,7 +89,7 @@
                     <select id="gender" class="input-c p-2" formControlName="gender">
                         <option value="">Seleccione su género</option>
                         <option value="M">Masculino</option>
-                        <option value="F">Femenino</option> 
+                        <option value="F">Femenino</option>
                     </select>
                     <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
                         class="alert alert-danger">El género es obligatorio.</div>
@@ -106,12 +108,12 @@
         <!-- Términos y Condiciones -->
         <div class="col-12 mb-3 text-center">
             <input type="checkbox" formControlName="termsAccepted"> He leído y acepto los <a href="#">términos y
-                condiciones</a> y <a href="#">políticas de privacidad</a>. 
+                condiciones</a> y <a href="#">políticas de privacidad</a>.
         </div>
 
         <!-- Botón de Registro -->
         <div class="col-12 text-center">
-            <button class="btn rounded-pill p-2" type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+            <button class="btn rounded-pill p-2" type="submit" [disabled]="registerForm.invalid" id="regiterBtn">Registrarse</button>
         </div>
     </form>
 </div>

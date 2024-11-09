@@ -17,8 +17,8 @@
     border-radius: 93px;
 }
 
-#profileDescription {
-    border-radius: 23px;
+#profileDesc {
+    border-radius: 15px;
 }
 
 .subtitle {
@@ -38,13 +38,15 @@
 .formulario {
 
     label {
-        font-size: 20px;
+        font-size: 17px;
     }
 
-    .btn {
+    #regiterBtn {
         background-color: #084AAA;
         color: #FFF;
-        font-size: 20px;
-        transition: background-color 0.3s;
+        font-size: 1.2em;
+        transition: background-color 0.3s; 
+        width: 20%;
+        border: 1px black solid; 
     }
 }

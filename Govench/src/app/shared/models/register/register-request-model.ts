@@ -1,8 +1,10 @@
 export interface RegisterRequest{
-    name: string; 
+    name: string;
+    lastname: string;
+    birthday: string;
+    gender: string; 
+    profileDesc: string;
     email: string;
     password: string;
-    birthday: string;
-    gender: string;
-    profileDesc: string;
+
 }

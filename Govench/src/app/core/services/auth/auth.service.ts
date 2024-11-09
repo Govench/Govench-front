@@ -5,6 +5,8 @@ import { StorageService } from '../storage.service';
 import { AuthRequest } from '../../../shared/models/auth/auth-request-model';
 import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../../../shared/models/auth/auth-response-model';
+import { RegisterRequest } from '../../../shared/models/register/register-request-model';
+import { RegisterResponse } from '../../../shared/models/register/register-response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,11 @@ export class AuthServiceService {
     return this.http.post<AuthResponse>(`${this.baseURL}/login`,autRequest).pipe(
       tap(response => this.storageService.setAuthData(response))
     )
+  }
+
+  register(registerRequest: RegisterRequest) : Observable<RegisterResponse>{
+    return this.http.post<RegisterResponse>(`${this.baseURL}/register/participant`,
+      registerRequest);
   }
 
   logout()

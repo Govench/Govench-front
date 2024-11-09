@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
@@ -18,13 +18,24 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar); 
+  private authService = inject(AuthServiceService)
 
   constructor() {
     this.registerForm = this.fb.group({
-      username: [
+      name: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)] // Solo letras y espacios
+        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)]
       ],
+      lastname: [
+        '', 
+        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)]
+      ],
+      birthday: [
+        '', 
+        [Validators.required, this.validateBirthDate]
+      ],
+      gender: ['', Validators.required],
+      profileDesc: ['', Validators.maxLength(250)],
       email: [
         '', 
         [Validators.required, Validators.email]
@@ -37,16 +48,10 @@ export class RegisterComponent {
         '', 
         [Validators.required]
       ],
-      birthDate: [
-        '', 
-        [Validators.required, this.validateBirthDate]
-      ],
-      gender: ['', Validators.required],
-      profileDescription: ['', Validators.maxLength(250)],
       termsAccepted: [false, Validators.requiredTrue]
     }, { 
       validators: this.passwordsMatchValidator
-    });
+    }as AbstractControlOptions);
   }
 
   validateBirthDate(control: any) {
@@ -67,11 +72,26 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const registrationData = this.registerForm.value;
-      this.showSnackBar('Registro exitoso');
-      // Aquí puedes añadir la lógica de envío de datos
-    } else {
-      this.showSnackBar('Por favor complete todos los campos correctamente');
+      const userData: RegisterRequest = { /* No usamos todos los datos del registerForm, por eso especificamos*/
+        name: this.registerForm.value.name,
+        lastname: this.registerForm.value.lastname,
+        birthday: this.registerForm.value.birthday,
+        gender: this.registerForm.value.gender,
+        profileDesc: this.registerForm.value.profileDesc,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password
+      };
+      console.log("Informacion del usuario: ", userData)
+      this.authService.register(userData).subscribe({
+        next: () => {
+          this.showSnackBar('Usuario creado correctamente');
+          this.router.navigate(['auth/login']);
+        },
+        error: (error) => {
+          this.showSnackBar(error.error.message);
+          console.log(error)
+        }
+      });
     }
   }
   

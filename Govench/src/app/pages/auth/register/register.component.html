@@ -20,15 +20,24 @@
             <div class="col-md-6">
                 <!-- Campo Nombre -->
                 <div class="mb-3">
-                    <label for="username">Nombre</label>
-                    <input id="username" class="input-c p-2" formControlName="username" type="text"
+                    <label for="name">Nombre</label>
+                    <input id="name" class="input-c p-2" formControlName="name" type="text"
                         placeholder="Ingrese su nombre">
-                    <div *ngIf="controlHasError('username', 'required') && registerForm.controls['username'].touched"
+                    <div *ngIf="controlHasError('name', 'required') && registerForm.controls['name'].touched"
                         class="alert alert-danger">El nombre es obligatorio.</div>
-                    <div *ngIf="controlHasError('username', 'pattern') && registerForm.controls['username'].touched"
+                    <div *ngIf="controlHasError('name', 'pattern') && registerForm.controls['name'].touched"
                         class="alert alert-danger">Solo se permiten letras en el nombre.</div>
                 </div>
-
+                <!-- Campo Apellido -->
+                <div class="mb-3">
+                    <label for="lastname">Apellido</label>
+                    <input id="lastname" class="input-c p-2" formControlName="lastname" type="text"
+                        placeholder="Ingrese su apellido">
+                    <div *ngIf="controlHasError('lastname', 'required') && registerForm.controls['lastname'].touched"
+                        class="alert alert-danger">El apellido es obligatorio.</div>
+                    <div *ngIf="controlHasError('lastname', 'pattern') && registerForm.controls['lastname'].touched"
+                        class="alert alert-danger">Solo se permiten letras en el apellido.</div>
+                </div>
                 <!-- Campo Correo -->
                 <div class="mb-3">
                     <label for="email">Correo</label>
@@ -63,12 +72,12 @@
             <div class="col-md-6">
                 <!-- Campo Fecha de Nacimiento -->
                 <div class="mb-3">
-                    <label for="birthDate">Fecha de nacimiento</label>
-                    <input id="birthDate" class="input-c p-2" formControlName="birthDate" type="date"
+                    <label for="birthday">Fecha de nacimiento</label>
+                    <input id="birthday" class="input-c p-2" formControlName="birthday" type="date"
                         placeholder="Selecciones su fecha de nacimiento">
-                    <div *ngIf="controlHasError('birthDate', 'required') && registerForm.controls['birthDate'].touched"
+                    <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
-                    <div *ngIf="controlHasError('birthDate', 'invalidDate') && registerForm.controls['birthDate'].touched"
+                    <div *ngIf="controlHasError('birthday', 'invalidDate') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">La fecha no puede ser futura.</div>
                 </div>
 
@@ -78,8 +87,7 @@
                     <select id="gender" class="input-c p-2" formControlName="gender">
                         <option value="">Seleccione su género</option>
                         <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                        <option value="N">No especifica</option>
+                        <option value="F">Femenino</option> 
                     </select>
                     <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
                         class="alert alert-danger">El género es obligatorio.</div>
@@ -87,8 +95,8 @@
 
                 <!-- Descripción de Perfil -->
                 <div class="col-12 mb-3">
-                    <label for="profileDescription">Descripción de perfil</label>
-                    <textarea id="profileDescription" class="input-c p-2" formControlName="profileDescription" rows="3"
+                    <label for="profileDesc">Descripción de perfil</label>
+                    <textarea id="profileDesc" class="input-c p-2" formControlName="profileDesc" rows="3"
                         maxlength="250" placeholder="Cuentanos algo sobre ti"></textarea>
                 </div>
             </div>

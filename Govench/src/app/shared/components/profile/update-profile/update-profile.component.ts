@@ -143,7 +143,7 @@ export class UpdateProfileComponent {
       }
   }
 
-  removeProfileImage(userId:number):void{
+  removeProfileImage():void{
     this.userService.deleteProfileImage().subscribe(
       {
         next: () =>

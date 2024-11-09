@@ -22,9 +22,12 @@ export class OrganizerLayoutComponent {
     this.authService.logout();
   }
 
-  isActive(routes: string[]): boolean {
-    const currentUrl = this.router.url;
-    return routes.some(route => currentUrl.includes(route));
+  isActive(route: string): boolean {
+    return this.router.isActive(route, {
+      paths: 'exact',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
-
 }

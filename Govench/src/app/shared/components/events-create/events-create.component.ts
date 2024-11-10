@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { EventUser } from '../../models/userEvent/user-event.model';
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
 import { inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events-create',
@@ -15,7 +17,7 @@ export class EventsCreateComponent {
 
   eventsuser: EventUser[];
   private eventUserService= inject(EventUserService);
-
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.myEventsCreate();
@@ -28,6 +30,12 @@ export class EventsCreateComponent {
       }
     );
   }
-
+  navigateToCreateEvents(): void{
+    this.router.navigate(['/organizer/profile/eventos/creados/crear'])
+      
+}
+navigateToEditEvents(): void{
+  this.router.navigate(['/organizer/profile/eventos/creados/editar'])
+}
 
 }

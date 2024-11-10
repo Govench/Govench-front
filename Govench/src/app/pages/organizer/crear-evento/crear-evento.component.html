@@ -1,0 +1,128 @@
+<div class="create-event-container">
+    <nav>Eventos Creados &gt; Crear Evento</nav>
+    <h2>Crear Evento</h2>
+  
+    <form>
+      <div class="form-row name-event">
+        <div class="form-group">
+          <label for="nombre-evento">Nombre del evento</label>
+          <input type="text" id="nombre-evento" maxlength="50" />
+        </div>
+  
+        <div class="form-group full-width">
+          <label for="descripcion">Descripción del evento</label>
+          <textarea id="descripcion" rows="4" maxlength="250"></textarea>
+          <small>0/250</small>
+        </div>
+      </div>
+  
+<div class="form-row custom-radio-row">
+  <div class="form-group col-md-1">
+    <label>Tipo de evento</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="eventType">
+        <label class="form-check-label" for="eventType">
+          Gratuito
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="type" id="eventType2">
+        <label class="form-check-label" for="eventType2">
+          Premium
+        </label>
+      </div>
+  </div>
+
+  <div class="form-group col-md-1">
+    <label>Modalidad</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="modeVirtual" name="mode">
+      <label class="form-check-label" for="modeVirtual">Virtual</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="modeInPerson" name="mode" checked>
+      <label class="form-check-label" for="modeInPerson">Presencial</label>
+    </div>
+  </div>
+
+  <div class="form-group col-md-1">
+    <label>Nivel de experiencia</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="experienceBeginner" name="experience" checked>
+      <label class="form-check-label" for="experienceBeginner">Principiante</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="experienceIntermediate" name="experience">
+      <label class="form-check-label" for="experienceIntermediate">Intermedio</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="experienceAdvanced" name="experience">
+      <label class="form-check-label" for="experienceAdvanced">Avanzado</label>
+    </div>
+  </div>
+  
+
+    <div class="form-group col-md-2">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" />
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="capacidad">Capacidad</label>
+      <input type="number" id="capacidad" />
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="hora-inicio">Hora de Inicio</label>
+      <input type="time" id="hora-inicio" />
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="hora-fin">Hora de Fin</label>
+      <input type="time" id="hora-fin" />
+    </div>
+  
+
+</div>
+  
+      <div class="form-row">
+        <div class="form-group">
+          <label for="departamento">Departamento</label>
+          <select id="departamento">
+            <option>Selecciona una opción</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="provincia">Provincia</label>
+          <select id="provincia">
+            <option>Selecciona una opción</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="distrito">Distrito</label>
+          <select id="distrito">
+            <option>Selecciona una opción</option>
+          </select>
+        </div>
+  
+        <div class="form-group full-width">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" />
+        </div>
+      </div>
+  
+      <div class="terms-section">
+        <input type="checkbox" id="terms" />
+        <label for="terms">
+          He leído y acepto los <a href="#">términos y condiciones</a> y <a href="#">políticas de privacidad</a>
+        </label>
+      </div>
+  
+      <div class="button-group">
+        <button type="submit" class="create-button">Crear Evento</button>
+      </div>
+    </form>
+  </div>
+  

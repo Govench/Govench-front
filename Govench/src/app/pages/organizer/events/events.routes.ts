@@ -6,10 +6,12 @@ import { CrearEventoComponent } from '../crear-evento/crear-evento.component';
 import { EditarEventoComponent } from '../editar-evento/editar-evento.component';
 
 export const eventosRoutes: Routes = [
+
           { path: 'registrados', component: EventsRegisterComponent },
           { path: 'creados', component: EventsCreateComponent },
           { path: 'pasados', component: EventsLastComponent },
           { path: 'creados/crear', component: CrearEventoComponent},
           { path: 'creados/editar', component: EditarEventoComponent},
           { path: '', redirectTo: 'registrados', pathMatch: 'full' }
+          
 ];

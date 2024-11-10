@@ -1,19 +1,22 @@
 import { Routes } from '@angular/router';
 import { ParticipantLayoutComponent } from './participant-layout/participant-layout.component';
-import { UserProfileComponent } from '../../shared/components/profile/user-profile/user-profile.component';
-import { UpdateProfileComponent } from '../../shared/components/profile/update-profile/update-profile.component';
 import { EvetnspLayoutComponent } from './events/evetnsp-layout/evetnsp-layout.component';
 import { eventosRoutes } from '../participant/events/eventsp.routes';
+import { FollowpLayoutComponent } from '../participant/followp/followp-layout/followp-layout.component';
+import { followpRoutes } from '../participant/followp/followp.routes';
 
 export const participantRoutes: Routes = [
     {
         path : "",
         component :ParticipantLayoutComponent,
         children: [
-            {path: "profile" , component :UserProfileComponent},
-            {path: "profile/update" , component :UpdateProfileComponent},
             {
-                path: 'profile/eventos',
+                path: "cuenta",
+                component: FollowpLayoutComponent,
+                children: followpRoutes
+            },
+            {
+                path: 'eventos',
                 component:EvetnspLayoutComponent,
                 children: eventosRoutes
             }

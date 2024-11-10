@@ -3,14 +3,14 @@
     <div class="row">
         <div class="color col-md-1">
                 <button class="btn mt-3" 
-                    [ngClass]="{'btn-outline-light': !isActive('/organizer/profile'), 'btn-primary': isActive('/organizer/profile')}"         
-                    routerLink="/organizer/profile">
+                    [ngClass]="{'btn-outline-light': !isActive('/organizer/cuenta/profile'), 'btn-primary': isActive('/organizer/cuenta/profile'), }"         
+                    routerLink="/organizer/cuenta">
                     <i class="fa-regular fa-user"></i> <br>Cuenta
                 </button>
 
                 <button class="btn" 
-                    [ngClass]="{'btn-outline-light': !isActive('/organizer/profile/eventos'), 'btn-primary': isActive('/organizer/profile/eventos')}" 
-                    routerLink="/organizer/profile/eventos">
+                    [ngClass]="{'btn-outline-light': !isActive('/organizer/eventos/registrados'), 'btn-primary': isActive('/organizer/eventos/registrados')}" 
+                    routerLink="/organizer/eventos">
                     <i class="fa-regular fa-calendar"></i> <br>Eventos
                 </button>
 

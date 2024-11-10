@@ -32,11 +32,11 @@ export class NavComponent {
   {
     if(this.authService.getUser()?.role==='ROLE_ORGANIZER')
       {
-        this.link='organizer/profile';
+        this.link='organizer/cuenta';
       }
       else
       {
-        this.link='participant/profile';
+        this.link='participant/cuenta';
       }
   }
 }

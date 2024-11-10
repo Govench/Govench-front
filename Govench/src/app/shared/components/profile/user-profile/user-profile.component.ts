@@ -57,11 +57,11 @@ export class UserProfileComponent implements OnInit {
   navigateToUpdateProfile(): void{
     if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
     {
-      this.router.navigate(['/organizer/profile/update'])
+      this.router.navigate(['/organizer/cuenta/profile/update'])
     }
     else
     {
-      this.router.navigate(['/participant/profile/update'])
+      this.router.navigate(['/participant/cuenta/profile/update'])
     }
 
   }

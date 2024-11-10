@@ -9,6 +9,7 @@ import { AuthServiceService } from '../../../../core/services/auth/auth.service'
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { timeout } from 'rxjs';
+
 @Component({
   selector: 'app-update-profile',
   standalone: true,
@@ -92,6 +93,7 @@ export class UpdateProfileComponent {
         {
           next: () => {
             this.showSnackBar('Perfil Actualizado Exitosamente.');
+            this.router.navigateByUrl('/profile');
             if (this.selectedFile) {
               this.userService.uploadProfileImage(this.selectedFile).subscribe({
                 next: () => {
@@ -135,11 +137,11 @@ export class UpdateProfileComponent {
     });
     if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
       {
-        this.router.navigate(['/organizer/profile'])
+        this.router.navigate(['/organizer/cuenta'])
       }
       else
       {
-        this.router.navigate(['/participant/profile'])
+        this.router.navigate(['/participant/cuenta'])
       }
   }
 

@@ -5,8 +5,10 @@ import { EventsCreateComponent } from '../../../shared/components/events-create/
 
 
 export const eventosRoutes: Routes = [
+
           { path: 'registrados', component: EventsRegisterComponent },
           { path: 'creados', component: EventsCreateComponent },
           { path: 'pasados', component: EventsLastComponent },
           { path: '', redirectTo: 'registrados', pathMatch: 'full' }
+          
 ];

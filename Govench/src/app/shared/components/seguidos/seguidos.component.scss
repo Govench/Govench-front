@@ -1,0 +1,104 @@
+.seguidos-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.8rem;
+  
+    .seguidos-title {
+      text-align: start;
+      color: #224d97;
+      font-size: 2.3rem;
+      
+    }
+  
+    .seguidos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+  
+    .seguidos-card {
+      background-color: #e4e4e4;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgb(35, 52, 148);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+      }
+  
+      .seguidos-avatar {
+        width: 100%;
+        height: 150px;
+        overflow: hidden;
+  
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+  
+      .seguidos-info {
+        padding: 1.5rem;
+  
+        .seguidos-name {
+          font-size: 1.2rem;
+          color: #333;
+          margin: 0 0 0.5rem;
+        }
+  
+        .seguidos-email {
+          font-size: 0.9rem;
+          color: #666;
+          margin: 0;
+  
+          i {
+            color: #285db8;
+            margin-right: 0.5rem;
+          }
+        }
+      }
+  
+      .seguidos-button {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        background: linear-gradient(90deg, #010635 0%, #03129B 100%);
+        color: white;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background: linear-gradient(90deg, #0a1cc4 0%, #0c145a 100%);
+          color: white;
+  
+        }
+      }
+    }
+  }
+  
+  .no-seguidos {
+    text-align: center;
+    padding: 3rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 2rem;
+  
+    i {
+      font-size: 4rem;
+      color: #285db8;
+      margin-bottom: 1rem;
+    }
+  
+    h3 {
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+  
+    p {
+      color: #666;
+    }
+  }

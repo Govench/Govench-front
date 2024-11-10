@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarruselComponent } from './carrusel.component';
+import { EvetnspLayoutComponent } from './evetnsp-layout.component';
 
-describe('CarruselComponent', () => {
-  let component: CarruselComponent;
-  let fixture: ComponentFixture<CarruselComponent>;
+describe('EvetnspLayoutComponent', () => {
+  let component: EvetnspLayoutComponent;
+  let fixture: ComponentFixture<EvetnspLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CarruselComponent]
+      imports: [EvetnspLayoutComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CarruselComponent);
+    fixture = TestBed.createComponent(EvetnspLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,37 +1,54 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
 
     <div class="container-fluid ">
-      <a class="navbar-brand" href="#">
-        <img class ="rounded-circle" alt="logo" src="logo_govench.png"/>
+
+      <a class="navbar-brand" routerLink="/inicio">
+        <img class =" logo-img rounded-pill" alt="logo" src="logo_govench.png"/>
       </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> 
+
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav ">
-          
+        
           <li class="nav-item ">
-            <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-house"></i> Home</a>
+            <a class="nav-link" aria-current="page" routerLink="/inicio"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-people-robbery"></i> Nosotros</a>
+            <a class="nav-link" routerLink="/participant"><i class="fa-solid fa-people-robbery"></i> Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-clipboard"></i> Eventos</a>
+            <a class="nav-link" routerLink="/eventos"><i class="fa-solid fa-clipboard"></i> Eventos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-users"></i> Equipo</a>
+            <a class="nav-link" routerLink="/participant"><i class="fa-solid fa-users"></i> Equipo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contactanos</a>
+            <a class="nav-link" routerLink="/participant"><i class="fa-solid fa-phone"></i> Contactanos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-question"></i> FAQ</a>
+            <a class="nav-link" routerLink="/participant"><i class="fa-solid fa-question"></i> FAQ</a>
           </li>
         </ul>
-  
-        <button class="btn btn-outline-dark rounded-start-pill" type="button" (click)="inLogged"><i class="fa-solid fa-user"></i> Iniciar Sesion</button>
-        
+
+        @if(isAuthenticated==false)
+        {
+          <button class="btn btn-outline-dark rounded-start-pill custom-btn" type="button" routerLink="/auth/login"><i class="fa-solid fa-user"></i> Iniciar Sesion</button>
+        }
+
+        @else {
+           <div class="dropstart">
+            <button class="btn btn-dark btn-outline-white rounded-start-pill dropdown-toggle custom-btn" type="button" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i>{{data?.name}}</button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/{{link}}">Mi perfil</a></li>
+              <li><a class="dropdown-item" routerLink="auth/login" (click)="logout()">Cerrar sesion</a></li>
+            </ul>
+          </div>
+        }
+
       </div>
+
     </div>
   </nav>

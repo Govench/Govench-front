@@ -21,7 +21,7 @@
                         <td>{{eventsIn.startTime}}</td>
                         <td>{{eventsIn.registrationDate}}</td>
                         <td>
-                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
+                            <button class="btn btn-danger btn-sm"(click)="deleteEventCreate()"><i class="fa-solid fa-trash-can"></i></button>
                         </td>
                         <td>
                             <button class="btn btn-warning btn-sm"><i class="fa-solid fa-bell"></i></button>
@@ -41,3 +41,10 @@
             <strong>No estás inscrito a ningún evento en este momento.</strong>
         </ng-template>
 
+        <div *ngIf="modal" class="modal">   
+            <p>¿Seguro que deseas eliminar el evento?</p>
+            
+            <button (click)="closeModal()">  Cancelar  </button>
+            <button>  Eliminar  </button>
+            
+            </div>

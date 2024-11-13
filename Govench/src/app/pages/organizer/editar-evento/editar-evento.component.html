@@ -1,105 +1,92 @@
 <div class="create-event-container">
-    <nav>Eventos Creados &gt; Editar Evento</nav>
-    <h2>Editar Evento</h2>
-  
-    <form>
-      <div class="form-row name-event">
-        <div class="form-group">
-          <label for="nombre-evento">Nombre del evento</label>
-          <input type="text" id="nombre-evento" maxlength="50" />
-        </div>
-  
-        <div class="form-group full-width">
-          <label for="descripcion">Descripción del evento</label>
-          <textarea id="descripcion" rows="4" maxlength="250"></textarea>
-          <small>0/250</small>
+  <nav>Eventos Creados &gt; Editar Evento</nav>
+  <h2>Editar Evento</h2>
+
+  <form [formGroup]="editEventForm" (ngSubmit)="onSubmit()">
+    <div class="form-row name-event">
+      <div class="form-group">
+        <label for="nombre-evento">Nombre del evento</label>
+        <input type="text" id="nombre-evento" formControlName="tittle" maxlength="50" class="form-control" placeholder="Ingrese el nombre del evento">
+        <div *ngIf="editEventForm.get('tittle')?.invalid && (editEventForm.get('tittle')?.dirty || editEventForm.get('tittle')?.touched)" class="alert alert-danger mt-2">
+          <span *ngIf="editEventForm.get('tittle')?.errors?.['required']">El título es obligatorio.</span>
         </div>
       </div>
-  
-<div class="form-row custom-radio-row">
-  <div class="form-group col-md-1">
-    <label>Tipo de evento</label>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="type" id="eventType">
-        <label class="form-check-label" for="eventType">
-          Gratuito
-        </label>
+
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción del evento</label>
+        <textarea id="descripcion" formControlName="description" rows="4" maxlength="250" class="form-control" placeholder="Ingrese una descripción"></textarea>
+        <div *ngIf="editEventForm.get('description')?.invalid && (editEventForm.get('description')?.dirty || editEventForm.get('description')?.touched)" class="alert alert-danger mt-2">
+          <span *ngIf="editEventForm.get('description')?.errors?.['required']">La descripción es obligatoria.</span>
+        </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="type" id="eventType2">
-        <label class="form-check-label" for="eventType2">
-          Premium
-        </label>
+    </div>
+
+    <div class="form-row custom-radio-row">
+      <div class="form-group col-md-1">
+        <label>Tipo de evento</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="type" id="eventTypeFree" (change)="toggleCostInput()" formControlName="type" value="Gratis">
+          <label class="form-check-label" for="eventTypeFree">Gratuito</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="type" id="eventTypePremium" (change)="toggleCostInput()" formControlName="type" value="Premium">
+          <label class="form-check-label" for="eventTypePremium">Premium</label>
+        </div>
       </div>
-  </div>
 
-    <div class="form-group col-md-2">
-      <label for="fecha">Fecha</label>
-      <input type="date" id="fecha" />
+      
+      <div class="form-group col-md-1" *ngIf="isCostVisible">
+        <label for="costo">Costo</label>
+        <input type="number" id="costo" formControlName="cost" class="form-control" placeholder="S/.">
+        <div *ngIf="editEventForm.get('cost')?.invalid && (editEventForm.get('cost')?.dirty || editEventForm.get('cost')?.touched)" class="alert alert-danger mt-2">
+          <span *ngIf="editEventForm.get('cost')?.errors?.['required']">El costo es obligatorio.</span>
+          <span *ngIf="editEventForm.get('cost')?.errors?.['pattern']">Introduzca un costo válido (solo números).</span>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group col-md-2">
-      <label for="capacidad">Capacidad</label>
-      <input type="number" id="capacidad" />
+    
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha" formControlName="date" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="hora-inicio">Hora de Inicio</label>
+        <input type="time" id="hora-inicio" formControlName="startTime" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="hora-fin">Hora de Fin</label>
+        <input type="time" id="hora-fin" formControlName="endTime" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="capacidad">Capacidad</label>
+        <input type="number" id="capacidad" formControlName="maxCapacity" class="form-control" placeholder="Ingrese capacidad">
+      </div>
     </div>
 
-    <div class="form-group col-md-2">
-      <label for="hora-inicio">Hora de Inicio</label>
-      <input type="time" id="hora-inicio" />
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="departamento">Departamento</label>
+        <input type="text" id="departamento" formControlName="department" class="form-control" placeholder="Ingrese departamento">
+      </div>
+      <div class="form-group">
+        <label for="provincia">Provincia</label>
+        <input type="text" id="provincia" formControlName="province" class="form-control" placeholder="Ingrese provincia">
+      </div>
+      <div class="form-group">
+        <label for="distrito">Distrito</label>
+        <input type="text" id="distrito" formControlName="district" class="form-control" placeholder="Ingrese distrito">
+      </div>
+      <div class="form-group full-width">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" formControlName="address" class="form-control" placeholder="Ingrese dirección">
+      </div>
     </div>
 
-    <div class="form-group col-md-2">
-      <label for="hora-fin">Hora de Fin</label>
-      <input type="time" id="hora-fin" />
+    <div class="button-group">
+      <button type="submit" class="create-button btn btn-primary" [disabled]="editEventForm.invalid">Guardar Cambios</button>
     </div>
-  
-
+  </form>
 </div>
-  
-      <div class="form-row">
-
-        <div class="form-group">
-          <label for="provincia">Provincia</label>
-          <select id="provincia">
-            <option>Selecciona una opción</option>
-          </select>
-        </div>
-  
-        <div class="form-group">
-          <label for="distrito">Distrito</label>
-          <select id="distrito">
-            <option>Selecciona una opción</option>
-          </select>
-        </div>
-  
-        <div class="form-group full-width">
-          <label for="direccion">Dirección</label>
-          <input type="text" id="direccion" />
-        </div>
-      </div>
-  
-      <div class="participants-section">
-        <h3>Participantes Registrados</h3>
-        <div class="participant-list">
-          <span>Dylan Acevedo Villena</span>
-          <span>Dylan Acevedo Villena</span>
-          <span>Dylan Acevedo Villena</span>
-          <span>Dylan Acevedo Villena</span>
-          <span>Dylan Acevedo Villena</span>
-        </div>
-      </div>
-
-
-      <div class="terms-section">
-        <input type="checkbox" id="terms" />
-        <label for="terms">
-          He leído y acepto los <a href="#">términos y condiciones</a> y <a href="#">políticas de privacidad</a>
-        </label>
-      </div>
-  
-      <div class="button-group">
-        <button type="submit" class="create-button">Guardar Evento</button>
-      </div>
-    </form>
-  </div>
-  

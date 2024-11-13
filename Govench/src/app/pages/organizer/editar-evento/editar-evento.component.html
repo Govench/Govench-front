@@ -1,0 +1,95 @@
+<div class="create-event-container">
+  <nav>Eventos Creados &gt; Editar Evento</nav>
+  <h2>Editar Evento</h2>
+
+  <form [formGroup]="editEventForm">
+    <div class="form-row name-event">
+      <div class="form-group">
+        <label for="nombre-evento">Nombre del evento</label>
+        <input type="text" id="nombre-evento" formControlName="tittle" maxlength="50" class="form-control" placeholder="Ingrese el nombre del evento">
+      </div>
+
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción del evento</label>
+        <textarea id="descripcion" formControlName="description" rows="4" maxlength="250" class="form-control" placeholder="Ingrese una descripción"></textarea>
+
+      </div>
+    </div>
+
+    <div class="form-row custom-radio-row">
+      <div class="form-group col-md-1">
+        <label>Tipo de evento</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="type" id="eventTypeFree" formControlName="type" value="Gratis" (change)="toggleCostInput()">
+          <label class="form-check-label" for="eventTypeFree">Gratuito</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="type" id="eventTypePremium" formControlName="type" value="Premium" (change)="toggleCostInput()">
+          <label class="form-check-label" for="eventTypePremium">Premium</label>
+        </div>
+
+      </div>
+
+      <!-- Campo de Costo: Solo se muestra si isCostVisible es true -->
+      <div class="form-group col-md-1 mt-2" *ngIf="isCostVisible">
+        <label for="costo">Costo</label>
+        <input type="number" id="costo" formControlName="cost" class="form-control" placeholder="S/.">
+        <div *ngIf="editEventForm.get('cost')?.invalid && (editEventForm.get('cost')?.dirty || editEventForm.get('cost')?.touched)" class="alert alert-danger mt-2">
+          Introduzca un costo válido (solo números).
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row single-line-fields">
+      <div class="form-group col-md-2">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha" formControlName="date" class="form-control">
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="hora-inicio">Hora de Inicio</label>
+        <input type="time" id="hora-inicio" formControlName="startTime" class="form-control">
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="hora-fin">Hora de Fin</label>
+        <input type="time" id="hora-fin" formControlName="endTime" class="form-control">
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="capacidad">Capacidad</label>
+        <input type="number" id="capacidad" formControlName="maxCapacity" class="form-control" placeholder="Ingrese capacidad">
+        <div *ngIf="editEventForm.get('maxCapacity')?.invalid && (editEventForm.get('maxCapacity')?.dirty || editEventForm.get('maxCapacity')?.touched)" class="alert alert-danger mt-2">
+          Introduzca una capacidad válida (solo números).
+        </div>
+      </div>
+    </div>
+
+    <!-- Campos de dirección -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="departamento">Departamento</label>
+        <input type="text" id="departamento" formControlName="department" class="form-control" placeholder="Ingrese departamento">
+      </div>
+
+      <div class="form-group">
+        <label for="provincia">Provincia</label>
+        <input type="text" id="provincia" formControlName="province" class="form-control" placeholder="Ingrese provincia">
+      </div>
+
+      <div class="form-group">
+        <label for="distrito">Distrito</label>
+        <input type="text" id="distrito" formControlName="district" class="form-control" placeholder="Ingrese distrito">
+      </div>
+
+      <div class="form-group full-width">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" formControlName="address" class="form-control" placeholder="Ingrese dirección">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="create-button btn btn-primary" [disabled]="editEventForm.invalid">Actualizar Evento</button>
+    </div>
+  </form>
+</div>

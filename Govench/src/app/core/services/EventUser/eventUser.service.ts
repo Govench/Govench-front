@@ -29,4 +29,8 @@ export class EventUserService{
     getMyEventsPast(): Observable<EventUser[]> {
       return this.http.get<EventUser[]>(`${this.baseURL}/history`)
     }
+
+    deleteEvent(): Observable<EventUser[]>{
+      return this.http.delete<EventUser[]>(`${this.baseURL}/{idevent}`)
+    }
 }

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
 import { Inscription } from '../../models/inscriptionEvent/inscription-event-model';  
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events-register',
@@ -11,6 +12,8 @@ import { Inscription } from '../../models/inscriptionEvent/inscription-event-mod
   styleUrl: './events-register.component.scss'
 })
 export class EventsRegisterComponent {
+  modal = false;
+  private router = inject(Router);
 
   eventsIncriptions: Inscription[];
   private eventService= inject(EventUserService);
@@ -26,6 +29,18 @@ export class EventsRegisterComponent {
         console.log('Eventos inscritos:', this.eventsIncriptions);
       }
       );
+  }
+
+  deleteEventCreate(): void{
+    this.modal = true;
+   }
+
+   closeModal(): void{
+    this.modal = false;
+   }
+
+   navigateToRegisterEvent(): void {
+    this.router.navigate(['/organizer/eventos/registrados']);
   }
 
 }

@@ -1,15 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventService } from '../../../core/services/event/event.service';
 import { EventRequest } from '../../../shared/models/event/eventRequest.model';
 import { EventResponse } from '../../../shared/models/event/eventResponse.model';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-editar-evento',
   standalone: true,
-  imports: [ReactiveFormsModule], 
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './editar-evento.component.html',
   styleUrls: ['./editar-evento.component.scss']
 })
@@ -25,7 +27,7 @@ export class EditarEventoComponent implements OnInit {
 
   constructor() {
     this.editEventForm = this.fb.group({
-      tittle: ['', Validators.required],
+      tittle: [''],
       description: [''],
       date: [''],
       startTime: [''],
@@ -50,13 +52,19 @@ export class EditarEventoComponent implements OnInit {
       next: (eventData: EventResponse) => {
         this.isCostVisible = eventData.type === 'Premium';
         this.editEventForm.patchValue(eventData);
+        if (this.isCostVisible) {
+          this.editEventForm.get('cost')?.enable();
+        } else {
+          this.editEventForm.get('cost')?.disable();
+          this.editEventForm.get('cost')?.setValue('0');
+        }
       },
       error: () => {
         this.snackbar.open('Error al cargar el evento', 'Cerrar', { duration: 2000 });
       }
     });
   }
-  
+
   toggleCostInput(): void {
     const eventType = this.editEventForm.get('type')?.value;
     this.isCostVisible = eventType === 'Premium';
@@ -64,10 +72,11 @@ export class EditarEventoComponent implements OnInit {
     if (this.isCostVisible) {
       this.editEventForm.get('cost')?.setValidators([Validators.required, Validators.pattern('^[0-9]*$')]);
       this.editEventForm.get('cost')?.enable();
+      this.editEventForm.get('cost')?.setValue(''); // Deja el campo vacío para Premium
     } else {
       this.editEventForm.get('cost')?.clearValidators();
       this.editEventForm.get('cost')?.disable();
-      this.editEventForm.get('cost')?.setValue('0');
+      this.editEventForm.get('cost')?.setValue('0'); // Asigna 0 para Gratuito
     }
     this.editEventForm.get('cost')?.updateValueAndValidity();
   }
@@ -84,6 +93,8 @@ export class EditarEventoComponent implements OnInit {
           this.snackbar.open('Error al actualizar el evento', 'Cerrar', { duration: 2000 });
         }
       });
+    } else {
+      this.snackbar.open('Por favor, complete todos los campos obligatorios', 'Cerrar', { duration: 2000 });
     }
   }
 }

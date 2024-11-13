@@ -1,5 +1,5 @@
 <h5>Creados</h5>
-<div class="table-responsive" *ngIf="eventsuser.length> 0; else noEvents">
+<div class="table-responsive" *ngIf="eventsuser.length > 0; else noEvents">
     <table class="table">
         <thead>
             <tr>
@@ -11,19 +11,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="event-row" *ngFor="let eventsIn of eventsuser, let i = index">
+            <tr class="event-row" *ngFor="let eventsIn of eventsuser; let i = index">
                 <td>{{eventsIn.tittle}}</td>
                 <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
                 <td>{{eventsIn.type}}</td>
                 <td>{{eventsIn.startTime}}</td>
                 <td>
-                    <button class="btn btn-success btn-sm" (click)="navigateToEditEvents()">Editar <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
+                    <button class="btn btn-success btn-sm" (click)="navigateToEditEvents()">Editar <i class="fa-solid fa-pen-to-square"></i></button>
                 </td>
-                
                 <td>
-                    {{eventsIn.id}}
-                    <button class="btn btn-danger btn-sm" (click)="deleteEventCreate(eventsIn.id)"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn btn-danger btn-sm" (click)="openDeleteModal(eventsIn)"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -40,12 +37,9 @@
     <strong>Aun no has creado ningun evento.</strong>
 </ng-template>
 
-
-
-<div *ngIf="modal" class="modal">   
-<p>¿Seguro que deseas eliminar el evento?</p>
-
-<button (click)="closeModal()">  Cancelar  </button>
-<button>  Eliminar  </button>
-
+<!-- Modal de Confirmación de Eliminación -->
+<div *ngIf="modal" class="modal">
+    <p>¿Seguro que deseas eliminar el evento?</p>
+    <button (click)="closeModal()">Cancelar</button>
+    <button (click)="confirmDeleteEvent()">Eliminar</button>
 </div>

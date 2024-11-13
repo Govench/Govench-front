@@ -7,7 +7,6 @@
                 <th>Ubicacion</th>
                 <th>Tipo</th>
                 <th>Hora de Inicio</th>
-                <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -16,9 +15,7 @@
                 <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
                 <td>{{eventsIn.type}}</td>
                 <td>{{eventsIn.startTime}}</td>
-                <td>
-                    <button class="btn btn-danger btn-sm" (click)="deleteEventCreate()"><i class="fa-solid fa-trash-can"></i></button>
-                </td>
+
             </tr>
         </tbody>
     </table>

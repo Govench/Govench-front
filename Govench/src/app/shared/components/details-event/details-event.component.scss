@@ -17,7 +17,15 @@ body {
     overflow: hidden;
     max-width: 90%;
 }
-
+.image-container
+{
+    width: 100%; /* Se adapta al ancho del contenedor */
+    height: 300px; /* Ajusta la altura según necesites */
+    overflow: hidden; /* Oculta el desbordamiento de la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .left-section {
     background-color: #FFFF;
     color: white;

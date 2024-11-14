@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiImgPipe } from '../../../core/pipes/api-img.pipe';
 import { EventService } from '../../../../app/core/services/event/event.service';
-import { EventResponse } from '../../models/event/eventResponse.model';
+import { EventsDetails } from '../../models/event/events-details.model';
 import { NavComponent } from "../nav/nav.component";
 import { FooterComponent } from "../footer/footer.component";
 
@@ -10,10 +11,10 @@ import { FooterComponent } from "../footer/footer.component";
   standalone: true,
   templateUrl: './details-event.component.html',
   styleUrls: ['./details-event.component.scss'],
-  imports: [NavComponent, FooterComponent]
+  imports: [NavComponent, FooterComponent,ApiImgPipe]
 })
 export class DetailsEventComponent implements OnInit {
-  event: EventResponse;
+  event: EventsDetails;
 
   constructor(
     private route: ActivatedRoute,

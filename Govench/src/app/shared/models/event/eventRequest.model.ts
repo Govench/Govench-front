@@ -1,4 +1,5 @@
 export interface EventRequest{
+    coverPath:string;
     tittle: String;
     description: String;
     date: String;

@@ -3,7 +3,8 @@ import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 import { EventRequest } from "../../../shared/models/event/eventRequest.model";
-import { EventResponse } from "../../../shared/models/event/eventResponse.model";
+import { EventsDetails } from "../../../shared/models/event/events-details.model";
+import { UploadMediaResponse } from "../../../shared/models/event/uploadMediaResponse.model";
 
 @Injectable({
     providedIn: "root"
@@ -15,22 +16,29 @@ export class EventService {
     private http = inject(HttpClient);
 
     private baseUrl2 = `${environment.baseURL}/events`;
+    private fileUrl = `${environment.baseURL}/media`;
     
-    crearEvento(eventRequest:EventRequest):Observable<EventResponse>{
-        return this.http.post<EventResponse>(`${this.baseUrl}`,eventRequest)
+    crearEvento(eventRequest:EventRequest):Observable<EventsDetails>{
+        return this.http.post<EventsDetails>(`${this.baseUrl}`,eventRequest)
     }
 
     eliminarEvento(id:number):Observable<void>{
         return this.http.delete<void>(`${this.baseUrl}/${id}`)
     }
 
-    updateEvent(id: number, eventRequest: EventRequest): Observable<EventResponse> {
-        return this.http.put<EventResponse>(`${this.baseUrl}/${id}`, eventRequest);
+    updateEvent(id: number, eventRequest: EventRequest): Observable<EventsDetails> {
+        return this.http.put<EventsDetails>(`${this.baseUrl}/${id}`, eventRequest);
     }
 
-    getEventById(id: number): Observable<EventResponse> {
-        return this.http.get<EventResponse>(`${this.baseUrl2}/${id}`);
+    getEventById(id: number): Observable<EventsDetails> {
+        return this.http.get<EventsDetails>(`${this.baseUrl2}/${id}`);
       }
+    uploadCover(file: File):Observable<UploadMediaResponse>
+    {
+        const formData = new FormData();
+        formData.append('file', file);
+        return this.http.post<UploadMediaResponse>(`${this.fileUrl}/upload`, formData);
+    }
       
 }
   

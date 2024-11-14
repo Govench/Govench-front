@@ -16,7 +16,12 @@ import { Router } from '@angular/router';
 export class OrganizerLayoutComponent {
   authService = inject(AuthServiceService);
   private router = inject(Router);
+  ngOnInit()
+  {
 
+      this.router.navigate(["/organizer/cuenta"]);
+
+  }
   logout() :void
   {
     this.authService.logout();

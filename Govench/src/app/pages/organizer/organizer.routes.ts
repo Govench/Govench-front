@@ -6,6 +6,7 @@ import { FollowLayoutComponent } from './follow/follow-layout/follow-layout.comp
 import { followRoutes } from './follow/follow.routes';
 import { ComunityLayoutComponent } from './comunity/comunity-layout/comunity-layout.component';
 import { comunityRoutes } from './comunity/comunity.routes';
+import { HomeComponent } from '../home/home.component';
 
 export const participantRoutes: Routes = [
     {

@@ -6,6 +6,7 @@ import { FollowpLayoutComponent } from '../participant/followp/followp-layout/fo
 import { followpRoutes } from '../participant/followp/followp.routes';
 import { ComunitypLayoutComponent } from './comunity/comunityp-layout/comunityp-layout.component';
 import { comunitypRoutes } from './comunity/comunityp.routes';
+import { HomeComponent } from '../home/home.component';
 
 export const participantRoutes: Routes = [
     {

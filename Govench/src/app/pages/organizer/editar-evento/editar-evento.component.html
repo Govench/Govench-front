@@ -1,19 +1,27 @@
 <div class="create-event-container">
   <nav>Eventos Creados &gt; Editar Evento</nav>
-  <h2>Editar Evento</h2>
-
+  <div class="row">
+    <div class="col-md-1">
+        <button class="btn fs-3 hover" (click)="Volver()"> <i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+    <div class="col ">
+      <h2 class="text-start">Editar Evento</h2>
+    </div>
   <form [formGroup]="editEventForm">
     <div class="form-row name-event">
-      <div class="form-group">
-        <label for="nombre-evento">Nombre del evento</label>
-        <input type="text" id="nombre-evento" formControlName="tittle" maxlength="50" class="form-control" placeholder="Ingrese el nombre del evento">
+      <div class="col">
+        <div class="form-group">
+          <label for="nombre-evento">Nombre del evento</label>
+          <input type="text" id="nombre-evento" formControlName="tittle" maxlength="50" class="form-control" placeholder="Ingrese el nombre del evento">
+        </div>
+  
+        <div class="form-group full-width">
+          <label for="descripcion">Descripción del evento</label>
+          <textarea id="descripcion" formControlName="description" rows="4" maxlength="250" class="form-control" placeholder="Ingrese una descripción"></textarea>
+  
+        </div>
       </div>
 
-      <div class="form-group full-width">
-        <label for="descripcion">Descripción del evento</label>
-        <textarea id="descripcion" formControlName="description" rows="4" maxlength="250" class="form-control" placeholder="Ingrese una descripción"></textarea>
-
-      </div>
     </div>
 
     <div class="form-row custom-radio-row">

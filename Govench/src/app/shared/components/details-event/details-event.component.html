@@ -2,7 +2,9 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <img src="https://i0.wp.com/criptotendencia.com/wp-content/uploads/2023/07/IA.jpg?fit=1456%2C816&ssl=1" alt="Imagen del evento" class="event-image">
+            <div class="image-container">
+                <img [src]="event.coverPath | apiImg" class="card-img-top" alt="imagen del evento">
+              </div>
             <div class="event-content">
                 <h1>{{ event.tittle}}</h1>
                 <p>{{ event.description}}</p>
@@ -11,9 +13,9 @@
         </div>
         <div class="right-section">
             <div class="event-details">
-                <p><span class="icon">🕓</span> {{ event.startTime}}</p>
-                <p><span class="icon">📍</span> {{ event.location.address}}</p>
-                <p><span class="icon">👥</span> {{ event.registeredCount}} personas</p>
+                <p><span class="icon">🕓 H.Inicio</span> {{ event.startTime}}</p>
+                <p><span class="icon">📍 Ubicacion:</span> {{ event.location.address}}</p>
+                <p><span class="icon">👥 Registrados:</span> {{ event.registeredCount}} personas</p>
                 
                 <div class="event-info">
                     <div>

@@ -43,4 +43,8 @@ export class EventsRegisterComponent {
     this.router.navigate(['/organizer/eventos/registrados']);
   }
 
+  navigateMoreEvents(){
+    this.router.navigateByUrl('/eventos');
+  }
+
 }

@@ -14,6 +14,7 @@ export class EventService {
     private baseUrl = `${environment.baseURL}/admin/events`;
     private http = inject(HttpClient);
 
+    private baseUrl2 = `${environment.baseURL}/events`;
     
     crearEvento(eventRequest:EventRequest):Observable<EventResponse>{
         return this.http.post<EventResponse>(`${this.baseUrl}`,eventRequest)
@@ -28,7 +29,7 @@ export class EventService {
     }
 
     getEventById(id: number): Observable<EventResponse> {
-        return this.http.get<EventResponse>(`${this.baseUrl}/${id}`);
+        return this.http.get<EventResponse>(`${this.baseUrl2}/${id}`);
       }
       
 }

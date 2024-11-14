@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventService } from '../../../core/services/event/event.service';
 import { EventRequest } from '../../../shared/models/event/eventRequest.model';
-import { EventResponse } from '../../../shared/models/event/eventResponse.model';
+import { EventsDetails } from '../../../shared/models/event/events-details.model';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -49,7 +49,7 @@ export class EditarEventoComponent implements OnInit {
 
   loadEventData(): void {
     this.eventService.getEventById(this.eventId).subscribe({
-      next: (eventData: EventResponse) => {
+      next: (eventData: EventsDetails) => {
         this.isCostVisible = eventData.type === 'Premium';
         this.editEventForm.patchValue(eventData);
         if (this.isCostVisible) {
@@ -96,5 +96,9 @@ export class EditarEventoComponent implements OnInit {
     } else {
       this.snackbar.open('Por favor, complete todos los campos obligatorios', 'Cerrar', { duration: 2000 });
     }
+  }
+  Volver()
+  {
+    this.router.navigate(['/organizer/eventos/creados'])
   }
 }

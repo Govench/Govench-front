@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventsDetails } from '../../shared/models/events/events-details.model';
+import { EventsDetails } from '../../shared/models/event/events-details.model';
 import { HomeService } from '../../core/services/home/home.service';
 import { ApiImgPipe } from '../../core/pipes/api-img.pipe';
 import { CommonModule } from '@angular/common';

@@ -147,7 +147,10 @@
   .create-button:hover {
     background: #004299;
   }
-
+  .img-thumbnail
+  {
+      max-height: 250px!important;
+  }
   .column-right {
   display: flex;
   flex-direction: column;

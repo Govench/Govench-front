@@ -4,11 +4,12 @@ import { FormsModule, ReactiveFormsModule, FormGroup, Validators, FormBuilder } 
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { EventService } from '../../../core/services/event/event.service';
+import { ApiImgPipe } from '../../../core/pipes/api-img.pipe';
 
 @Component({
   selector: 'app-crear-evento',
   standalone: true,
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, MatSnackBarModule, CommonModule],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, MatSnackBarModule, CommonModule,ApiImgPipe],
   templateUrl: './crear-evento.component.html',
   styleUrls: ['./crear-evento.component.scss']
 })
@@ -18,30 +19,65 @@ export class CrearEventoComponent {
   isCostoVisible: boolean = false;
   isVirtualMode: boolean = false; // Indica si el evento es virtual
 
+  minDate: string="";
+  minTime!: string;
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);
   private eventService = inject(EventService);
+  showTimeWarning: boolean = false;
+  profileImageUrl:boolean=false;
+  selectedFile: File | null = null;
 
+  
+ngOnInit(): void {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Asegura que esté en el inicio del día.
+  this.minDate = today.toISOString().split('T')[0];
+
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0'); // Formato HH
+  const minutes = now.getMinutes().toString().padStart(2, '0'); // Formato MM
+  this.minTime = `${hours}:${minutes}`;
+  
+  console.log(this.minTime);
+  router : inject(Router);
+
+
+}
   constructor() {
     this.createEventForm = this.fb.group({
+      coverPath: ['', Validators.required],
       tittle: ['', [Validators.required]],
       description: ['', [Validators.required]],
       date: ['', [Validators.required]],
       startTime: ['', [Validators.required]],
       endTime: ['', [Validators.required]],
       type: ['', [Validators.required]], 
-      cost: [{ value: '0', disabled: true }, [Validators.pattern('^[0-9]*$')]],
+      cost: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]],
       address: ['', [Validators.required]],
       department: ['', [Validators.required]],
       province: ['', [Validators.required]],
       district: ['', [Validators.required]],
       mode: ['', [Validators.required]],
       exp: ['', [Validators.required]],
-      maxCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      maxCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]]
     });
   }
-
+  checkStartTime(): void {
+    const selectedTime = this.createEventForm.get('startTime')?.value;
+    const currentTime = new Date();
+    const [selectedHours, selectedMinutes] = selectedTime.split(':').map(Number);
+    
+    if (
+      selectedHours < currentTime.getHours() ||
+      (selectedHours === currentTime.getHours() && selectedMinutes < currentTime.getMinutes())
+    ) {
+      this.showTimeWarning = true;
+    } else {
+      this.showTimeWarning = false;
+    }
+  }
   toggleCostoInput(): void {
     const eventType = this.createEventForm.get('type')?.value;
     this.isCostoVisible = eventType === 'Premium';
@@ -65,9 +101,9 @@ export class CrearEventoComponent {
     if (this.isVirtualMode) {
       this.createEventForm.patchValue({
         address: 'Virtual',
-        department: 'Virtual',
-        province: 'Virtual',
-        district: 'Virtual'
+        department: ' ',
+        province: ' ',
+        district: ' '
       });
       this.createEventForm.get('address')?.disable();
       this.createEventForm.get('department')?.disable();
@@ -89,33 +125,74 @@ export class CrearEventoComponent {
 
   onSubmit() {
     if (this.createEventForm.valid) {
+      //console.log("Formulario completo. Datos a enviar:", this.createEventForm.getRawValue());
+      // Configura el costo a 0 si el tipo es "Gratis"
       if (this.createEventForm.get('type')?.value === 'Gratis') {
         this.createEventForm.get('cost')?.setValue('0', { emitEvent: false });
       }
-      
+  
+      // Obtén los datos del formulario
       const eventData = { ...this.createEventForm.getRawValue() };
-      delete eventData['mode'];
+      delete eventData['mode'];  // Remueve el campo innecesario para el envío
   
-      console.log("Datos enviados:", eventData); // Verificar en la consola antes de enviar
+      //console.log("Datos del formulario (sin coverPath):", eventData);
   
-      this.eventService.crearEvento(eventData).subscribe({
-        next: () => {
-          this.showSnackbar('Evento creado con éxito');
-          this.router.navigateByUrl('/organizer/eventos/creados');
-        },
-        error: (error) => {
-          this.showSnackbar('Error al crear evento');
-          console.error("Error del servidor:", error); // Imprime el error del servidor en consola
-        }
-      });
+      // Verifica si hay un archivo seleccionado
+      if (this.selectedFile) {
+        this.eventService.uploadCover(this.selectedFile).subscribe({
+          next: (response) => {
+            console.log("Respuesta de la subida de imagen:", response);
+            const coverPath = response.path;
+  
+            eventData.coverPath = coverPath;
+  
+            console.log("Datos del formulario (con coverPath):", eventData);
+  
+            this.eventService.crearEvento(eventData).subscribe({
+              next: () => {
+                this.showSnackbar('Evento creado con éxito');
+                this.router.navigateByUrl('/organizer/eventos/creados');
+              },
+              error: (error) => {
+                const errorMessage = error.error?.message || error.error?.error || 'Ocurrió un error al crear el evento';
+                console.log('Error del servidor:', errorMessage);
+                this.showSnackbar(errorMessage);
+                console.error("Error del servidor:", error.error?.value); // Imprime el error del servidor en consola
+                
+              }
+            });
+          },
+          error: (error) => {
+            console.error('Error al subir la imagen:', error);
+            this.showSnackbar('Error al subir la imagen.');
+          }
+        });
+      } else {
+        //console.log("Datos del formulario (sin imagen):", eventData);
+      }
     } else {
       this.showSnackbar('Por favor, complete todos los campos obligatorios');
     }
   }
-  
+ 
+
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+      // Añadir el nombre de la imagen al control coverPath para que el formulario lo reconozca
+      this.createEventForm.patchValue({ coverPath: this.selectedFile.name });
+      this.createEventForm.get('coverPath')?.updateValueAndValidity();
+    }
+  }
 
   showSnackbar(message: string) {
 
     this.snackbar.open(message, 'Cerrar', { duration: 2000, verticalPosition : 'top'});
   }
+  Volver()
+  {
+    this.router.navigate(['/organizer/eventos/creados'])
+  }
+
 }

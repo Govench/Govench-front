@@ -36,7 +36,15 @@
     </table>
 </div>
 <ng-template #noEvents>
-    <strong>Aun no has creado ningun evento.</strong>
+    <div class="row">
+        <strong>Aun no has creado ningun evento.</strong>
+    </div>
+    <div class="d-flex justify-content-center">
+        <td colspan="8">
+            <button class="btn ins" (click)="navigateToCreateEvents()"><i class="fa-solid fa-plus"></i> Crear Nuevo Evento</button>
+        </td>
+    </div>
+
 </ng-template>
 
 <!-- Modal de Confirmación de Eliminación -->

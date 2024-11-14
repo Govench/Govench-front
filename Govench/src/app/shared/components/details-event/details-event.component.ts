@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../../../app/core/services/event/event.service';
-import { EventResponse } from '../../models/event/eventResponse.model';
+import { EventsDetails } from '../../models/event/events-details.model';
 import { NavComponent } from "../nav/nav.component";
 import { FooterComponent } from "../footer/footer.component";
 
@@ -13,7 +13,7 @@ import { FooterComponent } from "../footer/footer.component";
   imports: [NavComponent, FooterComponent]
 })
 export class DetailsEventComponent implements OnInit {
-  event: EventResponse;
+  event: EventsDetails;
 
   constructor(
     private route: ActivatedRoute,

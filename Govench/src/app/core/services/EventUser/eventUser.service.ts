@@ -33,4 +33,8 @@ export class EventUserService{
     deleteEvent(): Observable<EventUser[]>{
       return this.http.delete<EventUser[]>(`${this.baseURL}/{idevent}`)
     }
+    
+    inscribeInEvent(eventId:number):Observable<string>{
+      return this.http.post<string>(`${this.baseURL}`,null)
+    }
 }

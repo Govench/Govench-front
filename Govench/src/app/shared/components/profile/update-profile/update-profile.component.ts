@@ -93,7 +93,14 @@ export class UpdateProfileComponent {
         {
           next: () => {
             this.showSnackBar('Perfil Actualizado Exitosamente.');
-            this.router.navigateByUrl('/profile');
+            if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+              {
+                this.router.navigate(['/organizer/cuenta/profile'])
+              }
+            else
+              {
+                this.router.navigateByUrl('/participant/cuenta/profile');
+              }
             if (this.selectedFile) {
               this.userService.uploadProfileImage(this.selectedFile).subscribe({
                 next: () => {

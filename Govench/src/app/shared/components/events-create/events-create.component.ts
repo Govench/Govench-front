@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
 import { EventUser } from '../../models/userEvent/user-event.model';
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
-import { Router } from '@angular/router';
 import { EventService } from '../../../core/services/event/event.service';
-import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events-create',

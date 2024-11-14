@@ -4,6 +4,8 @@ import { EvetnspLayoutComponent } from './events/evetnsp-layout/evetnsp-layout.c
 import { eventosRoutes } from '../participant/events/eventsp.routes';
 import { FollowpLayoutComponent } from '../participant/followp/followp-layout/followp-layout.component';
 import { followpRoutes } from '../participant/followp/followp.routes';
+import { ComunitypLayoutComponent } from './comunity/comunityp-layout/comunityp-layout.component';
+import { comunitypRoutes } from './comunity/comunityp.routes';
 
 export const participantRoutes: Routes = [
     {
@@ -19,6 +21,11 @@ export const participantRoutes: Routes = [
                 path: 'eventos',
                 component:EvetnspLayoutComponent,
                 children: eventosRoutes
+            },
+            {
+                path: 'comunidades',
+                component: ComunitypLayoutComponent,
+                children: comunitypRoutes
             }
         ]
     }

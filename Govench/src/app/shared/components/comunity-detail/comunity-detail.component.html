@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row encabezado">
+        <div class="col-md-2 atras">
+            <button class="btn" (click)="volverComunidades()"><i class="fa-solid fa-chevron-left fa-2xl" style="color: #ffffff;"></i> Atrás</button>
+        </div>
+        <div class="col-md-6 titulo">
+            <div class="col-md-10">
+                <strong>{{comunitieDetail.name}}</strong>
+                <p>Descripción: {{comunitieDetail.descripcion}}</p>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-light mt-2">Unirme</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <p>Propietario: {{comunitieDetail.owner.name}}</p>
+            <p>Email: {{comunitieDetail.owner.email}}</p>
+        </div>
+    </div>
+    <div class="row comentarios">
+        <strong>Comentarios: </strong>
+        <div class="comentario" *ngFor="let post of comunitieDetail.post">
+            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="User Avatar" class="avatar">
+            <div class="comentario-contenido">
+                <p class="autor">{{post.autor.name}}</p>
+                <p class="email">{{post.autor.email}}</p>
+                <p class="body">{{post.body}}</p>
+                <p class="fecha">Fecha: {{post.created}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

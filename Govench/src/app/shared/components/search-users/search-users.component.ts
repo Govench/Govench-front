@@ -6,11 +6,13 @@ import { UserProfileService } from '../../../core/services/user/user.profile.ser
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../../../core/services/loading.service';
+import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-search-users',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoadingSpinnerComponent],
   templateUrl: './search-users.component.html',
   styleUrls: ['./search-users.component.scss']
 })
@@ -20,16 +22,22 @@ export class SearchUsersComponent implements OnInit {
   filterUsers: UserProfile[] = []; // Lista de usuarios filtrados
   profileImageUrl: SafeUrl; // La imagen de perfil se mantiene como estaba
   searchQuery: string = ''; // El término de búsqueda
+  
+  private loadingService = inject(LoadingService);
   private userProfileService = inject(UserProfileService);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);
   private sanitizer = inject(DomSanitizer);
 
+  isLoading$ = this.loadingService.isLoading$;
+
   ngOnInit(): void {
+    this.loadingService.setLoading(true);
     this.userProfileService.getAllUser().subscribe({
       next:(user) => {
         this.userAvailable = user;
         this.filterUsers = user;
+        this.loadingService.setLoading(false);
       }
       // Cargar los usuarios cuando el componente se inicialice
   })}
@@ -57,6 +65,5 @@ export class SearchUsersComponent implements OnInit {
     this.router.navigate([`${baseUrl}/search/user`, userId]);
   }
   
-  
-  
+
 }

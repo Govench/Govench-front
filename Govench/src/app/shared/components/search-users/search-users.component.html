@@ -7,6 +7,10 @@
         (ngModelChange)="onSearch()">    </div>
 </div>
 
+<div *ngIf="isLoading$ | async" class="loading-overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
 <div class="container-fluid row">
     <h3>Usuarios Encontrados</h3>
     <div class="col-md-4 card-comu" *ngFor="let user of filterUsers">

@@ -24,11 +24,11 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)]
+        [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
       ],
       lastname: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)]
+        [Validators.required, Validators.minLength(3)]
       ],
       birthday: [
         '', 

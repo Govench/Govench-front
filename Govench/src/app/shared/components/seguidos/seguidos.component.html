@@ -16,7 +16,7 @@
           <p class="seguidos-email"><i class="fa-solid fa-at"></i> {{following.email}}</p>
         </div>
   
-        <button class="seguidos-button" routerLink="/inicio">Ver Perfil</button>
+        <button class="seguidos-button" (click)="navigateToDetailUser(following.id)">Ver Perfil</button>
   
       </div>
   

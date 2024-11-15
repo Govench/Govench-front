@@ -38,7 +38,8 @@
     </div>
     
     <div class="col-md-2">
-        <button class="btn "> Seguir </button>
+        <button *ngIf="!isFollowing" class="btn btn-primary" (click)="followUser()">Seguir</button>
+        <button *ngIf="isFollowing" class="btn btn-secondary" (click)="unfollowUser()">Dejar de Seguir</button>
     </div>
     
 </div>

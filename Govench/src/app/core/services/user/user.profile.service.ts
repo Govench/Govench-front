@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { UserProfile } from '../../../shared/models/user/user-profile-model';
 
@@ -43,4 +43,13 @@ export class UserProfileService {
     return this.http.get<UserProfile[]>(`${this.photoURL}/all`)
   }
   
+  followUser(userId: number): Observable<string> {
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.post<string>(`${this.photoURL}/follow`, null, { params, responseType: 'text' as 'json' });
+  }
+
+  unfollowUser(userId: number): Observable<string> {
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.put<string>(`${this.photoURL}/unfollow`, null, { params, responseType: 'text' as 'json' });
+  }
 }

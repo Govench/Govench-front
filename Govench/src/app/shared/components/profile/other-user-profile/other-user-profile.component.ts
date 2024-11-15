@@ -23,7 +23,7 @@ export class OtherUserProfileComponent implements OnInit {
   // Variable para perfil del usuario mismo
   profile1!: UserProfile;
   profileImageUrl1: SafeUrl;
-  
+  isFollowing: boolean = false;
   
   private userProfileService = inject(UserProfileService);
   private snackbar = inject(MatSnackBar);
@@ -85,6 +85,28 @@ export class OtherUserProfileComponent implements OnInit {
     this.hoverRating = value;
   }
 
-  // 
+  followUser(){
+    this.userProfileService.followUser(this.userId).subscribe({
+      next: () => {
+        this.showSnackBar('Usuario seguido con exito.');
+      },
+      error: (error) => {
+        this.showSnackBar('Error al seguir al usuario');
+      }
+    });
+    this.isFollowing = true;
+  }
+
+  unfollowUser(){
+    this.userProfileService.unfollowUser(this.userId).subscribe({
+      next: () => {
+        this.showSnackBar('A dejado de seguir al usuario con exito.');
+      },
+      error: (error) => {
+        this.showSnackBar('Error al dejar de seguir al usuario');
+      }
+    });
+    this.isFollowing = false;
+  }
   
 }

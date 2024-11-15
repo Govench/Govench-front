@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 export class ParticipantLayoutComponent {
   authService = inject(AuthServiceService);
   private router = inject(Router);
-  vez :number =0;
   ngOnInit()
   {
    

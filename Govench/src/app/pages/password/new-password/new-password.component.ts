@@ -29,8 +29,8 @@ export class NewPasswordComponent {
   }
 
   goBack() {
-    this.router.navigate(['/password-recovery']); 
-  } 
+    this.router.navigate(['/password/recovery']);
+  }
 
   resetPassword() {
     if (this.passwordRecoveryForm.invalid) {
@@ -57,14 +57,18 @@ export class NewPasswordComponent {
     this.emailPasswordService.resetPassword(token, newPassword).subscribe(
       (response) => {
         if (response.status === 200) {
-          this.router.navigate(['/confirmation-password']);
+          this.router.navigate(['/password/confirmation']);
         } else {
           this.errorMessage = 'Hubo un problema al restablecer la contraseña. Intente nuevamente.';
         }
         this.isLoading = false;
       },
       (error) => {
-        this.errorMessage = 'Error en la solicitud. Verifique su conexión e intente nuevamente.';
+        if (error.status === 409) {
+          this.errorMessage = 'La nueva contraseña no puede ser igual a la contraseña actual.';
+        } else {
+          this.errorMessage = 'Error en la solicitud. Verifique su conexión e intente nuevamente.';
+        }
         this.isLoading = false;
       }
     );

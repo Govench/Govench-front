@@ -63,6 +63,10 @@ export class LoginComponent {
 
   }
 
+  navigateToRecovery(){
+    this.router.navigate(['/password/recovery']);
+  }
+
   private showSnackBar(message:string) : void{
     this.snackbar.open(message,'Close',{
       duration : 2000,

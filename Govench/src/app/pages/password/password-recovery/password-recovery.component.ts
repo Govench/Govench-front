@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmailPasswordService } from '../../../core/services/password-recovery/email-password.service';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-password-recovery',
@@ -16,6 +17,7 @@ export class PasswordRecoveryComponent {
   showRecoveryTokenInput: boolean = false;
   errorMessage: string = '';
   isLoading: boolean = false;
+  private snackBar: MatSnackBar
 
   constructor(
     private fb: FormBuilder,
@@ -24,8 +26,8 @@ export class PasswordRecoveryComponent {
   ) {
     this.passwordRecoveryForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      recoveryToken: ['']
-    });
+      recoveryToken: ['', Validators.required]
+    }); 
   }
 
   goBack() {
@@ -36,24 +38,37 @@ export class PasswordRecoveryComponent {
     const email = this.passwordRecoveryForm.get('email')?.value;
     this.isLoading = true;
     console.log('Iniciando solicitud de recuperación de contraseña para:', email);
-  
+
     this.emailPasswordService.forgotPassword(email).subscribe(
       (response) => {
-        console.log('Estado de la respuesta:', response.status); 
-        console.log('Cuerpo de la respuesta:', response.body);
         if (response.status === 201) {
-          this.showRecoveryTokenInput = true;
-          this.errorMessage = '';
+          this.showRecoveryTokenInput = true;  
+          this.snackBar.open('Se ha enviado el token a su correo', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
         } else if (response.status === 404) {
-          this.errorMessage = 'El correo no se encuentra registrado';
+          this.snackBar.open('El correo no se encuentra registrado', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
         } else if (response.status === 409) {
-          this.errorMessage = 'Ya se envió un correo de recuperación a esta cuenta. Intente de nuevo en 1 hora.';
+          this.snackBar.open('Ya se envió un correo de recuperación a esta cuenta. Verique nuevamente', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
         }
         this.isLoading = false;
       },
       (error) => {
-        this.errorMessage = 'Hubo un error, por favor intente nuevamente';
-        console.error('Error en la solicitud de recuperación de contraseña:', error);
+        this.snackBar.open('Ya se envió un correo de recuperación a esta cuenta. Verique nuevamente', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
         this.isLoading = false;
       }
     );
@@ -65,14 +80,22 @@ export class PasswordRecoveryComponent {
       (response) => {
         if (response.body === true) {
           localStorage.setItem('recoveryToken', token);
-          this.router.navigate(['/new-password']);
+          localStorage.removeItem('recoveryTokenRequested');
+          this.router.navigate(['/password/new']);
         } else {
-          this.errorMessage = 'El token es inválido o ha expirado. Verifique e intente nuevamente.';
+          this.snackBar.open('El token es inválido o ha expirado. Verifique e intente nuevamente', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
         }
       },
       (error) => {
-        this.errorMessage = 'Error al verificar el token. Intente nuevamente.';
-        console.error('Error en la validación del token:', error);
+        this.snackBar.open('Error al verificar el token. Intente nuevamente.', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
       }
     );
   }

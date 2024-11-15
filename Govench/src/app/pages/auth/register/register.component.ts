@@ -24,11 +24,11 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)]
+        [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
       ],
       lastname: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]*$/)]
+        [Validators.required, Validators.minLength(3)]
       ],
       birthday: [
         '', 
@@ -42,7 +42,7 @@ export class RegisterComponent {
       ],
       password: [
         '', 
-        [Validators.required, Validators.minLength(8)]
+        [Validators.required, Validators.minLength(6)]
       ],
       confirmPassword: [
         '', 
@@ -57,7 +57,17 @@ export class RegisterComponent {
   validateBirthDate(control: any) {
     const selectedDate = new Date(control.value);
     const today = new Date();
-    return selectedDate > today ? { invalidDate: true } : null;
+    const minDate = new Date(today.getFullYear() - 10, today.getMonth(), today.getDate());
+    
+    if (selectedDate > today) {
+      return { invalidDate: true }; // La fecha es en el futuro
+    }
+  
+    if (selectedDate > minDate) {
+      return { minDateError: true }; // La fecha no cumple con el mínimo de 10 años atrás
+    }
+  
+    return null;
   }
 
   passwordsMatchValidator(group: FormGroup) {
@@ -87,9 +97,8 @@ export class RegisterComponent {
           this.showSnackBar('Usuario creado correctamente');
           this.router.navigate(['auth/login']);
         },
-        error: (error) => {
-          this.showSnackBar(error.error.message);
-          console.log(error)
+        error: () => {
+          this.showSnackBar('Ocurrio un error registrando la cuenta'); 
         }
       });
     }

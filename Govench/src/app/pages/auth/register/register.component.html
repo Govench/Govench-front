@@ -1,8 +1,8 @@
 <div class="p-3">
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center bg-1 text-light subtitle m-2 p-2">
-            <div class="caja d-flex align-items-center">
-                <i class="fa-solid fa-arrow-left"></i>
+            <div  class="caja d-flex align-items-center">
+                <i class="fa-solid fa-angle-left fs-3" routerLink="/auth/login"></i>
             </div>
             <div class="col-8 text-center">
                 <h1>Crear Cuenta</h1>
@@ -58,6 +58,10 @@
                         placeholder="Ingrese su contraseña">
                     <div *ngIf="controlHasError('password', 'required') && registerForm.controls['password'].touched"
                         class="alert alert-danger">La contraseña es obligatoria.</div>
+                    <div *ngIf="controlHasError('password', 'minlength') && registerForm.controls['password'].touched"
+                        class="alert alert-danger">
+                        La contraseña debe tener mínimo 6 caracteres.
+                    </div>
                 </div>
 
                 <!-- Campo Confirmar Contraseña -->
@@ -81,6 +85,10 @@
                         class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
                     <div *ngIf="controlHasError('birthday', 'invalidDate') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">La fecha no puede ser futura.</div>
+                    <div *ngIf="controlHasError('birthday', 'minDateError') && registerForm.controls['birthday'].touched"
+                        class="alert alert-danger">
+                        Debe ser al menos 10 años atrás.
+                    </div>
                 </div>
 
                 <!-- Campo Género -->
@@ -113,7 +121,8 @@
 
         <!-- Botón de Registro -->
         <div class="col-12 text-center">
-            <button class="btn rounded-pill p-2" type="submit" [disabled]="registerForm.invalid" id="regiterBtn">Registrarse</button>
+            <button class="btn rounded-pill p-2" type="submit" [disabled]="registerForm.invalid"
+                id="regiterBtn">Registrarse</button>
         </div>
     </form>
 </div>

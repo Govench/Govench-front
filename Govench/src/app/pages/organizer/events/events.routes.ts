@@ -11,7 +11,7 @@ export const eventosRoutes: Routes = [
           { path: 'creados', component: EventsCreateComponent },
           { path: 'pasados', component: EventsLastComponent },
           { path: 'creados/crear', component: CrearEventoComponent},
-          { path: 'creados/editar', component: EditarEventoComponent},
+          { path: 'creados/editar/:id', component: EditarEventoComponent},
           { path: '', redirectTo: 'registrados', pathMatch: 'full' }
           
 ];

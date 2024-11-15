@@ -39,8 +39,8 @@ export class EventsCreateComponent {
     this.router.navigate(['/organizer/eventos/creados/crear']);
   }
 
-  navigateToEditEvents(): void {
-    this.router.navigate(['/organizer/eventos/creados/editar']);
+  navigateToEditEvents(id: number): void {
+    this.router.navigate(['/organizer/eventos/creados/editar', id]);
   }
 
   openDeleteModal(event: EventUser): void {

@@ -48,10 +48,10 @@ export class LoginComponent {
         this.showSnackBar("Inicio de sesion exitoso")
         if(this.authService.getUser()?.role==='ROLE_ORGANIZER')
         {
-          this.router.navigateByUrl('/organizer');
+          this.router.navigateByUrl('/organizer/cuenta/profile');
         }
         else{
-          this.router.navigateByUrl('/participant');
+          this.router.navigateByUrl('/participant/cuenta/profile');
         }
         
       },

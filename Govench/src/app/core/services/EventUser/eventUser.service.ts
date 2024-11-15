@@ -35,6 +35,6 @@ export class EventUserService{
     }
     
     inscribeInEvent(eventId:number):Observable<string>{
-      return this.http.post<string>(`${this.baseURL}`,null)
+      return this.http.post<string>(`${this.baseURL}/${eventId}`,null, { responseType: 'text' as 'json' })
     }
 }

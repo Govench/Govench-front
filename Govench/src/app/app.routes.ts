@@ -5,6 +5,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { PasswordRecoveryComponent } from './pages/password/password-recovery/password-recovery.component';
 import { NewPasswordComponent } from './pages/password/new-password/new-password.component';
 import { DetailsEventComponent } from './shared/components/details-event/details-event.component';
+import { PayCancelledComponent } from './shared/components/Payment-pages/pay-cancelled/pay-cancelled.component';
+import { PayConfirmationComponent } from './shared/components/Payment-pages/pay-confirmation/pay-confirmation.component';
 
 export const routes: Routes = [
     { path: 'password-recovery', component: PasswordRecoveryComponent },
@@ -28,6 +30,8 @@ export const routes: Routes = [
         loadChildren : () => import ("./pages/inicio/inicio.routes").then(i => i.inicioRoutes)
     },
     {path:'eventos', component:HomeComponent},
+    {path:'pago/cancelado',component:PayCancelledComponent,canActivate:[authGuard]},
+    {path:'pago/confirmado',component:PayConfirmationComponent,canActivate:[authGuard]},
     {path:'eventos/:id', component:DetailsEventComponent},
     { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
     { path: '**', redirectTo: '/inicio' } // Redirige cualquier ruta no encontrada a 'inicio'

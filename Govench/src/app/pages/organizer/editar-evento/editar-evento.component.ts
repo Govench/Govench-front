@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventService } from '../../../core/services/event/event.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EventRequest } from '../../../shared/models/event/eventRequest.model';
 import { EventsDetails } from '../../../shared/models/event/events-details.model';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UserProfileService } from '../../../core/services/user/user.profile.service';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-editar-evento',
@@ -15,76 +17,113 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './editar-evento.component.html',
   styleUrls: ['./editar-evento.component.scss']
 })
-export class EditarEventoComponent implements OnInit {
+export class EditarEventoComponent{
   editEventForm: FormGroup;
   isCostVisible: boolean = false;
+  event: EventsDetails;
+  profileImageUrl:boolean=false;
+  selectedFile: File | null = null;
+
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
   private snackbar = inject(MatSnackBar);
+  private userService = inject(UserProfileService);
   private eventService = inject(EventService);
-  eventId: number;
 
   constructor() {
     this.editEventForm = this.fb.group({
-      tittle: [''],
-      description: [''],
-      date: [''],
-      startTime: [''],
-      endTime: [''],
-      type: [''],
-      cost: [{ value: '0', disabled: true }, Validators.pattern('^[0-9]*$')],
-      address: [''],
-      department: [''],
-      province: [''],
-      district: [''],
-      maxCapacity: ['', Validators.pattern('^[0-9]*$')],
+      tittle: ['', Validators.required],
+      description: ['', Validators.required],
+      type: ['', Validators.required],
+      cost: [{ value: 0, disabled: true }, [Validators.required, Validators.min(1)]],
+      date: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      maxCapacity: ['', [Validators.required, Validators.min(1)]],
+      department: ['', Validators.required],
+      province: ['', Validators.required],
+      district: ['', Validators.required],
+      address: ['', Validators.required],
+      mode: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.params['id'];
-    this.loadEventData();
+    this.loadEvent();
   }
 
-  loadEventData(): void {
-    this.eventService.getEventById(this.eventId).subscribe({
-      next: (eventData: EventsDetails) => {
-        this.isCostVisible = eventData.type === 'Premium';
-        this.editEventForm.patchValue(eventData);
-        if (this.isCostVisible) {
-          this.editEventForm.get('cost')?.enable();
-        } else {
-          this.editEventForm.get('cost')?.disable();
-          this.editEventForm.get('cost')?.setValue('0');
-        }
+  toggleCostInput(): void {
+    const type = this.editEventForm.get('type')?.value;
+    this.isCostVisible = type === 'Premium';
+    if (this.isCostVisible) {
+      this.editEventForm.get('cost')?.enable();
+    } else {
+      this.editEventForm.get('cost')?.disable();
+      this.editEventForm.get('cost')?.setValue(0);
+    }
+  }
+  toggleAddressFields(): void {
+    const mode = this.editEventForm.get('mode')?.value;
+    const isVirtualMode = mode === 'Virtual';
+  
+    if (isVirtualMode) {
+      this.editEventForm.patchValue({
+        address: 'Virtual',
+        department: '',
+        province: '',
+        district: ''
+      });
+      this.editEventForm.get('address')?.disable();
+      this.editEventForm.get('department')?.disable();
+      this.editEventForm.get('province')?.disable();
+      this.editEventForm.get('district')?.disable();
+    } else {
+      this.editEventForm.get('address')?.enable();
+      this.editEventForm.get('department')?.enable();
+      this.editEventForm.get('province')?.enable();
+      this.editEventForm.get('district')?.enable();
+      // Solo limpiamos los campos si estaban en 'Virtual'
+      if (this.editEventForm.get('address')?.value === 'Virtual') {
+        this.editEventForm.patchValue({
+          address: '',
+          department: '',
+          province: '',
+          district: ''
+        });
+      }
+    }
+  }
+
+  loadEvent(): void {
+    const eventId = parseInt(this.router.url.split('/')[5])
+    this.eventService.getEventById(eventId).subscribe({
+      next: (eventData) => {
+        this.event = eventData;
+        this.editEventForm.patchValue({
+          ...eventData,
+          address: eventData.location.address,
+          department: eventData.location.departament,
+          province: eventData.location.province,
+          district: eventData.location.district
+        });
       },
       error: () => {
-        this.snackbar.open('Error al cargar el evento', 'Cerrar', { duration: 2000 });
+        this.snackbar.open('Error al cargar los datos del evento', 'Cerrar', { duration: 2000 });
       }
     });
   }
 
-  toggleCostInput(): void {
-    const eventType = this.editEventForm.get('type')?.value;
-    this.isCostVisible = eventType === 'Premium';
 
-    if (this.isCostVisible) {
-      this.editEventForm.get('cost')?.setValidators([Validators.required, Validators.pattern('^[0-9]*$')]);
-      this.editEventForm.get('cost')?.enable();
-      this.editEventForm.get('cost')?.setValue(''); // Deja el campo vacío para Premium
-    } else {
-      this.editEventForm.get('cost')?.clearValidators();
-      this.editEventForm.get('cost')?.disable();
-      this.editEventForm.get('cost')?.setValue('0'); // Asigna 0 para Gratuito
-    }
-    this.editEventForm.get('cost')?.updateValueAndValidity();
-  }
-
-  onSubmit(): void {
+  onSubmit(){
     if (this.editEventForm.valid) {
-      const updatedEvent: EventRequest = this.editEventForm.getRawValue();
-      this.eventService.updateEvent(this.eventId, updatedEvent).subscribe({
+      const eventData = {...this.editEventForm.getRawValue()};
+      delete eventData['mode'];
+
+      console.log('Datos del evento a enviar:', eventData);
+
+      const eventId = parseInt(this.router.url.split('/')[5])
+
+      this.eventService.updateEvent(eventId, eventData).subscribe({
         next: () => {
           this.snackbar.open('Evento actualizado con éxito', 'Cerrar', { duration: 2000 });
           this.router.navigate(['/organizer/eventos/creados']);
@@ -92,13 +131,14 @@ export class EditarEventoComponent implements OnInit {
         error: () => {
           this.snackbar.open('Error al actualizar el evento', 'Cerrar', { duration: 2000 });
         }
-      });
+      })
     } else {
       this.snackbar.open('Por favor, complete todos los campos obligatorios', 'Cerrar', { duration: 2000 });
     }
   }
-  Volver()
-  {
-    this.router.navigate(['/organizer/eventos/creados'])
+
+  Volver(): void {
+    this.router.navigate(['/organizer/eventos/creados']);
   }
+
 }

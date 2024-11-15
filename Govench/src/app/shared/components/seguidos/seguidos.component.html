@@ -1,0 +1,34 @@
+<div class="seguidos-container">
+
+    <h2 class="seguidos-title">Mis seguidos</h2>
+  
+    <div class="seguidos-grid" *ngIf="Followings.length > 0; else nofollowings">
+  
+      <div class="seguidos-card" *ngFor="let following of Followings">
+  
+        <div class="seguidos-avatar">
+          <!-- Activar cuando se llame a la imagen del usuario -->
+          <!-- <img [src]="following.avatar" alt="Avatar"> -->
+        </div>
+  
+        <div class="seguidos-info">
+          <h3 class="seguidos-name">{{following.name}} {{following.lastname}}</h3>
+          <p class="seguidos-email"><i class="fa-solid fa-at"></i> {{following.email}}</p>
+        </div>
+  
+        <button class="seguidos-button" (click)="navigateToDetailUser(following.id)">Ver Perfil</button>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+  
+  <ng-template #nofollowings>
+  
+    <div class="no-seguidos">
+      <i class="fa-solid fa-users-slash"></i>
+      <h3>Aún no tienes seguidos</h3>
+    </div>
+  
+  </ng-template>

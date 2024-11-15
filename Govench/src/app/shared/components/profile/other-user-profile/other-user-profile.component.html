@@ -1,0 +1,136 @@
+
+
+<div class="row">
+
+    <div class="col-md-1 p-0 text-center" >
+        <img *ngIf="profileImageUrl; else defaultImage" [src]="profileImageUrl" alt="Profile Image" class="img-thumbnail rounded-circle">
+            <ng-template #defaultImage>
+                <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img-thumbnail rounded-circle">
+            </ng-template>
+    </div>
+
+    <div class="col-md-4 p-0 text-center">
+        <div class="row mt-2">
+            <strong>{{profile.name}} {{profile.lastname}}</strong>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>{{profile.seguidores}} Seguidores</p>
+            </div>
+            <div class="col-md-6">
+                <p>{{profile.seguidos}} Seguidos</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 p-0">
+        <div class="row mt-2">
+            <p>Contacto: {{profile.email}}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Sexo: {{profile.gender}}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Cumpleaños: {{profile.birthday}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+        <button *ngIf="!isFollowing" class="btn btn-primary" (click)="followUser()">Seguir</button>
+        <button *ngIf="isFollowing" class="btn btn-secondary" (click)="unfollowUser()">Dejar de Seguir</button>
+    </div>
+    
+</div>
+
+<div class="row mt-2 pt-2">
+    <p>{{profile.profileDesc}}</p>
+</div>
+
+<div class="line p-0">
+    <p class="p-0 border border-dark border-2 opacity-100">
+</div>
+<div class="row ms-5">
+    <div class="col">
+        <p class="fw-bold">Enlaces:</p>
+        <ul>
+            <li *ngFor="let link of profile.socialLinks">{{ link }}</li>
+        </ul>
+    </div>
+    <div class="col">
+        <p class="fw-bold">Habilidades:</p>
+        <ul>
+            <li *ngFor="let skill of profile.skills">{{ skill }}</li>
+        </ul>
+    </div>
+    <div class="col">
+        <p class="fw-bold">Intereses:</p>
+        <ul>
+            <li *ngFor="let interest of profile.interest">{{ interest }}</li>
+        </ul>
+    </div>
+</div>
+
+<div class="line p-0">
+    <p class="p-0 border border-dark border-2 opacity-100">
+</div>
+
+<div class="row d-flex justify-content-center ratings">
+    <h5>Calificaciones del Usuario</h5>
+    <div class="col-8 d-flex flex-row p-3" *ngFor="let calificacion of ratings">
+        <div class="col-2">
+            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img rounded-circle">
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <p>{{calificacion.userCalificado}}</p>
+                <p>{{calificacion.comment}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <strong>Calificacion:</strong>
+            <ul class="rating">
+              <li *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+                  [ngClass]="{'filled': i < calificacion.ratingValue}">
+                &#9733;  <!-- Aquí usamos el símbolo de estrella -->
+              </li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center p-5">
+    <div class="row d-flex">
+        <ul class="rating r1 justify-content-center">
+            <li *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+                [ngClass]="{'filled': i < hoverRating || i < newRating}"
+                (click)="rate(i + 1)"
+                (mouseover)="setHoverRating(i + 1)"
+                (mouseout)="setHoverRating(0)">
+              &#9733;  <!-- Aquí usamos el símbolo de estrella -->
+            </li>
+          </ul>
+        
+        <p>{{newRating}} puntos</p>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <div>
+            <img *ngIf="profileImageUrl; else defaultImage" [src]="profileImageUrl" alt="Profile Image" class="img-thumbnail rounded-circle">
+                        <ng-template #defaultImage>
+                            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img-thumbnail rounded-circle">
+                        </ng-template></div>
+        </div>
+        <div class="col-8">
+            <textarea class="form-control" rows="3" placeholder="Escribe un comentario"></textarea>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-end">
+        <div class="col-2">
+            <button class="btn"> Publicar </button>
+        </div>
+    </div>
+
+</div>

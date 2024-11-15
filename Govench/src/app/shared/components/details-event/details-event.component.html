@@ -1,0 +1,57 @@
+<app-nav> </app-nav>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 atras">
+                <button class="btn" routerLink="/eventos"><i class="fa-solid fa-chevron-left fa-2xl" style="color: #000;"></i></button>
+            </div>
+        </div>
+        <div class="left-section">
+            <div class="image-container">
+                <img [src]="event.coverPath | apiImg" class="card-img-top" alt="imagen del evento">
+              </div>
+            <div class="event-content">
+                <h1>{{ event.tittle}}</h1>
+                <p>{{ event.description}}</p>
+                <button class="register-button" (click)="Inscribe()">REGISTRARME</button>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="event-details">
+                <p><span class="icon">🕓 H.Inicio</span> {{ event.startTime}}</p>
+                <p><span class="icon">📍 Ubicacion:</span> {{ event.location.address}}</p>
+                <p><span class="icon">👥 Registrados:</span> {{ event.registeredCount}} personas</p>
+                
+                <div class="event-info">
+                    <div>
+                        <p><strong>Nivel de experiencia</strong></p>
+                        <p>{{ event.exp}}</p>
+                    </div>
+                    <div>
+                        <p><strong>Modalidad</strong></p>
+                        <p>{{ event.location.address}}</p>
+                    </div>
+                    <div>
+                        <p><strong>Tipo de evento</strong></p>
+                        <p>{{ event.type }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Región</strong></p>
+                        <p>{{ event.location.departament}}</p>
+                    </div>
+                    <div>
+                        <p><strong>Costo</strong></p>
+                        <p>{{ event.cost}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<app-footer></app-footer>
+
+
+
+
+
+

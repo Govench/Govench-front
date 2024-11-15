@@ -1,0 +1,35 @@
+<div class="row">
+    <p>Buscar</p>
+    <div class="" role="search">
+        <input class="form-control border-primary rounded-pill border border-3"
+        placeholder="Buscar por nombre"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()">    </div>
+</div>
+
+<div *ngIf="isLoading$ | async" class="loading-overlay">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
+<div class="container-fluid row">
+    <h3>Usuarios Encontrados</h3>
+    <div class="col-md-4 card-comu" *ngFor="let user of filterUsers">
+        <div class="row d-flex flex-row align-items-center">
+            <div class="col-md-8">
+                <img *ngIf="profileImageUrl; else defaultImage" [src]="profileImageUrl" alt="Profile Image" class="img-thumbnail rounded-circle">
+                <ng-template #defaultImage>
+                    <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img-thumbnail rounded-circle">
+                </ng-template>
+                <strong>{{ user.name }}</strong>
+                <p>{{ user.lastname }}</p>
+                <p>Correo: {{ user.email }}</p>
+            </div>
+            
+
+            <div class="col-md-4">
+                <button class="btn btn-com btn-outline-primary" (click)="navigateToDetailUser(user.id)">Ver Perfil</button>
+            </div>
+        </div>
+        
+    </div>
+</div>

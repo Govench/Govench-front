@@ -1,0 +1,16 @@
+.btn-outline-primary {
+    border-color: #010635 ;
+    border-width: 3px;
+    color: black;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    border-color: white ;
+    background: linear-gradient(90deg,#084AAA 0%, #010635 100%);
+}
+.border-primary
+{
+    border-color: #010635 !important;
+    border-width: 3px;
+}

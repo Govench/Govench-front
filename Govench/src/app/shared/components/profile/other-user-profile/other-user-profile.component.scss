@@ -1,0 +1,167 @@
+// Variables de colores
+$primary-gradient: linear-gradient(90deg, #010635 0%, #03129B 100%);
+$light-text: #f8f9fa;
+$dark-text: #343a40;
+$muted-text: #6c757d;
+$border-color: #dee2e6;
+$btn-color: #03129B;
+$background-color: #f0f2f5;
+
+// Contenedor principal
+.row {
+    margin: 0;
+    padding: 0;
+    &.mt-2.pt-2 {
+        padding-top: 1rem;
+        color: $dark-text;
+    }
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background: $border-color;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+// Imagen de perfil
+.img-thumbnail.rounded-circle {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid $primary-gradient;
+}
+
+// Información del perfil
+.col-md-4, .col-md-5 {
+    background: $background-color;
+    padding: 1rem;
+    border-radius: 8px;
+    color: $dark-text;
+    p {
+        color: $dark-text;
+        margin: 0.5rem 0;
+        font-weight: bold;
+    }
+}
+
+// Seguidores y Seguidos
+.col-md-6, .col-md-4 {
+    p {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $muted-text;
+    }
+}
+
+// Botón de seguir
+button.btn {
+    background: $primary-gradient;
+    color: $light-text;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid $btn-color;
+    padding: 0.5rem 1rem;
+    &:hover {
+        background: white;
+        color: $btn-color;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Descripción del perfil
+.mt-2.pt-2 {
+    color: $muted-text;
+    font-size: 1rem;
+}
+
+// Listas de enlaces, habilidades e intereses
+ul {
+    padding-left: 1.5rem;
+    li {
+        color: $dark-text;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+}
+
+.fw-bold {
+    font-weight: bold;
+    color: $dark-text;
+}
+
+// Calificaciones
+.ratings {
+    background: $background-color;
+    padding: 1rem;
+    color: $dark-text;
+    border-radius: 8px;
+    text-align: center;
+
+    h5 {
+        font-weight: bold;
+        color: $dark-text;
+        margin-bottom: 1rem;
+    }
+
+    .img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border: 2px solid $primary-gradient;
+    }
+
+    .col-6 {
+        border: 2px solid $primary-gradient;
+        p {
+            margin: 0;
+            color: $dark-text;
+            font-size: 0.9rem;
+        }
+    }
+
+    .col-md-4 {
+        strong {
+            color: $dark-text;
+            font-size: 0.95rem;
+        }
+
+        p {
+            color: $btn-color;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    }
+}
+.rating {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .rating li {
+    font-size: 30px; /* Tamaño de las estrellas */
+    color: gray; /* Color por defecto */
+    margin-right: 5px; /* Espacio entre las estrellas */
+    
+  }
+
+  .r1 li{
+    cursor: pointer; /* Cambia el cursor a pointer */
+    font-size: 50px!important; /* Tamaño de las estrellas */
+
+  }
+
+
+  
+  .rating li.filled {
+    color: #03129B; /* Color de las estrellas rellenas */
+  }
+  

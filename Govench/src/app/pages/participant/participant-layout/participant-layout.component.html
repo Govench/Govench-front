@@ -1,0 +1,28 @@
+<app-nav/>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="color col-md-1">
+                <button class="btn mt-3" 
+                    [ngClass]="{'btn-outline-light': !isActive('/participant/cuenta'), 'btn-primary': isActive('/participant/cuenta')}" 
+                    routerLink="/participant/cuenta">
+                    <i class="fa-regular fa-user"></i> <br>Cuenta          
+                </button>
+            
+                <button class="btn" 
+                    [ngClass]="{'btn-outline-light': !isActive('/participant/eventos'), 'btn-primary': isActive('/participant/eventos')}" 
+                    routerLink="/participant/eventos">
+                    <i class="fa-regular fa-calendar"></i> <br>Eventos
+                </button>
+    
+                <button class="btn" 
+                    [ngClass]="{'btn-outline-light': !isActive('/participant/comunidades/perteneces'), 'btn-primary': isActive('/participant/comunidades/perteneces')}" 
+                    routerLink="/participant/comunidades">
+                    <i class="fa-regular fa-comment"></i><br>Comunidades
+                </button>
+        </div>
+        <div class="col-md-10 p-0 pt-3 ">
+            <router-outlet></router-outlet>
+        </div>     
+    </div>
+</div>
+<app-footer/>

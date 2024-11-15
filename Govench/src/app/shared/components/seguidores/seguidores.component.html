@@ -1,0 +1,34 @@
+<div class="seguidores-container">
+
+  <h2 class="seguidores-title">Mis Seguidores</h2>
+
+  <div class="seguidores-grid" *ngIf="followers.length > 0; else nofollowers">
+
+    <div class="seguidor-card" *ngFor="let follower of followers">
+
+      <div class="seguidor-avatar">
+        <!-- Activar cuando se llame a la imagen del usuario -->
+        <!-- <img [src]="follower.avatar" alt="Avatar"> -->
+      </div>
+
+      <div class="seguidor-info">
+        <h3 class="seguidor-name">{{follower.name}} {{follower.lastname}}</h3>
+        <p class="seguidor-email"><i class="fa-solid fa-at"></i> {{follower.email}}</p>
+      </div>
+
+      <button class="seguidor-button" (click)="navigateToDetailUser(follower.id)">Ver Perfil</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #nofollowers>
+
+  <div class="no-seguidores">
+    <i class="fa-solid fa-users-slash"></i>
+    <h3>Aún no tienes seguidores</h3>
+  </div>
+
+</ng-template>

@@ -1,0 +1,33 @@
+<h5>Anteriores</h5>
+<div class="table-responsive" *ngIf="eventsPast.length> 0; else noEvents">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Ubicacion</th>
+                <th>Tipo</th>
+                <th>Hora de Inicio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="event-row" *ngFor="let eventsIn of eventsPast, let i = index">
+                <td>{{eventsIn.tittle}}</td>
+                <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
+                <td>{{eventsIn.type}}</td>
+                <td>{{eventsIn.startTime}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #noEvents>
+    <strong>Aun no te has inscrito en ningun evento.</strong>
+</ng-template>
+
+<div *ngIf="modal" class="modal">   
+    <p>¿Seguro que deseas eliminar el evento?</p>
+    
+    <button (click)="closeModal()">  Cancelar  </button>
+    <button>  Eliminar  </button>
+    
+    </div>

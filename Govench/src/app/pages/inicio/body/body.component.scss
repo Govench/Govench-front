@@ -1,0 +1,151 @@
+.body {
+    background: linear-gradient(192deg, #FFF 23.99%, #8B8EA3 48.58%, #010635 83.26%);
+}
+
+.noso{
+    padding-top: 50px;
+    color: #010635;
+    font-size: 65px;
+}
+
+.misVisi{
+    padding: 100px;
+
+    .mis{
+        border-radius: 30px;
+        border: 1px solid #000;
+        border-right: 10px solid #000;
+        border-bottom: 10px solid #000;
+        opacity: 0.8;
+        background: #FFF;
+        box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.25);
+        margin-right: 40px;
+    }
+
+    .vis{
+        border-radius: 35px;
+        border: 1px solid #000;
+        border-right: 10px solid #000;
+        border-bottom: 10px solid #000;
+        opacity: 0.8;
+        background: #FFF;
+        box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.25);
+        margin-left: 40px;
+    }
+
+    h3{
+        color: #000000;
+        font-size: 45px;
+    }
+    p{
+        font-size: 18px;
+    }
+}
+
+.team-section{
+    color: #FFF;
+    img{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+    .subTitle{
+        padding-left: 30px;
+        font-size: 65px;
+    }
+    .team{
+        padding: 100px;
+    }
+}
+
+.faq{
+    .pregu{
+        color: #FFF;
+        padding: 175px;
+        font-size: 70px;
+    }
+
+    .accordion{
+        background: none;
+        margin-top: -100px;
+        border-bottom: 1px solid #000;
+    }
+    
+}
+
+.acor{
+    background: none;
+    padding: 175px;
+}
+
+.carru {
+    background: url(https://img.pikbest.com/origin/09/18/09/14spIkbEsTkRF.jpg!w700wp);
+    width: 1903px;
+    height: 1080px;
+    background-position: center center;
+    background-size: cover;
+    color: #FFF;
+}
+
+.columnaP{
+    padding-top: 290px;
+}
+.title{
+    padding-left: 120px;
+    font-size: 80px;
+    .ah{
+        color: #90bbbb;
+    }
+}
+
+.decription{
+    padding-left: 180px;
+    font-size: 30px;
+}
+
+.boton{
+    padding-top: 20px;
+    padding-left: 180px;
+}
+.carrusel{
+    padding-top: 120px;
+    padding-right: 180px;
+    padding-left: 200px;
+    
+    .carousel-inner{
+        color: #000;
+        img{
+            margin: 0 auto;
+            border-radius: 10%;
+            height: 450px;
+            width: 450px;
+        }
+        padding: 100px;
+        background: #FFF;
+        opacity: 0.8;
+        border-radius: 30px;
+        border: 1px solid #000;
+    }
+    .carousel-control-icon{
+        color: #083b7e;
+    }
+    h5{
+        font-size: 40px;
+    }
+    p{
+        font-size: 20px;
+    }
+
+}
+
+.register-btn{
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+}
+

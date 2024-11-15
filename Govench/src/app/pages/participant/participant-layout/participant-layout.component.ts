@@ -16,12 +16,9 @@ import { Router } from '@angular/router';
 export class ParticipantLayoutComponent {
   authService = inject(AuthServiceService);
   private router = inject(Router);
-
   ngOnInit()
   {
-
-      this.router.navigate(["/participant/cuenta"]);
-
+   
   }
   logout() :void
   {

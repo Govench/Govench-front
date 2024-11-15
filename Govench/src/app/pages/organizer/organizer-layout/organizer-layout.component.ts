@@ -19,7 +19,6 @@ export class OrganizerLayoutComponent {
   ngOnInit()
   {
 
-      this.router.navigate(["/organizer/cuenta"]);
 
   }
   logout() :void

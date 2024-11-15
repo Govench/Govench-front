@@ -39,5 +39,8 @@ export class UserProfileService {
     return this.http.delete(`${this.photoURL}/profile-photo/delete`,{ responseType: 'text' });
   }
 
+  getAllUser(): Observable<UserProfile[]>{
+    return this.http.get<UserProfile[]>(`${this.photoURL}/all`)
+  }
   
 }

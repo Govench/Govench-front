@@ -3,7 +3,7 @@
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center bg-1 text-light subtitle m-2 p-2">
                 <div class="caja d-flex align-items-center">
-                    <i class="fa-solid fa-arrow-left"></i>
+                    <i class="fa-solid fa-angle-left fs-3"></i>
                 </div>
                 <div class="col-8 text-center">
                     <h1>Iniciar Sesión</h1>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="row text-center m-3">
-            <p>¿Olvido su contraseña?<a routerLink="/auth/password-recovery">Recuperar contraseña</a></p>
+            <p>¿Olvido su contraseña? <a (click)="navigateToRecovery()" class="btn-link" style="cursor: pointer;">Recuperar contraseña</a></p>
         </div>
 
         <div class="row">

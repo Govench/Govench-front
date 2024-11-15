@@ -7,8 +7,9 @@ import { NewPasswordComponent } from './pages/password/new-password/new-password
 import { DetailsEventComponent } from './shared/components/details-event/details-event.component';
 
 export const routes: Routes = [
-    { path: 'password-recovery', component: PasswordRecoveryComponent },
-    { path: 'new-password', component: NewPasswordComponent },
+    { path: 'password', 
+        loadChildren : () => import ("././pages/password/password.routes").then(r => r.passwordRoutes)
+     }, 
     { path: 'auth', 
         loadChildren : () => import ("././pages/auth/auth.routes").then(a => a.authRoutes),
         canActivate:[authInverseGuard]

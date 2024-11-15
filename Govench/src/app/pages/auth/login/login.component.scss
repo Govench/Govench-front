@@ -56,4 +56,12 @@
     }
 }
 
+.fa-solid {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.fa-solid:hover {
+    transform: scale(2.2); /* Aumenta el tamaño ligeramente al pasar el cursor */
+}
 

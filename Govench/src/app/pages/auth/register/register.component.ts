@@ -42,7 +42,7 @@ export class RegisterComponent {
       ],
       password: [
         '', 
-        [Validators.required, Validators.minLength(6)]
+        [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
         '', 

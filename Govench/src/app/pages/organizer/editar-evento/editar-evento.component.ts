@@ -119,8 +119,6 @@ export class EditarEventoComponent{
       const eventData = {...this.editEventForm.getRawValue()};
       delete eventData['mode'];
 
-      console.log('Datos del evento a enviar:', eventData);
-
       const eventId = parseInt(this.router.url.split('/')[5])
 
       this.eventService.updateEvent(eventId, eventData).subscribe({

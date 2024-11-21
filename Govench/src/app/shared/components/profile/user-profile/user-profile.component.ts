@@ -36,7 +36,6 @@ export class UserProfileComponent implements OnInit {
       this.userProfileService.getProfileImage(userId).subscribe({
         next: (blob: Blob) => {
           const objectURL = URL.createObjectURL(blob);
-          console.log(objectURL)
           this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         },
         error: (error) => {

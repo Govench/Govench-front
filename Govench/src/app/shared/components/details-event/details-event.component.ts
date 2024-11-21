@@ -49,15 +49,11 @@ export class DetailsEventComponent {
   }
 
   public Inscribe() { 
-    console.log(this.event);
-    console.log(this.authService.getUser()?.role);
-    console.log(this.event.cost);
 
     this.userEventService.inscribeInEvent(this.event.id).subscribe(
       (response) => {
         if (typeof response === 'string' && response.startsWith('https://')) {
           this.ruta = response;
-          console.log("URL asignada a this.ruta:", this.ruta);
           window.location.href = response;
         } else {
           if(this.event.cost<=0)

@@ -89,7 +89,6 @@ export class UpdateProfileComponent {
     if(this.profileform.valid)
     {
       const updatedData= {...this.profile,...this.profileform.value};
-      console.log(updatedData);
       this.userService.updateUserProfile(this.profile.id, updatedData).subscribe(
         {
           next: () => {

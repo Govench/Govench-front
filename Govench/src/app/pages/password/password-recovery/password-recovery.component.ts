@@ -37,7 +37,6 @@ export class PasswordRecoveryComponent {
   initiatePasswordReset() {
     const email = this.passwordRecoveryForm.get('email')?.value;
     this.isLoading = true;
-    console.log('Iniciando solicitud de recuperación de contraseña para:', email);
 
     this.emailPasswordService.forgotPassword(email).subscribe(
       (response) => {

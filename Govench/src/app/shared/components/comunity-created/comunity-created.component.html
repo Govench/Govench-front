@@ -1,1 +1,17 @@
-<p>comunity-created works!</p>
+<p>Mis comunidades creadas</p>
+<div class="row">
+<!-- Para colocar boton crear comunidad -->
+</div>
+
+<div class="row">
+    <div class="col-md-4 c1" *ngFor="let comunity of comunities">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{comunity.name}}</h5>
+            <p class="card-text">{{comunity.tags}}</p>
+            <p class="card-text">{{comunity.descripcion}}</p>
+            <button class="btn btn-primary" (click)="goDetail(comunity.id)">Ver</button>
+        </div>
+        </div>
+    </div>
+</div>

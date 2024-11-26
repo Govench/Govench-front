@@ -20,4 +20,18 @@ export class ComunityService{
     getCommunityById(id: number): Observable<ComunityResponse>{
         return this.http.get<ComunityResponse>(`${this.baseURL}/search/${id}`);
     }
+
+    getCommunitiesByUser(): Observable<ComunityResponse[]> {
+        return this.http.get<ComunityResponse[]>(`${this.baseURL}/my-communities`);
+      }
+
+    updateCommunity(id: number, community: any): Observable<ComunityResponse> {
+      return this.http.put<ComunityResponse>(`${this.baseURL}/update/${id}`, community);
+    }
+
+    deleteCommunity(id: number): Observable<any> {
+        return this.http.delete(`${this.baseURL}/delete/${id}`);
+      }
+
+
 }

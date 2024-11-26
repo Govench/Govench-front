@@ -17,7 +17,7 @@ import { AuthServiceService } from '../../../core/services/auth/auth.service';
 export class ComunityManageComponent implements OnInit {
   communityId: number;
   community: ComunityResponse = { id: 0, name: '', descripcion: '', owner: { id: 0, name: '', email: '', profileDesc: '' }, tags: [], post: [] }; // Inicializa con valores por defecto
-  communityRequest: ComunityResquest = { name: '', descripcion: '' }; // Inicializa con valores vacíos
+  communityRequest: ComunityResquest = { name: '', descripcion: '' }; // Inicializa con valores por defecto
   baseRoute: string;
 
   constructor(
@@ -49,7 +49,8 @@ export class ComunityManageComponent implements OnInit {
     this.comunityService.getCommunityById(this.communityId).subscribe(
       (data: ComunityResponse) => {
         this.community = data;
-        // No asignar valores a communityRequest para mantener los campos vacíos
+        this.communityRequest.name = data.name;
+        this.communityRequest.descripcion = data.descripcion;
       },
       (error) => {
         console.error('Error fetching community', error);
@@ -58,6 +59,14 @@ export class ComunityManageComponent implements OnInit {
   }
 
   updateCommunity() {
+    // Validar si los campos están vacíos y mantener los valores originales si es así
+    if (!this.communityRequest.name) {
+      this.communityRequest.name = this.community.name;
+    }
+    if (!this.communityRequest.descripcion) {
+      this.communityRequest.descripcion = this.community.descripcion;
+    }
+
     this.comunityService.updateCommunity(this.communityId, this.communityRequest).subscribe(
       (data: ComunityResponse) => {
         console.log('Community updated', data);

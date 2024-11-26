@@ -4,14 +4,15 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4 c1" *ngFor="let comunity of comunities">
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{comunity.name}}</h5>
-            <p class="card-text">{{comunity.tags}}</p>
-            <p class="card-text">{{comunity.descripcion}}</p>
-            <button class="btn btn-primary" (click)="goDetail(comunity.id)">Ver</button>
-        </div>
+    <div class="col-md-4 card-comu" *ngFor="let comunity of comunities">
+        <div class="row">
+            <div class="col-md-8">
+                <strong>{{ comunity.name }}</strong>
+                <p>{{ comunity.descripcion }}</p>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-com" (click)="goDetail(comunity.id)">Editar</button>
+            </div>
         </div>
     </div>
 </div>

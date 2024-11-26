@@ -20,15 +20,20 @@ export class RegisterComponent {
   private snackbar = inject(MatSnackBar); 
   private authService = inject(AuthServiceService)
 
+  ngOnInit()
+  {
+
+  }
+
   constructor() {
     this.registerForm = this.fb.group({
       name: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
+        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
       ],
       lastname: [
         '', 
-        [Validators.required, Validators.minLength(3)]
+        [Validators.required, Validators.minLength(2)]
       ],
       birthday: [
         '', 

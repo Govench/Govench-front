@@ -28,6 +28,9 @@
                             class="alert alert-danger">El nombre es obligatorio.</div>
                         <div *ngIf="controlHasError('name', 'pattern') && registerForm.controls['name'].touched"
                             class="alert alert-danger">Solo se permiten letras en el nombre.</div>
+                            <div *ngIf="controlHasError('name', 'minlength') && registerForm.controls['name'].touched"
+                            class="alert alert-danger">
+                            El nombre debe ser minimo de 2 caracteres</div>
                     </div>
                     <!-- Campo Apellido -->
                     <div class="col-md-6 mb-3">
@@ -38,6 +41,9 @@
                             class="alert alert-danger">El apellido es obligatorio.</div>
                         <div *ngIf="controlHasError('lastname', 'pattern') && registerForm.controls['lastname'].touched"
                             class="alert alert-danger">Solo se permiten letras en el apellido.</div>
+                        <div *ngIf="controlHasError('lastname', 'minlength') && registerForm.controls['lastname'].touched"
+                        class="alert alert-danger">
+                        El apellido debe ser minimo de 2 caracteres</div>
                     </div>
                 </div>
                 <!-- Campo Correo -->
@@ -79,7 +85,7 @@
                 <!-- Campo Fecha de Nacimiento -->
                 <div class="mb-3">
                     <label for="birthday">Fecha de nacimiento</label>
-                    <input id="birthday" class="input-c p-2" formControlName="birthday" type="date"
+                    <input id="birthday" class="input-c p-2" formControlName="birthday" type="date" [min]="'1940-12-31'" [max]="'2014-12-31'"
                         placeholder="Selecciones su fecha de nacimiento">
                     <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
@@ -96,8 +102,9 @@
                     <label for="gender">Género</label>
                     <select id="gender" class="input-c p-2" formControlName="gender">
                         <option value="">Seleccione su género</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
                     </select>
                     <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
                         class="alert alert-danger">El género es obligatorio.</div>

@@ -6,4 +6,5 @@ export interface EventUser{
     location: Location;
     type: string;
     startTime: string;
+    date:string;
 }

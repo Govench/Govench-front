@@ -149,8 +149,7 @@ ngOnInit(): void {
                 this.router.navigateByUrl('/organizer/eventos/creados');
               },
               error: (error) => {
-                const errorMessage = error.error?.message || error.error?.error || 'Ocurrió un error al crear el evento';
-                console.log('Error del servidor:', errorMessage);
+                const errorMessage = error.error  || 'Ocurrió un error al crear el evento';
                 this.showSnackbar(errorMessage);
                 console.error("Error del servidor:", error.error?.value); // Imprime el error del servidor en consola
                 

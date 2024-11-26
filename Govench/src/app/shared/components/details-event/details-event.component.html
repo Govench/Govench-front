@@ -37,9 +37,13 @@
                     </div>
                     <div>
                         <p><strong>Región</strong></p>
-                        <p>{{ event.location.departament}}</p>
+                        <p *ngIf="event.location.address==='Virtual'"
+                        >{{ event.location.address}}</p>
+
+                        <p *ngIf="event.location.address!=='Virtual'"
+                        >{{ event.location.departament}}</p>
                     </div>
-                    <div>
+                    <div *ngIf="event.type !=='Gratuito'" >
                         <p><strong>Costo</strong></p>
                         <p>{{ event.cost}}</p>
                     </div>

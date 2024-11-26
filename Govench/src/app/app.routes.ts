@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth/auth.guard';
 import { authInverseGuard } from './core/guards/auth/auth-inverse.guard';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './pages/Event-home/home.component';
 import { PasswordRecoveryComponent } from './pages/password/password-recovery/password-recovery.component';
 import { NewPasswordComponent } from './pages/password/new-password/new-password.component';
 import { DetailsEventComponent } from './shared/components/details-event/details-event.component';

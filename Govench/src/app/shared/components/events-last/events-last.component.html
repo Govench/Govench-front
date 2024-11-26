@@ -1,20 +1,28 @@
-<h5>Anteriores</h5>
-<div class="table-responsive" *ngIf="eventsPast.length> 0; else noEvents">
+<h5>Pasados</h5>
+<div class="table-responsive" *ngIf="filterevents.length> 0; else noEvents">
     <table class="table">
         <thead>
             <tr>
                 <th>Titulo</th>
                 <th>Ubicacion</th>
                 <th>Tipo</th>
-                <th>Hora de Inicio</th>
+                <th class="text-center" >Fecha Termino</th>
+                <th>Fecha Inscripcion</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="event-row" *ngFor="let eventsIn of eventsPast, let i = index">
+            <tr class="event-row" *ngFor="let eventsIn of filterevents, let i = index">
                 <td>{{eventsIn.tittle}}</td>
-                <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
+                <td *ngIf="eventsIn.location.address==='Virtual'">
+                    {{eventsIn.location.address}}
+                </td>
+                <td 
+                *ngIf="eventsIn.location.address!=='Virtual'">
+                {{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}
+                </td>
                 <td>{{eventsIn.type}}</td>
-                <td>{{eventsIn.startTime}}</td>
+                <td class="long-column text-center" >{{eventsIn.date}}</td>
+                <td>{{eventsIn.registrationDate}}</td>
 
             </tr>
         </tbody>

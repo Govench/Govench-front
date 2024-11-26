@@ -94,10 +94,10 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div formArrayName="links">
+                    <div formArrayName="socialLinks">
                         <h6 class="fw-bold">LINKS:</h6>
-                        <div *ngFor="let link of links.controls; let i = index">
-                          <input [formControlName]="i" placeholder="Link" class="mt-1 border border-primary rounded">
+                        <div *ngFor="let link of socialLinks.controls; let i = index">
+                          <input [formControlName]="i" placeholder="socialLinks" class="mt-1 border border-primary rounded">
                           <button type="button" (click)="removeLink(i)" class="ms-2 btn btn-outline-primary" ><i class="fa-solid fa-x"></i></button>
                           <div *ngIf="controlHasArrayError('links', 'required', i)" class="text-danger" [hidden]="profileform.pristine">
                             campo requerido

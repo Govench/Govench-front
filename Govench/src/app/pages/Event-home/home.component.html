@@ -75,7 +75,12 @@
                             <h5 class="card-title fw-bold">{{evento.tittle}}</h5>
                             <p class="card-text"><i class="fa-regular fa-calendar"></i> Fecha: {{evento.date}}</p>
                             <p class="card-text"><i class="fas fa-medal"></i> Exp: {{evento.exp}}</p>
-                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Dirección: 
+                            <p *ngIf="evento.location.address==='Virtual'"> Dirección:
+                                {{evento.location.address}}
+                            </p>
+                            
+                            <p *ngIf="evento.location.address!=='Virtual'"
+                            class="card-text"><i class="fas fa-map-marker-alt"></i> Dirección: 
                                   {{evento.location.departament}},
                                   {{evento.location.province}},
                                   {{evento.location.district}},

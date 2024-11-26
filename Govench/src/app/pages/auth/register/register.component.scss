@@ -1,53 +1,25 @@
-.caja{
-    padding: 60px; 
-}
-.p-3 .container .col-8{
-    padding: 20px;
-}
 .bg-1 {
     background: linear-gradient(90deg, #084AAA 0%, #010635 100%);
 }
 
 .input-c {
-    width: 100%;
     border: 2px solid #084AAA;
-    font-size: 16px;
-    box-sizing: border-box;
-    resize: none; 
     border-radius: 93px;
-}
-
-#profileDesc {
-    border-radius: 15px;
+    font-size: 16px;
 }
 
 .subtitle {
     border-radius: 116px;
 }
 
-/*Caja - espaciado y centrado dinamico para la flecha*/
+#profileDesc {
+    border-radius: 15px;
+}
 
 .caja {
     width: 10%;
-}
-
-.caja i {
-    font-size: 1.3rem;
-}
-
-.formulario {
-
-    label {
-        font-size: 17px;
-    }
-
-    #regiterBtn {
-        background-color: #084AAA;
-        color: #FFF;
-        font-size: 1.2em;
-        transition: background-color 0.3s; 
-        width: 20%; 
-    }
+    max-width: 60px; 
+    padding: 30px;
 }
 
 .fa-solid {
@@ -56,5 +28,13 @@
 }
 
 .fa-solid:hover {
-    transform: scale(2.2); /* Aumenta el tamaño ligeramente al pasar el cursor */
+    transform: scale(2.2);
+}
+
+#regiterBtn {
+    background-color: #084AAA;
+    color: #FFF;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+    width: 20%;
 }

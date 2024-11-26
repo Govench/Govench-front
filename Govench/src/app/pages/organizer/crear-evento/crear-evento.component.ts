@@ -40,7 +40,6 @@ ngOnInit(): void {
   const minutes = now.getMinutes().toString().padStart(2, '0'); // Formato MM
   this.minTime = `${hours}:${minutes}`;
   
-  console.log(this.minTime);
   router : inject(Router);
 
 
@@ -125,7 +124,7 @@ ngOnInit(): void {
 
   onSubmit() {
     if (this.createEventForm.valid) {
-      //console.log("Formulario completo. Datos a enviar:", this.createEventForm.getRawValue());
+
       // Configura el costo a 0 si el tipo es "Gratis"
       if (this.createEventForm.get('type')?.value === 'Gratis') {
         this.createEventForm.get('cost')?.setValue('0', { emitEvent: false });
@@ -135,19 +134,15 @@ ngOnInit(): void {
       const eventData = { ...this.createEventForm.getRawValue() };
       delete eventData['mode'];  // Remueve el campo innecesario para el envío
   
-      //console.log("Datos del formulario (sin coverPath):", eventData);
   
       // Verifica si hay un archivo seleccionado
       if (this.selectedFile) {
         this.eventService.uploadCover(this.selectedFile).subscribe({
           next: (response) => {
-            console.log("Respuesta de la subida de imagen:", response);
             const coverPath = response.path;
   
             eventData.coverPath = coverPath;
-  
-            console.log("Datos del formulario (con coverPath):", eventData);
-  
+
             this.eventService.crearEvento(eventData).subscribe({
               next: () => {
                 this.showSnackbar('Evento creado con éxito');
@@ -168,7 +163,7 @@ ngOnInit(): void {
           }
         });
       } else {
-        //console.log("Datos del formulario (sin imagen):", eventData);
+
       }
     } else {
       this.showSnackbar('Por favor, complete todos los campos obligatorios');

@@ -65,7 +65,6 @@ export class OtherUserProfileComponent implements OnInit {
     this.ratingService.getRatingsByUserId(this.userId).subscribe({
       next: (ratings) => {
         this.ratings = ratings;
-        console.log(ratings);
       },
       error: (error) => {
         console.log(error);

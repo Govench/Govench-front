@@ -42,7 +42,7 @@ export class RegisterComponent {
       ],
       password: [
         '', 
-        [Validators.required, Validators.minLength(6)]
+        [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
         '', 
@@ -91,7 +91,6 @@ export class RegisterComponent {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password
       };
-      console.log("Informacion del usuario: ", userData)
       this.authService.register(userData).subscribe({
         next: () => {
           this.showSnackBar('Usuario creado correctamente');

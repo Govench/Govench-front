@@ -5,17 +5,17 @@
         <form>
             <div class="form-group">
                 <label for="nombreComunidad">Nombre de la Comunidad</label>
-                <input type="text" class="form-control" id="nombreComunidad" [(ngModel)]="communityRequest.name" name="name">
+                <input type="text" class="form-control" id="nombreComunidad" [(ngModel)]="communityRequest.name" name="name" [placeholder]="community.name">
             </div>
 
             <div class="form-group">
                 <label for="descripcionComunidad">Descripcion de la comunidad</label>
-                <textarea class="form-control" id="descripcionComunidad" rows="3" [(ngModel)]="communityRequest.descripcion" name="description"></textarea>
+                <textarea class="form-control" id="descripcionComunidad" rows="3" [(ngModel)]="communityRequest.descripcion" name="description" [placeholder]="community.descripcion"></textarea>
             </div>
         </form>
         <div class="row d-flex justify-content-evenly m-5">
             <button class="btn btn-primary btn-lg btnd" (click)="updateCommunity()">Aceptar</button>
-            <button class="btn btn-outline-dark btn-lg btnd" (click)="router.navigate(['/organizer/comunidades/creados'])">Cancelar</button>
+            <button class="btn btn-outline-dark btn-lg btnd" (click)="cancel()">Cancelar</button>
         </div>
         
         <div class="row m-5">

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { EmailPasswordService } from '../../../core/services/password-recovery/email-password.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ResetPasswordService } from '../../../core/services/password-recovery/email-password.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,64 +13,50 @@ import { CommonModule } from '@angular/common';
 })
 export class NewPasswordComponent {
   passwordRecoveryForm: FormGroup;
-  isLoading: boolean = false;
-  errorMessage: string = '';
+  private resetPasswordService = inject(ResetPasswordService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  token: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private emailPasswordService: EmailPasswordService
-  ) {
-    // Inicializar el formulario
-    this.passwordRecoveryForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]]
-    });
+  constructor(private fb: FormBuilder) {
+    this.passwordRecoveryForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: this.passwordsMatch }
+    );
+  }
+
+  passwordsMatch(group: FormGroup) {
+    const password = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  ngOnInit(): void {
+    this.token = this.route.snapshot.paramMap.get('token');
+  }
+
+  onSubmit() {
+    if (this.passwordRecoveryForm.valid && this.token) {
+      const newPassword = this.passwordRecoveryForm.value.newPassword;
+      this.resetPasswordService.resetPassword(this.token, newPassword).subscribe({
+        next: () => {
+          alert('Contraseña restablecida exitosamente.');
+          this.router.navigate(['/password/confirmation']);
+        },
+        error: (err) => {
+          console.error('Error al restablecer la contraseña:', err);
+          alert('No se pudo restablecer la contraseña. Intente nuevamente.');
+        },
+      });
+    } else {
+      alert('Por favor, ingrese una contraseña válida.');
+    }
   }
 
   goBack() {
-    this.router.navigate(['/password/recovery']);
-  }
-
-  resetPassword() {
-    if (this.passwordRecoveryForm.invalid) {
-      return;
-    }
-
-    const newPassword = this.passwordRecoveryForm.get('newPassword')?.value;
-    const confirmPassword = this.passwordRecoveryForm.get('confirmPassword')?.value;
-
-    if (newPassword !== confirmPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      return;
-    }
-
-    const token = localStorage.getItem('recoveryToken');
-    if (!token) {
-      this.errorMessage = 'No se encontró el token de recuperación. Intente nuevamente desde el proceso de recuperación.';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.emailPasswordService.resetPassword(token, newPassword).subscribe(
-      (response) => {
-        if (response.status === 200) {
-          this.router.navigate(['/password/confirmation']);
-        } else {
-          this.errorMessage = 'Hubo un problema al restablecer la contraseña. Intente nuevamente.';
-        }
-        this.isLoading = false;
-      },
-      (error) => {
-        if (error.status === 409) {
-          this.errorMessage = 'La nueva contraseña no puede ser igual a la contraseña actual.';
-        } else {
-          this.errorMessage = 'Error en la solicitud. Verifique su conexión e intente nuevamente.';
-        }
-        this.isLoading = false;
-      }
-    );
+    this.router.navigate(['/auth/forgot-password']);
   }
 }

@@ -1,39 +1,31 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmailPasswordService {
-  private baseURL = `${environment.baseURL}/email`;
+export class ResetPasswordService {
 
-  constructor(private http: HttpClient) {}
+  private baseUrl = `${environment.baseURL}/email`;
+  private http = inject(HttpClient);
 
-  forgotPassword(email: string): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.baseURL}/forgot-password/${email}`, {}, { observe: 'response', responseType: 'text' })
-      .pipe(
-        catchError(this.handleError)
-      );
+  constructor() { }
+
+  emailExists(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/validation?email=${email}`);
   }
 
-  resetPassword(token: string, newPassword: string): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.baseURL}/reset-password/${token}/${newPassword}`, {}, { observe: 'response', responseType: 'text' })
-      .pipe(
-        catchError(this.handleError)
-      );
+  sendPasswordResetMail(email: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/sendMail`, email);
   }
 
-  validateToken(token: string): Observable<HttpResponse<boolean>> {
-    return this.http.get<boolean>(`${this.baseURL}/validate?token=${token}`, { observe: 'response' })
-      .pipe(
-        catchError(this.handleError)
-      );
+  checkTokenValidity(token: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/reset/check/${token}`);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError(error);
+  resetPassword(token: string, newPassword: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/reset/${token}`, newPassword);
   }
 }

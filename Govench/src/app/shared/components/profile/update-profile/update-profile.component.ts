@@ -36,12 +36,11 @@ export class UpdateProfileComponent {
         name: ['',[Validators.required,]],
         lastname :['',[Validators.required,]],
         profileDesc : ['',[Validators.required,]],
-        email: ['', [Validators.required, Validators.email]],
         gender: ['',[Validators.required,]],
         birthday :['',[Validators.required,]],
         interest: this.fb.array([]), // Usamos FormArray para interest
         skills: this.fb.array([]),  // Usamos FormArray para skills
-        links: this.fb.array([]),   // Usamos FormArray para links
+        socialLinks: this.fb.array([]),   // Usamos FormArray para links
       }
     )
   }
@@ -60,7 +59,7 @@ export class UpdateProfileComponent {
           this.profileform.patchValue(profile);
           this.setFormArrayValues(this.interest, profile.interest);
           this.setFormArrayValues(this.skills, profile.skills);
-          this.setFormArrayValues(this.links, profile.socialLinks);
+          this.setFormArrayValues(this.socialLinks, profile.socialLinks);
         },
         error: (error) => {
           this.showSnackBar('Error al cargar el perfil');
@@ -95,24 +94,46 @@ export class UpdateProfileComponent {
             this.showSnackBar('Perfil Actualizado Exitosamente.');
             if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
               {
+                
+            if (this.selectedFile) 
+              {
+                this.userService.uploadProfileImage(this.selectedFile).subscribe({
+                  next: () => {
+                    this.showSnackBar('Imagen de perfil subida exitosamente.');
+                    this.refreshProfileImage(this.profile.id)
+                  },
+                  error: (error) => {
+                    console.error('Error al subir la imagen:', error);
+                    this.showSnackBar('Error al subir la imagen.');
+                  }
+                });
+              }
+              else
+              {
                 this.router.navigate(['/organizer/cuenta/profile'])
+              }
               }
             else
               {
-                this.router.navigateByUrl('/participant/cuenta/profile');
+                if (this.selectedFile) 
+                  {
+                    this.userService.uploadProfileImage(this.selectedFile).subscribe({
+                      next: () => {
+                        this.showSnackBar('Imagen de perfil subida exitosamente.');
+                        this.refreshProfileImage(this.profile.id)
+                      },
+                      error: (error) => {
+                        console.error('Error al subir la imagen:', error);
+                        this.showSnackBar('Error al subir la imagen.');
+                      }
+                    });
+                  }
+                  else
+                  {
+                    this.router.navigateByUrl('/participant/cuenta/profile');
+                  }
               }
-            if (this.selectedFile) {
-              this.userService.uploadProfileImage(this.selectedFile).subscribe({
-                next: () => {
-                  this.showSnackBar('Imagen de perfil subida exitosamente.');
-                  this.refreshProfileImage(this.profile.id);
-                },
-                error: (error) => {
-                  console.error('Error al subir la imagen:', error);
-                  this.showSnackBar('Error al subir la imagen.');
-                }
-              });
-            }
+
 
            
           },
@@ -125,31 +146,26 @@ export class UpdateProfileComponent {
     }
   }
 
-  refreshProfileImage(userId: number): void {
-   
-    if (this.profileImageUrl) {
-      URL.revokeObjectURL(this.profileImageUrl as string);
-      this.profileImageUrl = ""; 
-    }
-  
+  refreshProfileImage(userId: number): void { 
     this.userService.getProfileImage(userId).subscribe({
       next: (blob: Blob) => {
         const objectURL = URL.createObjectURL(blob);
         this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
+          {
+            this.router.navigate(['/organizer/cuenta'])
+          }
+          else
+          {
+            this.router.navigate(['/participant/cuenta'])
+          }
       },
       error: (error) => {
         console.error('No tienes ninguna foto asociada', error);
         this.profileImageUrl = ""; 
       }
     });
-    if(this.authService.getUser()?.role=='ROLE_ORGANIZER')
-      {
-        this.router.navigate(['/organizer/cuenta'])
-      }
-      else
-      {
-        this.router.navigate(['/participant/cuenta'])
-      }
+
   }
 
   removeProfileImage():void{
@@ -160,7 +176,7 @@ export class UpdateProfileComponent {
           this.showSnackBar('Foto eliminada correctamente');
           if (this.profileImageUrl) {
             URL.revokeObjectURL(this.profileImageUrl as string);
-            this.profileImageUrl = ""; // O asigna una URL de imagen predeterminada
+            this.profileImageUrl = "";
           }
         },
         error : (error) => {
@@ -200,8 +216,8 @@ export class UpdateProfileComponent {
     return this.profileform.get('skills') as FormArray;
   }
   
-  get links(): FormArray {
-    return this.profileform.get('links') as FormArray;
+  get socialLinks(): FormArray {
+    return this.profileform.get('socialLinks') as FormArray;
   }
   
   addInterest(interest: string): void {
@@ -223,9 +239,9 @@ export class UpdateProfileComponent {
   }
   
   addLink(link: string): void {
-    if(this.links.length === 0 || this.links.at(this.links.length-1).value)
+    if(this.socialLinks.length === 0 || this.socialLinks.at(this.socialLinks.length-1).value)
       {
-        this.links.push(this.fb.control(link, Validators.required));
+        this.socialLinks.push(this.fb.control(link, Validators.required));
       }
       else {
         this.showSnackBar('Por favor, completa el link anterior antes de agregar otro.');
@@ -241,6 +257,6 @@ export class UpdateProfileComponent {
   }
   
   removeLink(index: number): void {
-    this.links.removeAt(index);
+    this.socialLinks.removeAt(index);
   }
 }

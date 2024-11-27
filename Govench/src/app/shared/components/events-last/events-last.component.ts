@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventUserService } from'../../../core/services/EventUser/eventUser.service';
-import { EventUser } from'../../models/userEvent/user-event.model';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Inscription } from '../../models/inscriptionEvent/inscription-event-model';
 
 
 @Component({
@@ -15,21 +15,40 @@ import { Router } from '@angular/router';
 })
 export class EventsLastComponent {
   modal = false;
-  eventsPast: EventUser[];
+  eventsPast: Inscription[];
+  filterevents:Inscription[];
+  actualDate:string;
   private eventUserService= inject(EventUserService);
   private router = inject(Router);
 
   ngOnInit():void {
     this.myEventsPast();
+
   }
 
   myEventsPast() {
-    this.eventUserService.getMyEventsPast().subscribe(
+    this.eventUserService.getMyEventsInscriptions().subscribe(
       (event) => {
         this.eventsPast = event;
-      });
+  
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Asegura que esté al inicio del día.
+        this.actualDate = today.toISOString().split('T')[0];
+  
+        // Filtra eventos pasados
+        this.filterevents = this.eventsPast.filter(event => {
+          const eventDate = new Date(event.date); // Convierte a objeto Date
+          return eventDate < today; // Compara si la fecha es anterior a hoy
+        });
+  
+        console.log(this.actualDate); // Fecha actual
+        console.log(this.filterevents); // Eventos filtrados
+      },
+      (error) => {
+        console.error('Error al cargar los eventos:', error);
+      }
+    );
   }
-
   deleteEventCreate(): void{
     this.modal = true;
    }

@@ -9,7 +9,13 @@
     padding: 10px;
     font-weight: bold;
   }
-  
+  .long-column {
+    width: 200px;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el texto si es muy largo */
+    text-overflow: ellipsis; /* Agrega "..." si el texto se corta */
+}
+
   .event-row {
     background-color: #ffffff;
     border-radius: 10px;

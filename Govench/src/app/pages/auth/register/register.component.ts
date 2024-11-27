@@ -22,29 +22,55 @@ export class RegisterComponent {
   private snackbar = inject(MatSnackBar);
   private authService = inject(AuthServiceService);
 
+  ngOnInit()
+  {
+
+  }
+
   constructor() {
+    this.registerForm = this.fb.group({
+      name: [
+        '', 
+        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
+      ],
+      lastname: [
+        '', 
+        [Validators.required, Validators.minLength(2)]
+      ],
+      birthday: [
+        '', 
+        [Validators.required, this.validateBirthDate]
+      ],
+      gender: ['', Validators.required],
+      profileDesc: ['', Validators.maxLength(250)],
+      email: [
+        '', 
+        [Validators.required, Validators.email]
+      ],
+      password: [
+        '', 
+        [Validators.required, Validators.minLength(8)]
+      ],
+      confirmPassword: [
+        '', 
+        [Validators.required]
+      ],
+      termsAccepted: [false, Validators.requiredTrue]
+    }, { 
+      validators: this.passwordsMatchValidator
+    }as AbstractControlOptions);
+  }
+
+
+  validateBirthDate(control: any) {
+    const selectedDate = new Date(control.value);
+
     const today = new Date();
     const fourYearsAgo = new Date(today.getFullYear() - 4, today.getMonth(), today.getDate());
   
     this.maxDate = this.formatDate(fourYearsAgo);
     this.minDate = '';
 
-    this.registerForm = this.fb.group(
-      {
-        name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
-        lastname: [ '', [Validators.required, Validators.minLength(1), Validators.maxLength(100)],],
-        birthday: ['', [Validators.required]],
-        gender: ['', Validators.required],
-        profileDesc: ['', [Validators.maxLength(250)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPassword: ['', [Validators.required]],
-        termsAccepted: [false, Validators.requiredTrue],
-      },
-      {
-        validators: this.passwordsMatchValidator,
-      } as AbstractControlOptions
-    );
   }
 
   // Formatear fechas a YYYY-MM-DD

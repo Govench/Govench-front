@@ -8,13 +8,14 @@ import { FooterComponent } from "../footer/footer.component";
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-details-event',
   standalone: true,
   templateUrl: './details-event.component.html',
   styleUrls: ['./details-event.component.scss'],
-  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink]
+  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink,CommonModule]
 })
 export class DetailsEventComponent {
   event: EventsDetails;
@@ -61,8 +62,6 @@ export class DetailsEventComponent {
             this.showSnackBar("Registro exitoso");
             this.router.navigate(['/eventos']);
           }
-          console.error("Error: URL de pago no válida.");
-          this.showSnackBar("No se pudo generar el enlace de pago.");
         }
       },
       (error) => {

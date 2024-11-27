@@ -1,16 +1,19 @@
 <div class="p-3">
     <div class="container mt-5 mb-5">
-        <div class="row d-flex justify-content-center bg-1 text-light subtitle m-2 p-2">
-            <div  class="caja d-flex align-items-center">
-                <i class="fa-solid fa-angle-left fs-3" routerLink="/auth/login"></i>
+        <!-- Título -->
+        <div class="row justify-content-center align-items-center bg-1 text-light subtitle m-2 p-3">
+            <!-- Flecha de retroceso -->
+            <div class="col-auto caja d-flex align-items-center">
+                <i class="fa-solid fa-angle-left fs-4 text-light" routerLink="/auth/login"></i>
             </div>
-            <div class="col-8 text-center">
+            <!-- Título y enlace -->
+            <div class="col-12 col-md-8 text-center">
                 <h1>Crear Cuenta</h1>
-                <p>¿Ya tienes una cuenta? <a routerLink="/auth/login"
-                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Iniciar
-                        Sesión</a></p>
+                <p>
+                    ¿Ya tienes una cuenta?
+                    <a routerLink="/auth/login" class="link-light text-decoration-underline">Iniciar Sesión</a>
+                </p>
             </div>
-            <div class="caja"></div>
         </div>
     </div>
 
@@ -21,54 +24,52 @@
                 <div class="row">
                     <!-- Campo Nombre -->
                     <div class="col-md-6 mb-3">
-                        <label for="name">Nombre</label>
-                        <input id="name" class="input-c p-2" formControlName="name" type="text"
-                            placeholder="Ingrese su nombre">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input id="name" class="input-c form-control" formControlName="name" type="text"
+                            placeholder="Ingrese su nombre" />
                         <div *ngIf="controlHasError('name', 'required') && registerForm.controls['name'].touched"
                             class="alert alert-danger">El nombre es obligatorio.</div>
-                        <div *ngIf="controlHasError('name', 'pattern') && registerForm.controls['name'].touched"
-                            class="alert alert-danger">Solo se permiten letras en el nombre.</div>
                     </div>
                     <!-- Campo Apellido -->
                     <div class="col-md-6 mb-3">
-                        <label for="lastname">Apellido</label>
-                        <input id="lastname" class="input-c p-2" formControlName="lastname" type="text"
-                            placeholder="Ingrese su apellido">
+                        <label for="lastname" class="form-label">Apellido</label>
+                        <input id="lastname" class="input-c form-control" formControlName="lastname" type="text"
+                            placeholder="Ingrese su apellido" />
                         <div *ngIf="controlHasError('lastname', 'required') && registerForm.controls['lastname'].touched"
                             class="alert alert-danger">El apellido es obligatorio.</div>
-                        <div *ngIf="controlHasError('lastname', 'pattern') && registerForm.controls['lastname'].touched"
-                            class="alert alert-danger">Solo se permiten letras en el apellido.</div>
                     </div>
                 </div>
                 <!-- Campo Correo -->
                 <div class="mb-3">
-                    <label for="email">Correo</label>
-                    <input id="email" class="input-c p-2" formControlName="email" type="email"
-                        placeholder="Ingrese su correo electrónico">
+                    <label for="email" class="form-label">Correo</label>
+                    <input id="email" class="input-c form-control" formControlName="email" type="email"
+                        placeholder="Ingrese su correo electrónico" />
+                    <!-- Mensaje de error por campo requerido -->
                     <div *ngIf="controlHasError('email', 'required') && registerForm.controls['email'].touched"
-                        class="alert alert-danger">El correo es obligatorio.</div>
+                        class="alert alert-danger">
+                        El correo es obligatorio.
+                    </div>
+                    <!-- Mensaje de error por formato inválido -->
                     <div *ngIf="controlHasError('email', 'email') && registerForm.controls['email'].touched"
-                        class="alert alert-danger">Introduzca un correo válido.</div>
+                        class="alert alert-danger">
+                        Introduzca un correo válido.
+                    </div>
                 </div>
 
                 <!-- Campo Contraseña -->
                 <div class="mb-3">
-                    <label for="password">Contraseña</label>
-                    <input id="password" class="input-c p-2" formControlName="password" type="password"
-                        placeholder="Ingrese su contraseña">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input id="password" class="input-c form-control" formControlName="password" type="password"
+                        placeholder="Ingrese su contraseña" />
                     <div *ngIf="controlHasError('password', 'required') && registerForm.controls['password'].touched"
                         class="alert alert-danger">La contraseña es obligatoria.</div>
-                    <div *ngIf="controlHasError('password', 'minlength') && registerForm.controls['password'].touched"
-                        class="alert alert-danger">
-                        La contraseña debe tener mínimo 8 caracteres.
-                    </div>
                 </div>
 
                 <!-- Campo Confirmar Contraseña -->
                 <div class="mb-3">
-                    <label for="confirmPassword">Confirmar contraseña</label>
-                    <input id="confirmPassword" class="input-c p-2" formControlName="confirmPassword" type="password"
-                        placeholder="Ingrese su nuevamente su contraseña">
+                    <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+                    <input id="confirmPassword" class="input-c form-control" formControlName="confirmPassword"
+                        type="password" placeholder="Ingrese nuevamente su contraseña" />
                     <div *ngIf="registerForm.errors?.['passwordMismatch']" class="alert alert-danger">Las contraseñas no
                         coinciden.</div>
                 </div>
@@ -76,44 +77,41 @@
 
             <!-- Columna derecha -->
             <div class="col-md-6">
-                <!-- Campo Fecha de Nacimiento -->
-                <div class="mb-3">
-                    <label for="birthday">Fecha de nacimiento</label>
-                    <input id="birthday" class="input-c p-2" formControlName="birthday" type="date"
-                        placeholder="Selecciones su fecha de nacimiento">
-                    <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
-                    <div *ngIf="controlHasError('birthday', 'invalidDate') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha no puede ser futura.</div>
-                    <div *ngIf="controlHasError('birthday', 'minDateError') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">
-                        Debe ser al menos 10 años atrás.
+                <div class="row">
+                    <!-- Fecha de nacimiento -->
+                    <div class="col-md-6 mb-3">
+                        <label for="birthday" class="form-label">Fecha de nacimiento</label>
+                        <input id="birthday" class="input-c form-control" formControlName="birthday" type="date"
+                            [max]="maxDate" placeholder="Seleccione su fecha de nacimiento" />
+                        <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
+                            class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
+                    </div>
+
+                    <!-- Género -->
+                    <div class="col-md-6 mb-3">
+                        <label for="gender" class="form-label">Género</label>
+                        <select id="gender" class="input-c form-select" formControlName="gender">
+                            <option value="">Seleccione su género</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="O">Otro</option>
+                        </select>
+                        <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
+                            class="alert alert-danger">El género es obligatorio.</div>
                     </div>
                 </div>
 
-                <!-- Campo Género -->
-                <div class="mb-3">
-                    <label for="gender">Género</label>
-                    <select id="gender" class="input-c p-2" formControlName="gender">
-                        <option value="">Seleccione su género</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                    </select>
-                    <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
-                        class="alert alert-danger">El género es obligatorio.</div>
-                </div>
-
-                <!-- Descripción de Perfil -->
+                <!-- Descripción -->
                 <div class="col-12 mb-3">
-                    <label for="profileDesc">Descripción de perfil</label>
-                    <textarea id="profileDesc" class="input-c p-2" formControlName="profileDesc" rows="3"
-                        maxlength="250" placeholder="Cuentanos algo sobre ti"></textarea>
+                    <label for="profileDesc" class="form-label">Descripción de perfil</label>
+                    <textarea id="profileDesc" class="input-c form-control" formControlName="profileDesc" rows="3"
+                        maxlength="250" placeholder="Cuéntanos algo sobre ti"></textarea>
+                    <p class="text-end">{{ registerForm.value.profileDesc?.length || 0 }}/250</p>
                 </div>
             </div>
-
-
         </div>
-        <!-- Términos y Condiciones -->
+
+        <!-- Términos y condiciones -->
         <div class="col-12 mb-3 text-center">
             <input type="checkbox" formControlName="termsAccepted"> He leído y acepto los <a href="#">términos y
                 condiciones</a> y <a href="#">políticas de privacidad</a>.
@@ -121,8 +119,8 @@
 
         <!-- Botón de Registro -->
         <div class="col-12 text-center">
-            <button class="btn rounded-pill p-2" type="submit" [disabled]="registerForm.invalid"
-                id="regiterBtn">Registrarse</button>
+            <button id="regiterBtn" class="btn btn-primary rounded-pill px-4 py-2" type="submit"
+                [disabled]="registerForm.invalid">Registrarse</button>
         </div>
     </form>
 </div>

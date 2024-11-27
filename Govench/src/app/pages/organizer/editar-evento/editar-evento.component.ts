@@ -23,7 +23,9 @@ export class EditarEventoComponent{
   event: EventsDetails;
   profileImageUrl:boolean=false;
   selectedFile: File | null = null;
-
+  isVirtualMode: boolean = false; 
+  minDate: string="";
+  minTime!: string;
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private snackbar = inject(MatSnackBar);
@@ -42,6 +44,7 @@ export class EditarEventoComponent{
       maxCapacity: ['', [Validators.required, Validators.min(1)]],
       department: ['', Validators.required],
       province: ['', Validators.required],
+      link:['', [Validators.required]],
       district: ['', Validators.required],
       address: ['', Validators.required],
       mode: ['', [Validators.required]]
@@ -50,6 +53,14 @@ export class EditarEventoComponent{
 
   ngOnInit(): void {
     this.loadEvent();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Asegura que esté en el inicio del día.
+    this.minDate = today.toISOString().split('T')[0];
+  
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0'); // Formato HH
+    const minutes = now.getMinutes().toString().padStart(2, '0'); // Formato MM
+    this.minTime = `${hours}:${minutes}`;
   }
 
   toggleCostInput(): void {
@@ -64,9 +75,9 @@ export class EditarEventoComponent{
   }
   toggleAddressFields(): void {
     const mode = this.editEventForm.get('mode')?.value;
-    const isVirtualMode = mode === 'Virtual';
+    this.isVirtualMode = mode === 'Virtual';
   
-    if (isVirtualMode) {
+    if ( this.isVirtualMode) {
       this.editEventForm.patchValue({
         address: 'Virtual',
         department: '',
@@ -77,11 +88,13 @@ export class EditarEventoComponent{
       this.editEventForm.get('department')?.disable();
       this.editEventForm.get('province')?.disable();
       this.editEventForm.get('district')?.disable();
+      this.editEventForm.get('link')?.enable();
     } else {
       this.editEventForm.get('address')?.enable();
       this.editEventForm.get('department')?.enable();
       this.editEventForm.get('province')?.enable();
       this.editEventForm.get('district')?.enable();
+      this.editEventForm.get('link')?.disable();
       // Solo limpiamos los campos si estaban en 'Virtual'
       if (this.editEventForm.get('address')?.value === 'Virtual') {
         this.editEventForm.patchValue({
@@ -99,16 +112,18 @@ export class EditarEventoComponent{
     this.eventService.getEventById(eventId).subscribe({
       next: (eventData) => {
         this.event = eventData;
+        // Excluir 'type' de los datos a parchear
+        const { type, ...rest } = eventData;
         this.editEventForm.patchValue({
-          ...eventData,
+          ...rest,
           address: eventData.location.address,
           department: eventData.location.departament,
           province: eventData.location.province,
           district: eventData.location.district
         });
       },
-      error: () => {
-        this.snackbar.open('Error al cargar los datos del evento', 'Cerrar', { duration: 2000 });
+      error: (err) => {
+        console.error('Error al obtener el evento', err);
       }
     });
   }
@@ -126,8 +141,9 @@ export class EditarEventoComponent{
           this.snackbar.open('Evento actualizado con éxito', 'Cerrar', { duration: 2000 });
           this.router.navigate(['/organizer/eventos/creados']);
         },
-        error: () => {
+        error: (error) => {
           this.snackbar.open('Error al actualizar el evento', 'Cerrar', { duration: 2000 });
+          this.snackbar.open(error.error, 'Cerrar', { duration: 2000 });
         }
       })
     } else {

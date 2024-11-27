@@ -29,7 +29,7 @@ export class EventsLastComponent {
   myEventsPast() {
     this.eventUserService.getMyEventsInscriptions().subscribe(
       (event) => {
-        this.eventsPast = event;
+        this.eventsPast = event.filter(event => !event.deleted);;
   
         const today = new Date();
         today.setHours(0, 0, 0, 0); // Asegura que esté al inicio del día.

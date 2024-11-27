@@ -8,5 +8,6 @@ export interface Inscription {
     startTime: string;
     registrationDate: string;
     link:string
+    deleted:boolean
     
 }

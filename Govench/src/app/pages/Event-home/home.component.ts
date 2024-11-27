@@ -28,8 +28,8 @@ export class HomeComponent {
   ngOnInit() {
     this.homeService.getEvents().subscribe({
       next: (event) => {
-        this.events = event;
-        this.filterEvents = event;
+        this.events = event.filter(event => !event.deleted);
+        this.filterEvents = event.filter(event => !event.deleted);
       },
       error: (error) => console.error('Error al cargar los eventos', error)
     });

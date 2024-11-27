@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { ComunityResponse } from '../../../shared/models/comunity/comunity-response.model';
+import { UserComunity } from '../../../shared/models/comunity/UserComunity-response.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ import { ComunityResponse } from '../../../shared/models/comunity/comunity-respo
 export class ComunityService{
 
     private baseURL = `${environment.baseURL}/community`;
+    private baseURL2 = `${environment.baseURL}/admin/usercommunity`;
     private http = inject(HttpClient);
 
     getAllCommunities(): Observable<ComunityResponse[]>{
@@ -33,5 +35,8 @@ export class ComunityService{
         return this.http.delete(`${this.baseURL}/delete/${id}`);
       }
 
-
+  getComunitiesPertainByUser(): Observable<UserComunity[]> {
+    return this.http.get<UserComunity[]>(`${this.baseURL2}/pertains`);
+  }
+    
 }

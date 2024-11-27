@@ -25,10 +25,6 @@ export const routes: Routes = [
         loadChildren : () => import ("././pages/organizer/organizer.routes").then(o => o.participantRoutes),
         canActivate:[authGuard]
     },
-    {
-        path: 'legal',
-        loadChildren : () => import("././pages/legal/legal.routes").then(l => l.legalRoutes)
-    },
     // { path: '**', redirectTo: '/participant' }, //provisorio hasta crear una pagina de notfount
     {
         path: 'inicio',

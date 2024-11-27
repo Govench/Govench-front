@@ -35,7 +35,22 @@ export class ComunityDetailComponent {
 
   volverComunidades() {
     const isOrganizer = this.router.url.includes('/organizer');
-    const baseUrl = isOrganizer ? '/organizer/comunidades' : '/participant/comunidades';
-    this.router.navigate([`${baseUrl}/disponibles`]);
+    if (isOrganizer) {
+      if (this.router.url.includes('/disponibles')){
+        this.router.navigate(['/organizer/comunidades/disponibles']);
+      } else {
+        if (this.router.url.includes('/perteneces')){
+          this.router.navigate(['/organizer/comunidades/perteneces']);
+        }
+      }
+    }else{
+      if (this.router.url.includes('/disponibles')){
+        this.router.navigate(['/participant/comunidades/disponibles']);
+      } else {
+        if (this.router.url.includes('/mi-cuenta')){
+          this.router.navigate(['/participant/comunidades/mi-cuenta']);
+        }
+      }
+    }
   }
 }

@@ -12,7 +12,12 @@
           </div>
 
           <div class = "boton">
+            @if(isAuthenticated == false){
               <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/auth/register" >REGISTRATE <i class="fa-solid fa-circle-chevron-right"></i></button>
+            }
+            @else {
+              <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/eventos" >INSCRIBETE A UN EVENTO <i class="fa-solid fa-circle-chevron-right"></i></button>
+            }
           </div>
           
       </div>
@@ -105,13 +110,13 @@
                 </div>
 
                 <div class="col-3">
-                  <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-3@2x.png" alt="Miguel Escobar">
+                  <img src="../../../../../public/miguelp.jpg" alt="Miguel Escobar">
                   <h4>Miguel Escobar</h4>
                   <p>Desarrollador</p>
                 </div>
                   
                 <div class="col-3">
-                  <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-2@2x.png" alt="Gino Guevara Villalobos">
+                  <img src="../../../../../public/yop.jpg" alt="Gino Guevara Villalobos">
                   <h4>Gino Guevara Villalobos</h4>
                   <p>Desarrollador</p>
                 </div>

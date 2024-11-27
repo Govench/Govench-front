@@ -8,6 +8,7 @@ import { ComunityManageComponent } from '../../../shared/components/comunity-man
 export const comunityRoutes: Routes = [
 
     { path: 'perteneces', component: ComunityPertainComponent },
+    { path: 'perteneces/comunidad/:id', component: ComunityDetailComponent },
     { path: 'disponibles', component: ComunityAvailableComponent },
     { path: 'creados', component: ComunityCreatedComponent },
     { path: 'creados/manage/:id', component: ComunityManageComponent },

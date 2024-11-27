@@ -1,1 +1,18 @@
-<p>comunity-pertain works!</p>
+<div class="container-fluid row">
+    <h3>Comunidades a las que Perteneces</h3>
+    <div class="col-md-4 card-comu" *ngFor="let comunity of comunitiesByUser">
+        <div class="row">
+            <div class="col-md-8">
+
+                <strong>{{ comunity.nameCommunity }}</strong>
+                <p>{{ comunity.descriptionCommunity }}</p>
+                <p> Te uniste el: {{comunity.date}}</p>
+                
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-com" (click)="navigateToDetail(comunity.idCommunity)"> ver</button>
+            </div>
+        </div>
+
+    </div>
+</div>

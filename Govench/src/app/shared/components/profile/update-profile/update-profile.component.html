@@ -41,23 +41,15 @@
                     </div> 
                 </div>
                 <div class="row p-2">
-                    <div class="col-md-6">
-                      <input class="form-control" formControlName="email" placeholder="Correo" />
-                      <div *ngIf="controlHasError('email','required')" class="text-danger" [hidden]= "profileform.pristine">
-                        El correo es obligatorio.
-                    </div>
-                    <div *ngIf="profileform.get('email')?.errors?.['email'] && !profileform.pristine" class="text-danger">
-                        Introduzca un correo válido.
-                    </div>
-                    </div>
-                    <div class="col-md-3">
+                
+                    <div class="col-md-4">
                       <select class="form-select" formControlName="gender" placeholder="Genero">
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Otro">Otro</option>
                       </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                       <input class="form-control" type="date" formControlName="birthday" placeholder="Fecha Nacimiento"  min="1935-01-01" max="2024-12-31" />
                     </div>
                 </div>

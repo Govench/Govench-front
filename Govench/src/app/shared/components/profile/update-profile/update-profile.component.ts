@@ -36,7 +36,6 @@ export class UpdateProfileComponent {
         name: ['',[Validators.required,]],
         lastname :['',[Validators.required,]],
         profileDesc : ['',[Validators.required,]],
-        email: ['', [Validators.required, Validators.email]],
         gender: ['',[Validators.required,]],
         birthday :['',[Validators.required,]],
         interest: this.fb.array([]), // Usamos FormArray para interest

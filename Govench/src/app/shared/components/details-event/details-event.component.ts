@@ -62,8 +62,6 @@ export class DetailsEventComponent {
             this.showSnackBar("Registro exitoso");
             this.router.navigate(['/eventos']);
           }
-          console.error("Error: URL de pago no válida.");
-          this.showSnackBar("No se pudo generar el enlace de pago.");
         }
       },
       (error) => {

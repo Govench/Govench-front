@@ -94,6 +94,8 @@
             </div>
           </div>
 
+
+
       <div class="form-group mt-2">
         <label for="experience">Nivel de Experiencia</label>
         <select class="form-select" id="experience" formControlName="exp">
@@ -142,8 +144,8 @@
           </div>
         </div>
       </div>
-      
 
+      
     <!-- Campos de dirección -->
     <div class="form-row">
       <div class="form-group">
@@ -165,6 +167,15 @@
         <label for="direccion">Dirección</label>
         <input type="text" id="direccion" formControlName="address" class="form-control" placeholder="Ingrese dirección" [readonly]="isVirtualMode">
       </div>
+      
+      <div class="form-group col-md-1 mt-2" *ngIf="isVirtualMode">
+        <label for="link">Link</label>
+        <input type="text" id="link" formControlName="link" class="form-control" placeholder="www.">
+        <div *ngIf="createEventForm.get('link')?.invalid && (createEventForm.get('link')?.dirty || createEventForm.get('link')?.touched)" class="alert alert-danger mt-2">
+          <span *ngIf="createEventForm.get('link')?.errors?.['required']">El link es obligatorio.</span>
+        </div>
+      </div>
+
     </div>
 
     <div class="button-group">

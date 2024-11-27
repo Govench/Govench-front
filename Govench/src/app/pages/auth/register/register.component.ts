@@ -14,11 +14,13 @@ import { RegisterRequest } from '../../../shared/models/register/register-reques
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  maxDate: string;
+  minDate: string;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private snackbar = inject(MatSnackBar); 
-  private authService = inject(AuthServiceService)
+  private snackbar = inject(MatSnackBar);
+  private authService = inject(AuthServiceService);
 
   ngOnInit()
   {
@@ -59,42 +61,46 @@ export class RegisterComponent {
     }as AbstractControlOptions);
   }
 
+
   validateBirthDate(control: any) {
     const selectedDate = new Date(control.value);
+
     const today = new Date();
-    const minDate = new Date(today.getFullYear() - 10, today.getMonth(), today.getDate());
-    
-    if (selectedDate > today) {
-      return { invalidDate: true }; // La fecha es en el futuro
-    }
+    const fourYearsAgo = new Date(today.getFullYear() - 4, today.getMonth(), today.getDate());
   
-    if (selectedDate > minDate) {
-      return { minDateError: true }; // La fecha no cumple con el mínimo de 10 años atrás
-    }
-  
-    return null;
+    this.maxDate = this.formatDate(fourYearsAgo);
+    this.minDate = '';
+
   }
 
+  // Formatear fechas a YYYY-MM-DD
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+ 
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  controlHasError(control: string, error: string) {
-    return this.registerForm.controls[control].hasError(error);
+  controlHasError(control: string, error: string): boolean {
+    return this.registerForm.controls[control]?.hasError(error);
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const userData: RegisterRequest = { /* No usamos todos los datos del registerForm, por eso especificamos*/
+      const userData: RegisterRequest = {
         name: this.registerForm.value.name,
         lastname: this.registerForm.value.lastname,
         birthday: this.registerForm.value.birthday,
         gender: this.registerForm.value.gender,
         profileDesc: this.registerForm.value.profileDesc,
         email: this.registerForm.value.email,
-        password: this.registerForm.value.password
+        password: this.registerForm.value.password,
       };
       this.authService.register(userData).subscribe({
         next: () => {
@@ -102,16 +108,16 @@ export class RegisterComponent {
           this.router.navigate(['auth/login']);
         },
         error: () => {
-          this.showSnackBar('Ocurrio un error registrando la cuenta'); 
-        }
+          this.showSnackBar('Ocurrió un error registrando la cuenta');
+        },
       });
     }
   }
-  
+
   private showSnackBar(message: string): void {
     this.snackbar.open(message, 'Cerrar', {
       duration: 2000,
-      verticalPosition: 'top'
+      verticalPosition: 'top',
     });
   }
 }

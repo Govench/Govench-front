@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterLink} from '@angular/router';
+import { AuthServiceService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-body',
@@ -10,4 +11,12 @@ import { RouterLink } from '@angular/router';
 })
 export class BodyComponent {
   
+  isAuthenticated: boolean = false;
+
+  private authService = inject(AuthServiceService);
+
+  ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
+  }
+
 }

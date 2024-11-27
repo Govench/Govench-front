@@ -1,188 +1,143 @@
-<div class="container-fluid carru p-5">
-  <div class= "row d-flex justify-content-center align-content-center align-items-center m-0">
-      
-      <div class="col-md-6 m-0">
-          <div class = "title fw-bold">
-              <p>| CONECTATE</p>
-              <p class="ah">| AHORA</p>
-          </div>
-
-          <div class = "decription">
-              <p>Encuentra, crea y participa en eventos tecnológicos y de networking a tu medida</p>
-          </div>
-
-          <div class = "boton">
-            @if(isAuthenticated == false){
-              <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/auth/register" >REGISTRATE <i class="fa-solid fa-circle-chevron-right"></i></button>
-            }
-            @else {
-              <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/eventos" >INSCRIBETE A UN EVENTO <i class="fa-solid fa-circle-chevron-right"></i></button>
-            }
-          </div>
-          
+<div class="container-fluid carru p-3 p-md-5">
+  <div class="row d-flex justify-content-center align-items-center m-0">
+    <div class="col-12 col-md-6 m-0 mb-4 mb-md-0">
+      <div class="title fw-bold">
+        <p>| CONECTATE</p>
+        <p class="ah">| AHORA</p>
       </div>
-
-      <div class="carrusel col-md-6">
-          <div id="carouselGovench" class="carousel slide">
-
-              
-
-              <div class="carousel-inner p-4">
-
-                <div class="carousel-item active">
-                  <img src="eve1.webp" class="d-block" alt="eve1">
-                  <div class="row mt-3 t">
-                    <h5 class="fw-bold"> ¡Conéctate con la innovación!</h5>
-                    <p>Descubre las últimas tendencias tecnológicas en nuestro próximo evento. ¡Inscríbete ahora y no te lo pierdas!</p>
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <img src="eve2.webp" class="d-block" alt="eve2">
-                  <div class="row mt-3 t">
-                    <h5 class="fw-bold">Amplía tu red de contactos.</h5>
-                    <p>Conoce a otros profesionales del sector tecnológico en un ambiente distendido y propicio para <br>el networking.</p>
-                    
-               
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <img src="eve3.jpeg" class="d-block" alt="eve3">
-                  <div class="row mt-3 t">
-                    <h5 class="fw-bold"> Impulsa tu carrera profesional.</h5>
-                    <p>Asiste a charlas inspiradoras, talleres prácticos y conecta con empresas líderes<br> en el sector</p>
-                    
-                
-                  </div>
-                </div>
-
-              </div>
-
-              <button class="carousel-control-prev " type="button" data-bs-target="#carouselGovench" data-bs-slide="prev">
-                  <i class="fa-solid fa-circle-left fa-3x carousel-control-icon"></i>
-                <span class="visually-hidden">Previous</span>
-              </button>
-
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselGovench" data-bs-slide="next">
-                  <i class="fa-solid fa-circle-right fa-3x carousel-control-icon"></i>
-                <span class="visually-hidden">Next</span>
-              </button>
-
-          </div>
+      <div class="description">
+        <p>Encuentra, crea y participa en eventos tecnológicos y de networking a tu medida</p>
       </div>
+      <div class="boton">
+        @if(isAuthenticated == false){
+          <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/auth/register">REGISTRATE <i class="fa-solid fa-circle-chevron-right"></i></button>
+        }
+        @else {
+          <button class="btn btn-outline-light rounded-pill fw-bold btn-lg register-btn" type="button" routerLink="/eventos">INSCRIBETE A UN EVENTO <i class="fa-solid fa-circle-chevron-right"></i></button>
+        }
+      </div>
+    </div>
 
+    <div class="carrusel col-12 col-md-6">
+      <div id="carouselGovench" class="carousel slide">
+        <div class="carousel-inner p-2 p-md-4">
+          <div class="carousel-item active">
+            <img src="eve1.webp" class="d-block w-100" alt="eve1">
+            <div class="mt-3 t">
+              <h5 class="fw-bold">¡Conéctate con la innovación!</h5>
+              <p>Descubre las últimas tendencias tecnológicas en nuestro próximo evento. ¡Inscríbete ahora y no te lo pierdas!</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="eve2.webp" class="d-block w-100" alt="eve2">
+            <div class="mt-3 t">
+              <h5 class="fw-bold">Amplía tu red de contactos.</h5>
+              <p>Conoce a otros profesionales del sector tecnológico en un ambiente distendido y propicio para el networking.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="eve3.jpeg" class="d-block w-100" alt="eve3">
+            <div class="mt-3 t">
+              <h5 class="fw-bold">Impulsa tu carrera profesional.</h5>
+              <p>Asiste a charlas inspiradoras, talleres prácticos y conecta con empresas líderes en el sector</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselGovench" data-bs-slide="prev">
+          <i class="fa-solid fa-circle-left fa-3x carousel-control-icon"></i>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselGovench" data-bs-slide="next">
+          <i class="fa-solid fa-circle-right fa-3x carousel-control-icon"></i>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="container-fluid body">
-    <p class="noso fw-bold text-end">Sobre Nosotros |</p>
-      <div class="misVisi text-center">
-        <div class = "row mt-5 d-flex justify-content-center m-0">
-
-            <div class="mis col-md-5 m-2 p-1">
-              <h3 class="fw-bold">Misión</h3>
-               <p class="card-text">Nuestra misión es ofrecer un espacio virtual y físico donde los profesionales de la tecnología puedan compartir conocimientos, establecer contactos y descubrir las últimas tendencias del sector. A través de una curaduría rigurosa de eventos, talleres y conferencias, buscamos inspirar a la comunidad, promover la colaboración y fomentar el crecimiento profesional de nuestros usuarios.</p>
-            </div>
-    
-            <div class="vis col-md-5 m-2 p-1">
-              <h3 class="fw-bold">Visión</h3>
-              <p class="card-text">Ser la plataforma de referencia en Latinoamérica para la comunidad tecnológica, conectando a los principales actores de la industria y fomentando la innovación a través de eventos de vanguardia. Aspiramos a ser un catalizador de ideas disruptivas, impulsando el desarrollo tecnológico y la transformación digital en la región.</p>
-            </div>
-
-        </div>
+  <p class="noso fw-bold text-end">Sobre Nosotros |</p>
+  <div class="misVisi text-center">
+    <div class="row mt-5 d-flex justify-content-center m-0">
+      <div class="mis col-12 col-md-5 m-2 p-1">
+        <h3 class="fw-bold">Misión</h3>
+        <p class="card-text">Nuestra misión es ofrecer un espacio virtual y físico donde los profesionales de la tecnología puedan compartir conocimientos, establecer contactos y descubrir las últimas tendencias del sector. A través de una curaduría rigurosa de eventos, talleres y conferencias, buscamos inspirar a la comunidad, promover la colaboración y fomentar el crecimiento profesional de nuestros usuarios.</p>
       </div>
+      <div class="vis col-12 col-md-5 m-2 p-1">
+        <h3 class="fw-bold">Visión</h3>
+        <p class="card-text">Ser la plataforma de referencia en Latinoamérica para la comunidad tecnológica, conectando a los principales actores de la industria y fomentando la innovación a través de eventos de vanguardia. Aspiramos a ser un catalizador de ideas disruptivas, impulsando el desarrollo tecnológico y la transformación digital en la región.</p>
+      </div>
+    </div>
+  </div>
 
-        <div class="team-section mt-5 col-12">
-            <p class="subTitle fw-bold">| Equipo de GOVENCH</p>
-            <div class="row text-center d-flex justify-content-center m-0">
+  <div class="team-section mt-5 col-12">
+    <p class="subTitle fw-bold">| Equipo de GOVENCH</p>
+    <div class="row text-center d-flex justify-content-center m-0">
+      <div class="col-6 col-md-3 mb-4">
+        <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image@2x.png" alt="Javier Aguilar Blas" class="img-fluid">
+        <h4>Javier Aguilar Blas</h4>
+        <p>Desarrollador</p>
+      </div>
+      <div class="col-6 col-md-3 mb-4">
+        <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-1@2x.png" alt="Dylan Acevedo" class="img-fluid">
+        <h4>Dylan Acevedo</h4>
+        <p>Desarrollador</p>
+      </div>
+      <div class="col-6 col-md-3 mb-4">
+        <img src="../../../../../public/miguelp.jpg" alt="Miguel Escobar" class="img-fluid">
+        <h4>Miguel Escobar</h4>
+        <p>Desarrollador</p>
+      </div>
+      <div class="col-6 col-md-3 mb-4">
+        <img src="../../../../../public/yop.jpg" alt="Gino Guevara Villalobos" class="img-fluid">
+        <h4>Gino Guevara Villalobos</h4>
+        <p>Desarrollador</p>
+      </div>
+      <div class="col-6 col-md-3 mb-4">
+        <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-5@2x.png" alt="Jaime Palomino" class="img-fluid">
+        <h4>Jaime Palomino</h4>
+        <p>Desarrollador</p>
+      </div>
+    </div>
+  </div>
 
-                <div class="col-3">
-                  <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image@2x.png" alt="Javier Aguilar Blas">
-                  <h4>Javier Aguilar Blas</h4>
-                  <p>Desarrollador</p>
-                </div>
-                  
-                <div class="col-3">
-                  <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-1@2x.png" alt="Dylan Acevedo">
-                  <h4>Dylan Acevedo</h4>
-                  <p>Desarrollador</p>
-                </div>
-
-                <div class="col-3">
-                  <img src="../../../../../public/miguelp.jpg" alt="Miguel Escobar">
-                  <h4>Miguel Escobar</h4>
-                  <p>Desarrollador</p>
-                </div>
-                  
-                <div class="col-3">
-                  <img src="../../../../../public/yop.jpg" alt="Gino Guevara Villalobos">
-                  <h4>Gino Guevara Villalobos</h4>
-                  <p>Desarrollador</p>
-                </div>
-
-                <div class="col-3">
-                  <img src="https://cdn.animaapp.com/projects/66e5fcd520f83e13e1116247/releases/66e5fdfaba7515fb3ad88d27/img/image-5@2x.png" alt="Jaime Palomino">
-                  <h4>Jaime Palomino</h4>
-                  <p>Desarrollador</p>
-                </div>
-
+  <div class="faq row mt-5 m-0">
+    <div class="pregu col-12 col-md-4 fw-bold mb-4 mb-md-0">
+      <div class="row subTitle fw-bold m-0">
+        <p>| Preguntas</p>
+      </div>
+      <div class="row subTitle fw-bold m-0">
+        <p>| Frecuentes</p>
+      </div>
+    </div>
+    <div class="acor col-12 col-md-7">
+      <div class="accordion" id="accordionGovench">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="#panelsStayOpen-collapseOne">
+              ¿Qué es Govench?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              Govench es una plataforma que busca conectar a los profesionales de la tecnología en Perú. Ofrecemos un espacio virtual y físico donde los usuarios pueden compartir conocimientos, establecer contactos y descubrir las últimas tendencias del sector.
             </div>
           </div>
-          
-          <div class="faq row mt-5 m-0">
-
-            <div class="pregu col-md-4 fw-bold">
-              <div class="row subTitle fw-bold m-0">
-                <p>| Preguntas</p>
-              </div>
-              <div class="row subTitle fw-bold m-0">
-                <p>| Frecuentes</p>
-              </div>
-              
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              ¿Cómo puedo participar en Govench?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              Para participar en Govench, puedes registrarte en nuestra plataforma y explorar los eventos disponibles. También puedes unirte a comunidades, participar en discusiones y networking con otros profesionales del sector tecnológico.
             </div>
-
-            <div class="acor col-md-7" >
-                <div class="accordion" id="accordionGovench">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="#panelsStayOpen-collapseOne">
-                        ¿Qué es Govench?
-                      </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                      <div class="accordion-body">
-                        Govench es una plataforma que busca conectar a los profesionales de la tecnología en Perú. Ofrecemos un espacio virtual y físico donde los usuarios pueden compartir conocimientos, establecer contactos y descubrir las últimas tendencias del sector.
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                        ¿Cómo puedo participar en Govench?
-                      </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                      <div class="accordion-body">
-                        Puedes participar en Govench registrándote en nuestra plataforma. Una vez registrado, podrás acceder a todos los eventos, talleres y conferencias que ofrecemos. También puedes unirte a nuestra comunidad en línea para conectar con otros profesionales de la tecnología.
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                        ¿Qué tipo de eventos ofrece Govench?
-                      </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                      <div class="accordion-body">
-                        Govench ofrece una variedad de eventos, incluyendo conferencias, talleres, hackathons, meetups y más. Todos nuestros eventos están diseñados para ayudar a los profesionales de la tecnología a aprender, crecer y conectar con otros.
-                      </div>
-                    </div>
-                  </div>
-                </div>   
-              </div>
-          </div>     
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

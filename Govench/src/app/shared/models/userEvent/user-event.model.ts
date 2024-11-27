@@ -7,4 +7,5 @@ export interface EventUser{
     type: string;
     startTime: string;
     date:string;
+    deleted:boolean;
 }

@@ -17,7 +17,7 @@ export class CrearEventoComponent {
   
   createEventForm: FormGroup;
   isCostoVisible: boolean = false;
-  isVirtualMode: boolean = false; // Indica si el evento es virtual
+  isVirtualMode: boolean = false; 
 
   minDate: string="";
   minTime!: string;

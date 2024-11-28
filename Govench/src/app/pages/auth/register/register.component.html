@@ -88,14 +88,16 @@
             <!-- Columna derecha -->
             <div class="col-md-6">
                 <!-- Campo Fecha de Nacimiento -->
-                <div class="mb-3">
+                <div class="row mb-3">
                     <label for="birthday">Fecha de nacimiento</label>
                     <input id="birthday" class="input-c p-2" formControlName="birthday" type="date" [min]="'1940-12-31'" [max]="'2014-12-31'"
                         placeholder="Selecciones su fecha de nacimiento">
                     <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
+                        class="alert alert-danger">La fecha de nacimiento es obligatoria.
+                    </div>
                     <div *ngIf="controlHasError('birthday', 'invalidDate') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha no puede ser futura.</div>
+                        class="alert alert-danger">La fecha no puede ser futura.
+                    </div>
                     <div *ngIf="controlHasError('birthday', 'minDateError') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">
                         Debe ser al menos 10 años atrás.
@@ -103,7 +105,7 @@
                 </div>
 
                 <!-- Descripción de Perfil -->
-                <div class="col-12 mb-3">
+                <div class="row mb-3">
                     <label for="profileDesc" class="form-label">Descripción de perfil</label>
                     <textarea id="profileDesc" class="input-c form-control" formControlName="profileDesc" rows="3"
                         maxlength="250" placeholder="Cuéntanos algo sobre ti"></textarea>

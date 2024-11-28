@@ -26,7 +26,6 @@ export class ComunityPertainComponent {
     this.communityService.getComunitiesPertainByUser().subscribe({
       next: (communitiesByUser) => {
         this.comunitiesByUser = communitiesByUser;
-        console.log('Communities by user:', communitiesByUser);
       },
       error: (error) => {
         console.error('Error fetching communities by user:', error);
@@ -35,7 +34,6 @@ export class ComunityPertainComponent {
   }
 
   navigateToDetail(communityId: number) {
-    console.log('Navigating to community:', communityId);
     const isOrganizer = this.router.url.includes('/organizer');
     const baseUrl = isOrganizer ? '/organizer/comunidades' : '/participant/comunidades';
     

@@ -23,7 +23,6 @@ export class ComunityCreatedComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('Obteniendo comunidades creadas por el usuario', this.authService.getUser());
     this.setBaseRoute();
     this.getMyComunities();
   }
@@ -35,12 +34,12 @@ export class ComunityCreatedComponent implements OnInit {
     } else {
       this.baseRoute = '/participant';
     }
-    console.log(`Base route set to: ${this.baseRoute}`);
+  
   }
 
   getMyComunities() {
     this.comunityService.getCommunitiesByUser().subscribe((comunities) => {
-      console.log('Comunidades obtenidas', comunities);
+  
       this.comunities = comunities;
     });
   }
@@ -51,6 +50,5 @@ export class ComunityCreatedComponent implements OnInit {
     }
     const url = `${this.baseRoute}/comunidades/creados/manage/${id}`;
     this.router.navigate([url]);
-    console.log(`Navigating to: ${url}`);
   }
 }

@@ -42,7 +42,6 @@ export class ComunityManageComponent implements OnInit {
     } else {
       this.baseRoute = '/participant';
     }
-    console.log(`Base route set to: ${this.baseRoute}`);
   }
 
   loadCommunity() {
@@ -69,7 +68,7 @@ export class ComunityManageComponent implements OnInit {
 
     this.comunityService.updateCommunity(this.communityId, this.communityRequest).subscribe(
       (data: ComunityResponse) => {
-        console.log('Community updated', data);
+
         this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
       },
       (error) => {
@@ -81,7 +80,7 @@ export class ComunityManageComponent implements OnInit {
   deleteCommunity() {
     this.comunityService.deleteCommunity(this.communityId).subscribe(
       (response) => {
-        console.log('Community deleted', response);
+       
         this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
       },
       (error) => {
@@ -91,8 +90,6 @@ export class ComunityManageComponent implements OnInit {
   }
 
   cancel() {
-    console.log('Canceling');
-    console.log(this.baseRoute);
     this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
   }
 }

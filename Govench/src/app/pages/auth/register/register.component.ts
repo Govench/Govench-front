@@ -47,8 +47,7 @@ export class RegisterComponent {
         [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
-        '', 
-        [Validators.required]
+        '' ,[Validators.required, Validators.minLength(8)]
       ],
       termsAccepted: [false, Validators.requiredTrue]
     }, { 
@@ -65,6 +64,7 @@ export class RegisterComponent {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
  
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -92,8 +92,8 @@ export class RegisterComponent {
           this.showSnackBar('Usuario creado correctamente');
           this.router.navigate(['auth/login']);
         },
-        error: () => {
-          this.showSnackBar('Ocurrió un error registrando la cuenta');
+        error: (error) => {
+          this.showSnackBar(error.error);
         },
       });
     }

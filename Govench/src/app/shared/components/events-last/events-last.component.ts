@@ -40,9 +40,7 @@ export class EventsLastComponent {
           const eventDate = new Date(event.date); // Convierte a objeto Date
           return eventDate < today; // Compara si la fecha es anterior a hoy
         });
-  
-        console.log(this.actualDate); // Fecha actual
-        console.log(this.filterevents); // Eventos filtrados
+
       },
       (error) => {
         console.error('Error al cargar los eventos:', error);

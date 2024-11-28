@@ -22,11 +22,6 @@ export class RegisterComponent {
   private snackbar = inject(MatSnackBar);
   private authService = inject(AuthServiceService);
 
-  ngOnInit()
-  {
-
-  }
-
   constructor() {
     this.registerForm = this.fb.group({
       name: [
@@ -39,7 +34,7 @@ export class RegisterComponent {
       ],
       birthday: [
         '', 
-        [Validators.required, this.validateBirthDate]
+        [Validators.required]
       ],
       gender: ['', Validators.required],
       profileDesc: ['', Validators.maxLength(250)],
@@ -62,16 +57,6 @@ export class RegisterComponent {
   }
 
 
-  validateBirthDate(control: any) {
-    const selectedDate = new Date(control.value);
-
-    const today = new Date();
-    const fourYearsAgo = new Date(today.getFullYear() - 4, today.getMonth(), today.getDate());
-  
-    this.maxDate = this.formatDate(fourYearsAgo);
-    this.minDate = '';
-
-  }
 
   // Formatear fechas a YYYY-MM-DD
   formatDate(date: Date): string {

@@ -37,4 +37,13 @@ export class EventUserService{
     inscribeInEvent(eventId:number):Observable<string>{
       return this.http.post<string>(`${this.baseURL}/${eventId}`,null, { responseType: 'text' as 'json' })
     }
+
+  //   getEventRatings(eventId: number): Observable<any> {
+  //     return this.http.get<any>(`/api/events/${eventId}/ratings`);
+  // }  
+
+  getEventRatings(eventId: number): Observable<any[]> {
+    return this.http.get<any[]>(`/api/events/${eventId}/ratings`);
+  }  
+  
 }

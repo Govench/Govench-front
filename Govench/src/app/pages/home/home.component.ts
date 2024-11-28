@@ -51,4 +51,5 @@ export class HomeComponent {
   navigateToEventDetail(eventId: number): void {
     this.router.navigate(['/eventos', eventId]);
   }
+
 }

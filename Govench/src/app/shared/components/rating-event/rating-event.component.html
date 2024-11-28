@@ -1,0 +1,27 @@
+<div class="back-button-container">
+    <button class="btn fs-3 hover" (click)="goBack()"> 
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </div>
+
+<h3>Calificaciones del Evento</h3>
+
+<div *ngIf="eventRatings.length > 0; else noRatings">
+  <ul>
+    <li *ngFor="let rating of eventRatings">
+      <strong>Puntuación:</strong> {{ rating.valorPuntuacion }} estrellas
+      <div class="rating-stars">
+        <!-- Aquí podrías agregar una representación visual de las estrellas -->
+        <span *ngFor="let star of [].constructor(rating.valorPuntuacion); let i = index">
+          ★
+        </span>
+      </div>
+      <p *ngIf="rating.comment"><strong>Comentario:</strong> {{ rating.comment }}</p>
+      <p *ngIf="rating.date"><strong>Fecha:</strong> {{ rating.date | date }}</p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noRatings>
+  <p class="noRatings-message">No hay calificaciones disponibles para este evento.</p>
+</ng-template>

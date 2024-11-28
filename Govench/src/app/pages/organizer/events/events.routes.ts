@@ -4,6 +4,7 @@ import { EventsLastComponent } from '../../../shared/components/events-last/even
 import { EventsCreateComponent } from '../../../shared/components/events-create/events-create.component';
 import { CrearEventoComponent } from '../crear-evento/crear-evento.component';
 import { EditarEventoComponent } from '../editar-evento/editar-evento.component';
+import { RatingEventComponent } from '../../../shared/components/rating-event/rating-event.component';
 
 export const eventosRoutes: Routes = [
 
@@ -12,6 +13,6 @@ export const eventosRoutes: Routes = [
           { path: 'pasados', component: EventsLastComponent },
           { path: 'creados/crear', component: CrearEventoComponent},
           { path: 'creados/editar/:id', component: EditarEventoComponent},
-          { path: '', redirectTo: 'registrados', pathMatch: 'full' }
-          
+          { path: '', redirectTo: 'registrados', pathMatch: 'full' },
+          { path: 'creados/rating-event/:eventId', component: RatingEventComponent}
 ];

@@ -21,6 +21,14 @@
                 </td>
 
                 <td>
+                   
+                    <button class="btn btn-primary btn-sm" (click)="navigateToRatings(eventsIn.id)">
+                        Calificaciones <i class="fa-solid fa-star"></i>
+                      </button>
+                      
+                </td>
+
+                <td>
                     
                     <button class="btn btn-danger btn-sm" (click)="openDeleteModal(eventsIn)"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
@@ -52,4 +60,4 @@
     <p>¿Seguro que deseas eliminar el evento?</p>
     <button (click)="closeModal()">Cancelar</button>
     <button (click)="confirmDeleteEvent()">Eliminar</button>
-</div>
+</div>  

@@ -38,6 +38,7 @@ export const routes: Routes = [
     {path:'pago/cancelado',component:PayCancelledComponent,canActivate:[authGuard]},
     {path:'pago/confirmado',component:PayConfirmationComponent,canActivate:[authGuard]},
     {path:'eventos/:id', component:DetailsEventComponent},
+    
     { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
-    { path: '**', redirectTo: '/inicio' } // Redirige cualquier ruta no encontrada a 'inicio'
+    { path: '**', redirectTo: '/inicio' }, // Redirige cualquier ruta no encontrada a 'inicio'
 ];

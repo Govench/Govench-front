@@ -8,12 +8,14 @@ import { AuthResponse } from '../../../shared/models/auth/auth-response-model';
 import { RegisterRequest } from '../../../shared/models/register/register-request-model'; 
 import { UserProfile } from '../../../shared/models/user/user-profile-model';
 import { CommunityStateService } from '../comunity/comunity-state.service';
+import { UpdatePassword } from '../../../shared/models/auth/updatePassword-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
   private baseURL = `${environment.baseURL}/auth`;
+  private baseURL2 = `${environment.baseURL}/user`;
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
 
@@ -34,6 +36,10 @@ export class AuthServiceService {
   register(registerRequest: RegisterRequest) : Observable<UserProfile>{
     return this.http.post<UserProfile>(`${this.baseURL}/register/participant`,
       registerRequest);
+  }
+
+  updatePassword(updatePassword: UpdatePassword) : Observable<String>{
+    return this.http.put(`${this.baseURL2}/edit-password`, updatePassword, { responseType: 'text' });
   }
 
   logout()

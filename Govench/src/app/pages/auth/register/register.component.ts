@@ -47,7 +47,7 @@ export class RegisterComponent {
         [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
-        ''
+        '' ,[Validators.required, Validators.minLength(8)]
       ],
       termsAccepted: [false, Validators.requiredTrue]
     }, { 
@@ -64,20 +64,7 @@ export class RegisterComponent {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  logFormState() {
-    console.log('Estado del formulario:', this.registerForm.status); // 'VALID' o 'INVALID'
-    console.log('Errores en el formulario:', this.registerForm.errors); // Muestra errores globales
-    console.log('Valores del formulario:', this.registerForm.value); // Muestra los valores introducidos
-  
-    Object.keys(this.registerForm.controls).forEach(controlName => {
-      const control = this.registerForm.get(controlName);
-      console.log(`Campo ${controlName}:`, {
-        valor: control?.value,
-        válido: control?.valid,
-        errores: control?.errors
-      });
-    });
-  }
+
  
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -91,7 +78,6 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
       const userData: RegisterRequest = {
         name: this.registerForm.value.name,
         lastname: this.registerForm.value.lastname,

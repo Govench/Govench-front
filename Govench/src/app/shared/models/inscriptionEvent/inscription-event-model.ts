@@ -10,4 +10,5 @@ export interface Inscription {
     link:string
     deleted:boolean
     eventId:number
+    status: number;
 }

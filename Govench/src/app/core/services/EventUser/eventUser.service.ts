@@ -47,5 +47,9 @@ export class EventUserService{
   getEventRatings(eventId: number): Observable<any[]> {
     return this.http.get<any[]>(`/api/events/${eventId}/ratings`);
   }  
+
+  deleteUserEvent(idevent: number): Observable<string> {
+    return this.http.delete<string>(`${this.baseURL}/${idevent}`, { responseType: 'text' as 'json' });
+  }
   
 }

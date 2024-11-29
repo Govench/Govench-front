@@ -1,4 +1,10 @@
-<div class="container-fluid row">
+<div *ngIf="isLoading; else Loaded" class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+    </div>
+  </div>
+
+<ng-template #Loaded>
+<div class="container-fluid row" *ngIf="comunitiesByUser.length !== 0; else noCommunities">
     <h3>Comunidades a las que Perteneces</h3>
     <div class="col-md-4 card-comu" *ngFor="let comunity of comunitiesByUser">
         <div class="row">
@@ -16,3 +22,15 @@
 
     </div>
 </div>
+<ng-template #noCommunities>
+<div class="container-fluid row">
+    <div class="no-comu">
+        <h3>Aun no formas parte de ninguna comunidad</h3>
+        <i class="fa-solid fa-users-slash"></i>
+    </div>
+    <div class="col offset-9">
+        <button class="btn ins" (click)="navigateComunties()" ><i class="fa-solid fa-plus"></i> Unirse a una comunidad</button>
+    </div>
+</div>
+</ng-template>
+</ng-template>

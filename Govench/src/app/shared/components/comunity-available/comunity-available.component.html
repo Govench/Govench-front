@@ -1,21 +1,29 @@
 <div class="container-fluid row">
     <h3>Comunidades Disponibles</h3>
-    <div class="col-md-4 card-comu" *ngFor="let comunity of comunitiesAvailable">
-        <div class="row">
-            <div class="col-md-8">
 
-                <strong>{{ comunity.name }}</strong>
-                <p>{{ comunity.descripcion }}</p>
-                <p> Comunidad de {{comunity.owner.name}}</p>
-                
-            </div>
-            <div class="col-md-4">
-                {{comunity.id}}
-                <button class="btn btn-uni" *ngIf="!isJoined(comunity.id)" (click)="joinCommunity(comunity.id)">Unirse</button>
-                <button class="btn btn-uni" *ngIf="isJoined(comunity.id)" (click)="leaveCommunity(comunity.id)">Salir</button>
-                <button class="btn btn-com" (click)="navigateToDetail(comunity.id)"> ver</button>
-            </div>
+    <div *ngIf="isloading" class="d-flex justify-content-center align-items-center vh-100">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
         </div>
-
     </div>
+    
+    <div *ngIf="isloading !==true" class="container-fluid row">
+        <div class="col-md-4 card-comu" *ngFor="let comunity of comunitiesAvailable">
+            <div class="row">
+                <div class="col-md-8">
+    
+                    <strong>{{ comunity.name }}</strong>
+                    <p>{{ comunity.descripcion }}</p>
+                    <p> Comunidad de {{comunity.owner.name}}</p>
+                    
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-uni" *ngIf="!isJoined(comunity.id)" (click)="joinCommunity(comunity.id)">Unirse</button>
+                    <button class="btn btn-uni" *ngIf="isJoined(comunity.id)" (click)="leaveCommunity(comunity.id)">Salir</button>
+                    <button class="btn btn-com" (click)="navigateToDetail(comunity.id)"> ver</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    
 </div>

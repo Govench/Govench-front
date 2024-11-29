@@ -38,13 +38,27 @@ export class SearchUsersComponent implements OnInit {
         this.userAvailable = user;
         this.filterUsers = user;
         this.loadingService.setLoading(false);
+        this.userAvailable.forEach(user => {
+          this.getUserPhoto(user.id,user);
+        });
       }
       // Cargar los usuarios cuando el componente se inicialice
-  })}
+  })
+}
 
-
-
-  // Método para filtrar usuarios por nombre (y otros criterios si los añades)
+getUserPhoto(userId: number, user: UserProfile): void {
+  this.userProfileService.getProfileImage(userId).subscribe({
+    next: (blob: Blob) => {
+      const objectURL = URL.createObjectURL(blob);
+      user.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL) as string;
+    },
+    error: (error) => {
+      console.error(`Error al cargar la imagen de perfil del usuario con ID ${userId}:`, error);
+      user.profileImageUrl = 'https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png'; // Imagen por defecto
+    }
+  });
+}
+   // Método para filtrar usuarios por nombre (y otros criterios si los añades)
   onSearch() {
     const query = this.searchQuery.toLocaleLowerCase();
     this.filterUsers = this.userAvailable.filter(user => {

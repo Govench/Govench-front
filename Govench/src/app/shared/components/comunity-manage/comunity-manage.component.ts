@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ComunityService } from '../../../core/services/comunity/comunity.service';
@@ -6,6 +6,7 @@ import { ComunityResponse } from '../../../shared/models/comunity/comunity-respo
 import { ComunityResquest } from '../../../shared/models/comunity/comunity-request.model';
 import { FormsModule } from '@angular/forms';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comunity-manage',
@@ -16,10 +17,10 @@ import { AuthServiceService } from '../../../core/services/auth/auth.service';
 })
 export class ComunityManageComponent implements OnInit {
   communityId: number;
-  community: ComunityResponse = { id: 0, name: '', descripcion: '', owner: { id: 0, name: '', email: '', profileDesc: '' }, tags: [], post: [] }; // Inicializa con valores por defecto
+  community!: ComunityResponse  // Inicializa con valores por defecto
   communityRequest: ComunityResquest = { name: '', descripcion: '' }; // Inicializa con valores por defecto
   baseRoute: string;
-
+  private snackbar = inject(MatSnackBar);
   constructor(
     private route: ActivatedRoute,
     public router: Router,
@@ -68,22 +69,23 @@ export class ComunityManageComponent implements OnInit {
 
     this.comunityService.updateCommunity(this.communityId, this.communityRequest).subscribe(
       (data: ComunityResponse) => {
-
+        this.showSnackbar("Comunidad editada con exito");
         this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
       },
       (error) => {
-        console.error('Error updating community', error);
+        this.showSnackbar(error.error);
       }
     );
   }
 
   deleteCommunity() {
     this.comunityService.deleteCommunity(this.communityId).subscribe(
-      (response) => {
-       
+      () => {
+        this.showSnackbar("Comunidad eliminada con exito");
         this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
       },
       (error) => {
+        this.showSnackbar(error.error);
         console.error('Error deleting community', error);
       }
     );
@@ -91,5 +93,11 @@ export class ComunityManageComponent implements OnInit {
 
   cancel() {
     this.router.navigate([`${this.baseRoute}/comunidades/creados`]);
+  }
+
+  showSnackbar(message: string) {
+    this.snackbar.open(message, 'Cerrar', {
+      duration: 2000, verticalPosition: 'top'
+    });
   }
 }

@@ -32,8 +32,9 @@ export class ComunityService {
     return this.http.put<ComunityResponse>(`${this.baseURL}/update/${id}`, community);
   }
 
-  deleteCommunity(id: number): Observable<any> {
-    return this.http.delete(`${this.baseURL}/delete/${id}`);
+
+  deleteCommunity(communityId: number): Observable<string> {
+    return this.http.delete<string>(`${this.baseURL}/delete/${communityId}`, { responseType: 'text' as 'json' });
   }
 
   getComunitiesPertainByUser(): Observable<UserComunity[]> {
@@ -51,7 +52,7 @@ export class ComunityService {
     });
   }
 
-  createCommunity(community: { name: string, descripcion: string, tags: string[] }): Observable<any> { 
+  createCommunity(community: { name: string, descripcion: string, tags: string[] }): Observable<any> {
     return this.http.post(`${this.baseURL}/create`, {
       name: community.name,
       descripcion: community.descripcion,

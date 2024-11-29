@@ -13,6 +13,7 @@ export interface UserProfile{
     skills:string[];
     socialLinks:string[];
     eventosCreados?:number;
+    profileImageUrl?: string;
     tipoUsuario:string;
 
 }

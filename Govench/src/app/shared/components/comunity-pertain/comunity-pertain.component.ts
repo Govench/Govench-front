@@ -17,17 +17,21 @@ export class ComunityPertainComponent {
 
   private communityService = inject(ComunityService)
   private router = inject(Router);
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.getCommunitiesPertainByUser();
   }
 
   getCommunitiesPertainByUser() {
+    this.isLoading=true;
     this.communityService.getComunitiesPertainByUser().subscribe({
       next: (communitiesByUser) => {
+        this.isLoading=false;
         this.comunitiesByUser = communitiesByUser;
       },
       error: (error) => {
+        this.isLoading=false;
         console.error('Error fetching communities by user:', error);
       }
     });
@@ -38,5 +42,10 @@ export class ComunityPertainComponent {
     const baseUrl = isOrganizer ? '/organizer/comunidades' : '/participant/comunidades';
     
     this.router.navigate([`${baseUrl}/perteneces/comunidad`, communityId]);
+  }
+
+  navigateComunties()
+  {
+    this.router.navigate(["/organizer/comunidades/disponibles"])
   }
 }

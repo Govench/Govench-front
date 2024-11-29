@@ -7,5 +7,6 @@ export interface ComunityResponse{
     descripcion: string;
     owner: OwnerResponse;
     tags: string[];
+    joined:boolean;
     post: PostResponse[];
 }

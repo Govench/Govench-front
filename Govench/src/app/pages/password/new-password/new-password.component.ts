@@ -74,8 +74,5 @@ export class NewPasswordComponent {
       panelClass: type,  // Clase de estilo según el tipo (success, error, warning)
     });
   }
-
-  goBack() {
-    this.router.navigate(['/auth/forgot-password']);
-  }
+ 
 }

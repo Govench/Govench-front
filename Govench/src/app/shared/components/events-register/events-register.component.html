@@ -1,75 +1,103 @@
 <h5>Registrados</h5>
-        <div class="table-responsive" *ngIf="eventsIncriptions.length > 0; else noEvents">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th class="text-center">Ubicacion</th>
-                        <th>Tipo</th>
-                        <th class="text-center">Fecha</th>
-                        <th>Inicio</th>
-                        <th>Fecha Inscripcion</th>
+<div class="table-responsive" *ngIf="eventsIncriptions.length > 0; else noEvents">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th class="text-center">Ubicacion</th>
+        <th>Tipo</th>
+        <th class="text-center">Fecha</th>
+        <th>Inicio</th>
+        <th>Fecha Inscripcion</th>
+        <th>Link</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="event-row" *ngFor="let eventsIn of eventsIncriptions, let i = index">
+        <td>{{eventsIn.tittle}}</td>
+        <td *ngIf="eventsIn.location.address === 'Virtual'">{{eventsIn.location.address}}</td>
+        <td *ngIf="eventsIn.location.address !== 'Virtual'">
+          {{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}
+        </td>
+        <td>{{eventsIn.type}}</td>
+        <td class="long-column text-center">{{eventsIn.date}}</td>
+        <td>{{eventsIn.startTime}}</td>
+        <td>{{eventsIn.registrationDate}}</td>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="event-row" *ngFor="let eventsIn of eventsIncriptions, let i = index">
-                        
-                        <td>{{eventsIn.tittle}}</td>
-                        <td *ngIf="eventsIn.location.address==='Virtual'">
-                            {{eventsIn.location.address}}
-                        </td>
-                        <td *ngIf="eventsIn.location.address!=='Virtual'"
-                        >{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}</td>
-                        <td>{{eventsIn.type}}</td>
-                        <td class="long-column text-center" >{{eventsIn.date}}</td>
-                        <td>{{eventsIn.startTime}}</td>
-                        <td>{{eventsIn.registrationDate}}</td>
+        <!-- Enlace Evento -->
+        <td class="p-0 m-auto">
+          <button 
+            class="btn btn-warning btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#exampleModal"
+            [disabled]="eventsIn.location.address !== 'Virtual'"
+            (click)="setEventLink(eventsIn.link)">
+            <i class="fa-solid fa-link"></i>
+          </button>
 
-                        <td *ngIf="eventsIn.location.address==='Virtual'">
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-link"></i></button>
-                        </td>
-                        <td *ngIf="eventsIn.location.address!=='Virtual'">
-                            <button class="btn"></button>
-                        </td>
-                               <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Enlace del evento</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                                <p>Link :{{eventsIn.link}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="8">
-                            <button class="btn ins" (click)="navigateMoreEvents()" ><i class="fa-solid fa-plus"></i> Inscribite en más</button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+        <!-- Eliminar Evento -->
+        <td class=" p-0 m-auto">
+          <button 
+            class="btn btn-danger btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#deleteConfirmationModal"
+            (click)="setEventIdToDelete(eventsIn.eventId)"
+            [disabled]="eventsIn.status === 0">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="8">
+          <button class="btn ins" (click)="navigateMoreEvents()">
+            <i class="fa-solid fa-plus"></i> Inscribete en más
+          </button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<ng-template #noEvents>
+  <strong>No estás inscrito a ningún evento en este momento.</strong>
+</ng-template>
+
+<!-- Modal de Enlace del Evento -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enlace del evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Link: {{eventLink}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <ng-template #noEvents>
-            <strong>No estás inscrito a ningún evento en este momento.</strong>
-        </ng-template>
-
-        <div *ngIf="modal" class="modal">   
-            <p>¿Seguro que deseas eliminar la inscripcion a este evento?</p>
-            
-            <button (click)="closeModal()">  Cancelar  </button>
-            <button>  Eliminar  </button>
-            
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar esta inscripción?
         </div>
-
- 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="deleteInscription()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>

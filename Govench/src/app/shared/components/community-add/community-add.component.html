@@ -44,22 +44,25 @@
         <div class="col">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="communityTerms" formControlName="terms">
-                <label class="form-check-label" for="communityTerms"  (click)="$event.stopPropagation()">
-                    Acepto los <a routerLink="/inicio/terminos-condiciones" class="foot-link" style="pointer-events: none;">términos y condiciones</a> y las 
-                    <a routerLink="/inicio/politicas-privacidad" class="foot-link" style="pointer-events: none;">políticas de privacidad</a>
+                <label class="form-check-label" for="communityTerms">
+                    Acepto los
+                    <a href="/inicio/terminos-condiciones" target="_blank" rel="noopener noreferrer" class="foot-link">
+                        términos y condiciones
+                    </a> y las
+                    <a href="/inicio/politicas-privacidad" target="_blank" rel="noopener noreferrer" class="foot-link">
+                        políticas de privacidad
+                    </a>
                 </label>
             </div>
             <div *ngIf="controlHasError('terms', 'requiredTrue')" class="text-danger">
-                Debes aceptar los términos y
-                    condiciones y laspolíticas de
-                    privacidad para crear la comunidad.
+                Debes aceptar los términos y condiciones y las políticas de privacidad para continuar.
             </div>
         </div>
     </div>
 
-    <div class="row mt-3 d-flex justify-content-center"> 
+    <div class="row mt-3 d-flex justify-content-center">
         <div class="col-auto">
-            <button class="btn btn-primary" type="submit">Crear Comunidad</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!createCommunityForm.valid">Crear Comunidad</button>
         </div>
     </div>
 </form>

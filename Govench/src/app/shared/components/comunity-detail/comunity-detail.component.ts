@@ -24,6 +24,8 @@ export class ComunityDetailComponent {
   comunitieDetail: ComunityResponse;
   isJoined: boolean = false;
   MyId:number;
+  postBody: string = '';
+  postIdToEdit:number;
   MyuserProfile:UserProfile;
   private communityService = inject(ComunityService)
   private router = inject(Router);
@@ -38,7 +40,7 @@ export class ComunityDetailComponent {
   ngOnInit(): void {
     this.existRating=false;
     this.detailEvent();
-    this.loadMyProfile()
+    this.loadMyProfile();
   }
 
   detailEvent(){
@@ -85,6 +87,7 @@ loadMyProfile() {
   if (userId !== null) {
     this.userProfileService.getUserProfile(userId).subscribe({
       next: (profile) => {
+        this.MyId=userId;
         this.MyuserProfile = profile;
         this.loadMyPhoto(this.MyuserProfile.id)
       },
@@ -199,6 +202,44 @@ loadMyPhoto(myId :number)
       }
     });
   
+
     console.log('Comentario enviado:', form.value.comment);
+  }
+
+  deletePostFromCommunity(communityId: number, postId: number) {
+    this.communityService.deletePost(communityId, postId).subscribe({
+      next: (response) => {
+        console.log('Post eliminado:', response);
+        this.showSnackBar('Post eliminado exitosamente');
+        this.detailEvent(); // Cargar nuevamente los posts
+      },
+      error: (err) => {
+        console.error('Error eliminando el post:', err);
+        this.showSnackBar('No se pudo eliminar el post');
+      },
+    });
+  }
+  guardarIdPost(id: number | undefined): void {
+    if (id !== undefined) {
+      this.postIdToEdit = id;
+    } else {
+      console.error('El ID del post es undefined.');
+      this.showSnackBar('Error al seleccionar el post para editar.');
+    }
+  }
+  savePostChanges(): void {
+    if (this.postIdToEdit !== null) {
+      const updatedPost = { body: this.postBody };
+      this.communityService.updatePost(this.comunitieDetail.id, this.postIdToEdit, updatedPost).subscribe({
+        next: (res) => {
+          this.showSnackBar("Post actualizado con exito");
+          this.detailEvent();
+          this.loadMyProfile();
+        },
+        error: (err) => {
+          this.showSnackBar(err.error);
+        }
+      });
+    }
   }
 }

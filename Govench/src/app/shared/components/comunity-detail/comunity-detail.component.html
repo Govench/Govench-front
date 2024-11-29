@@ -4,41 +4,77 @@
       <button class="btn" (click)="volverComunidades()"><i class="fa-solid fa-chevron-left fa-2xl"
           style="color: #ffffff;"></i> Atrás</button>
     </div>
-    <div class="col-md-6 titulo">
-      <div class="col-md-10">
-        <strong>{{comunitieDetail.name}}</strong>
-        <p>Descripción: {{comunitieDetail.descripcion}}</p>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-uni" *ngIf="!isJoined" (click)="joinCommunity()">Unirse</button>
-        <button class="btn btn-uni" *ngIf="isJoined" (click)="leaveCommunity()">Salir</button>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <p>Propietario: {{comunitieDetail.owner.name}}</p>
-      <p>Email: {{comunitieDetail.owner.email}}</p>
-    </div>
-  </div>
-  <div class="row comentarios">
-    <strong>Comentarios: </strong>
-    <div *ngIf="comunitieDetail.post.length!==0 ; else noComent">
-      <div class="comentario" *ngFor="let post of comunitieDetail.post">
-        <img *ngIf="post.user?.profileImageUrl; else defaultImage" [src]="post.user?.profileImageUrl"
-          alt="Profile Image" class="avatar" />
-        <ng-template #defaultImage>
-          <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image"
-            class="avatar" />
-        </ng-template>
-        <div class="comentario-contenido">
-          <p class="autor">{{post.autor.name}}</p>
-          <p class="email">{{post.autor.email}}</p>
-          <p class="body">{{post.body}}</p>
-          <p class="fecha">Fecha: {{post.created}}</p>
+    <div class="row comentarios">
+        <strong>Comentarios: </strong>
+        <div *ngIf="comunitieDetail.post.length!==0 ; else noComent">
+            <div class="comentario" *ngFor="let post of comunitieDetail.post">
+                      <img
+                        *ngIf="post.user?.profileImageUrl; else defaultImage"
+                        [src]="post.user?.profileImageUrl"
+                        alt="Profile Image"
+                        class="avatar"
+                      />
+                      <ng-template #defaultImage>
+                        <img
+                          src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png"
+                          alt="Profile Image"
+                          class="avatar"
+                        />
+                      </ng-template>
+                <div class="comentario-contenido">
+                    <p class="autor">{{post.autor.name}}</p>
+                    <p class="email">{{post.autor.email}}</p>
+                    <p class="body text-dark">{{post.body}}</p>
+                    <p class="fecha">Fecha: {{post.created}}</p>
+                </div>
+                <div class="col">
+                    <p class="fecha">Actualizado: {{post.updated}}</p>
+                </div>
+                <div *ngIf="post.autor.id===MyId" class="col">
+                  <button class="btn btn-outline-danger m-1" (click)="deletePostFromCommunity(post.comunidadId,post.id)">Eliminar</button>
+                  <button class="btn btn-outline-secondary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="guardarIdPost(post.id)">Editar</button>
+              </div>
+
+              <div class="modal fade" id="exampleModal"  tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5 text-dark " id="editPostModalLabel">Editar Post</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form #editForm="ngForm">
+                        <div class="mb-3">
+                          <label for="postBody" class="form-label">Nuevo cuerpo del post</label>
+                          <textarea
+                            id="postBody"
+                            name="postBody"
+                            [(ngModel)]="postBody"
+                            class="form-control"
+                            rows="3"
+                            required
+                            placeholder="Escribe el nuevo contenido aquí"
+                          ></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        [disabled]="!editForm.valid"
+                        (click)="savePostChanges()"
+                        data-bs-dismiss="modal"
+                      >
+                        Guardar Cambios
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
-        <div class="col">
-          <p class="fecha">Actualizado: {{post.updated}}</p>
-        </div>
-      </div>
     </div>
     <ng-template #noComent>
       <div>

@@ -85,3 +85,23 @@
     }
   }
 }
+
+.btn {
+  margin-bottom: 10px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+  &.btn-uni {
+    background: white;
+    color: #0a125c;
+    border: 2px solid #0a125c;
+
+    &:hover {
+      color: #ffffff;
+      background: #283180;
+      border: 2px solid #ffffff;
+    }
+  }
+}

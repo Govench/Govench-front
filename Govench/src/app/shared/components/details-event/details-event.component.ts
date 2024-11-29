@@ -8,16 +8,20 @@ import { FooterComponent } from "../footer/footer.component";
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthServiceService } from '../../../core/services/auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-details-event',
   standalone: true,
   templateUrl: './details-event.component.html',
   styleUrls: ['./details-event.component.scss'],
-  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink]
+
+  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink,CommonModule]
 })
+
 export class DetailsEventComponent {
   event: EventsDetails;
+  eventRatings: any[] = []; //nuevo ga
   authService = inject(AuthServiceService);
   router = inject(Router);
   eventService= inject(EventService);
@@ -48,16 +52,14 @@ export class DetailsEventComponent {
     });
   }
 
+
+
   public Inscribe() { 
-    console.log(this.event);
-    console.log(this.authService.getUser()?.role);
-    console.log(this.event.cost);
 
     this.userEventService.inscribeInEvent(this.event.id).subscribe(
       (response) => {
         if (typeof response === 'string' && response.startsWith('https://')) {
           this.ruta = response;
-          console.log("URL asignada a this.ruta:", this.ruta);
           window.location.href = response;
         } else {
           if(this.event.cost<=0)
@@ -65,13 +67,10 @@ export class DetailsEventComponent {
             this.showSnackBar("Registro exitoso");
             this.router.navigate(['/eventos']);
           }
-          console.error("Error: URL de pago no válida.");
-          this.showSnackBar("No se pudo generar el enlace de pago.");
         }
       },
       (error) => {
         if (error.status === 409) { // Verifica el código de estado HTTP
-          console.log("Mensaje de error:", error.error); // Imprime el mensaje de error
           this.showSnackBar(error.error); // Muestra el mensaje en un snackbar o similar
         } else {
           console.error("Error inesperado:", error);
@@ -87,4 +86,12 @@ export class DetailsEventComponent {
       verticalPosition : 'top'
     });
   }
+
+  calculateAverageRating(): number {
+    if (this.eventRatings.length === 0) {
+      return 0; // No hay calificaciones
+    }
+    const totalRating = this.eventRatings.reduce((sum, rating) => sum + rating.value, 0);
+    return totalRating / this.eventRatings.length;
+  }  
 }

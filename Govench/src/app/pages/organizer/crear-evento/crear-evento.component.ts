@@ -17,7 +17,8 @@ export class CrearEventoComponent {
   
   createEventForm: FormGroup;
   isCostoVisible: boolean = false;
-  isVirtualMode: boolean = false; // Indica si el evento es virtual
+  isVirtualMode: boolean = false;
+
 
   minDate: string="";
   minTime!: string;
@@ -32,17 +33,15 @@ export class CrearEventoComponent {
   
 ngOnInit(): void {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Asegura que esté en el inicio del día.
+  today.setHours(0, 0, 0, 0);
   this.minDate = today.toISOString().split('T')[0];
 
   const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0'); // Formato HH
-  const minutes = now.getMinutes().toString().padStart(2, '0'); // Formato MM
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
   this.minTime = `${hours}:${minutes}`;
   
-  console.log(this.minTime);
   router : inject(Router);
-
 
 }
   constructor() {
@@ -60,10 +59,11 @@ ngOnInit(): void {
       province: ['', [Validators.required]],
       district: ['', [Validators.required]],
       mode: ['', [Validators.required]],
+      link:['', [Validators.required]],
       exp: ['', [Validators.required]],
       maxCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]]
     });
-  }
+  } 
   checkStartTime(): void {
     const selectedTime = this.createEventForm.get('startTime')?.value;
     const currentTime = new Date();
@@ -109,23 +109,26 @@ ngOnInit(): void {
       this.createEventForm.get('department')?.disable();
       this.createEventForm.get('province')?.disable();
       this.createEventForm.get('district')?.disable();
+      this.createEventForm.get('link')?.enable();
     } else {
       this.createEventForm.get('address')?.enable();
       this.createEventForm.get('department')?.enable();
       this.createEventForm.get('province')?.enable();
       this.createEventForm.get('district')?.enable();
+      this.createEventForm.get('link')?.disable();
       this.createEventForm.patchValue({
         address: '',
         department: '',
         province: '',
-        district: ''
+        district: '',
+        link:''
       });
     }
   }
 
   onSubmit() {
     if (this.createEventForm.valid) {
-      //console.log("Formulario completo. Datos a enviar:", this.createEventForm.getRawValue());
+
       // Configura el costo a 0 si el tipo es "Gratis"
       if (this.createEventForm.get('type')?.value === 'Gratis') {
         this.createEventForm.get('cost')?.setValue('0', { emitEvent: false });
@@ -135,27 +138,22 @@ ngOnInit(): void {
       const eventData = { ...this.createEventForm.getRawValue() };
       delete eventData['mode'];  // Remueve el campo innecesario para el envío
   
-      //console.log("Datos del formulario (sin coverPath):", eventData);
   
       // Verifica si hay un archivo seleccionado
       if (this.selectedFile) {
         this.eventService.uploadCover(this.selectedFile).subscribe({
           next: (response) => {
-            console.log("Respuesta de la subida de imagen:", response);
             const coverPath = response.path;
   
             eventData.coverPath = coverPath;
-  
-            console.log("Datos del formulario (con coverPath):", eventData);
-  
+
             this.eventService.crearEvento(eventData).subscribe({
               next: () => {
                 this.showSnackbar('Evento creado con éxito');
                 this.router.navigateByUrl('/organizer/eventos/creados');
               },
               error: (error) => {
-                const errorMessage = error.error?.message || error.error?.error || 'Ocurrió un error al crear el evento';
-                console.log('Error del servidor:', errorMessage);
+                const errorMessage = error.error  || 'Ocurrió un error al crear el evento';
                 this.showSnackbar(errorMessage);
                 console.error("Error del servidor:", error.error?.value); // Imprime el error del servidor en consola
                 
@@ -168,7 +166,7 @@ ngOnInit(): void {
           }
         });
       } else {
-        //console.log("Datos del formulario (sin imagen):", eventData);
+
       }
     } else {
       this.showSnackbar('Por favor, complete todos los campos obligatorios');

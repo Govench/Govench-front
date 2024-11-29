@@ -6,18 +6,31 @@
                 <th>Titulo</th>
                 <th>Ubicacion</th>
                 <th>Tipo</th>
-                <th>Hora de Inicio</th>
-                <th colspan="2">Acciones</th>
+                <th class="text-center">Fecha</th>
+                <th>Inicio</th>
+                <th colspan="1">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr class="event-row" *ngFor="let eventsIn of eventsuser; let i = index">
                 <td>{{eventsIn.tittle}}</td>
-                <td>{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}-{{eventsIn.location.district}}</td>
+                <td *ngIf="eventsIn.location.address==='Virtual'">
+                    {{eventsIn.location.address}}
+                </td>
+                <td *ngIf="eventsIn.location.address!=='Virtual'">{{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}</td>
                 <td>{{eventsIn.type}}</td>
+                <td class="long-column text-center" >{{eventsIn.date}}</td>
                 <td>{{eventsIn.startTime}}</td>
                 <td>
                     <button class="btn btn-success btn-sm" (click)="navigateToEditEvents(eventsIn.id)">Editar <i class="fa-solid fa-pen-to-square"></i></button>
+                </td>
+
+                <td>
+                   
+                    <button class="btn btn-primary btn-sm" (click)="navigateToRatings(eventsIn.id)">
+                        Calificaciones <i class="fa-solid fa-star"></i>
+                      </button>
+                      
                 </td>
 
                 <td>
@@ -52,4 +65,4 @@
     <p>¿Seguro que deseas eliminar el evento?</p>
     <button (click)="closeModal()">Cancelar</button>
     <button (click)="confirmDeleteEvent()">Eliminar</button>
-</div>
+</div>  

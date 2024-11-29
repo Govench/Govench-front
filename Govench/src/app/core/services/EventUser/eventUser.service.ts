@@ -12,6 +12,8 @@ export class EventUserService{
 
     private baseURL = `${environment.baseURL}/inscription`;
     private baseURL2 = `${environment.baseURL}/events`;
+    private adminURL = `${environment.baseURL}/admin/events`;
+    
     
     private http = inject(HttpClient);
 
@@ -31,10 +33,19 @@ export class EventUserService{
     }
 
     deleteEvent(): Observable<EventUser[]>{
-      return this.http.delete<EventUser[]>(`${this.baseURL}/{idevent}`)
+      return this.http.delete<EventUser[]>(`${this.adminURL}/{idevent}`)
     }
     
     inscribeInEvent(eventId:number):Observable<string>{
       return this.http.post<string>(`${this.baseURL}/${eventId}`,null, { responseType: 'text' as 'json' })
     }
+
+  //   getEventRatings(eventId: number): Observable<any> {
+  //     return this.http.get<any>(`/api/events/${eventId}/ratings`);
+  // }  
+
+  getEventRatings(eventId: number): Observable<any[]> {
+    return this.http.get<any[]>(`/api/events/${eventId}/ratings`);
+  }  
+  
 }

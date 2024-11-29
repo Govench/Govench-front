@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { EmailPasswordService } from '../../../core/services/password-recovery/email-password.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ResetPasswordService } from '../../../core/services/password-recovery/email-password.service';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-password',
@@ -13,64 +14,65 @@ import { CommonModule } from '@angular/common';
 })
 export class NewPasswordComponent {
   passwordRecoveryForm: FormGroup;
-  isLoading: boolean = false;
-  errorMessage: string = '';
+  private resetPasswordService = inject(ResetPasswordService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar); 
+  token: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private emailPasswordService: EmailPasswordService
-  ) {
-    // Inicializar el formulario
-    this.passwordRecoveryForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]]
-    });
-  }
-
-  goBack() {
-    this.router.navigate(['/password/recovery']);
-  }
-
-  resetPassword() {
-    if (this.passwordRecoveryForm.invalid) {
-      return;
-    }
-
-    const newPassword = this.passwordRecoveryForm.get('newPassword')?.value;
-    const confirmPassword = this.passwordRecoveryForm.get('confirmPassword')?.value;
-
-    if (newPassword !== confirmPassword) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      return;
-    }
-
-    const token = localStorage.getItem('recoveryToken');
-    if (!token) {
-      this.errorMessage = 'No se encontró el token de recuperación. Intente nuevamente desde el proceso de recuperación.';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.emailPasswordService.resetPassword(token, newPassword).subscribe(
-      (response) => {
-        if (response.status === 200) {
-          this.router.navigate(['/password/confirmation']);
-        } else {
-          this.errorMessage = 'Hubo un problema al restablecer la contraseña. Intente nuevamente.';
-        }
-        this.isLoading = false;
+  constructor(private fb: FormBuilder) {
+    this.passwordRecoveryForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
       },
-      (error) => {
-        if (error.status === 409) {
-          this.errorMessage = 'La nueva contraseña no puede ser igual a la contraseña actual.';
-        } else {
-          this.errorMessage = 'Error en la solicitud. Verifique su conexión e intente nuevamente.';
-        }
-        this.isLoading = false;
-      }
+      { validators: this.passwordsMatch }
     );
   }
+
+  passwordsMatch(group: FormGroup) {
+    const password = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  ngOnInit(): void {
+    this.token = this.route.snapshot.paramMap.get('token');
+  }
+
+  onSubmit() {
+    if (this.passwordRecoveryForm.valid && this.token) {
+      const newPassword = this.passwordRecoveryForm.value.newPassword;
+
+      this.resetPasswordService.resetPassword(this.token, newPassword).subscribe({
+        next: (response: string) => {
+          this.showSnackBar(response, 'success');
+          this.router.navigate(['/password/confirmation']);
+        },
+        error: (err) => { 
+          if (err.status === 404) {
+            this.showSnackBar('El token no fue encontrado. Intente nuevamente.', 'error');
+          } else if (err.status === 410) {
+            this.showSnackBar('El token ha expirado. Por favor, solicite uno nuevo.', 'error');
+          } else if (err.status === 409) {
+            this.showSnackBar('La nueva contraseña no puede ser igual a la actual.', 'error');
+          } else {
+            this.showSnackBar('No se pudo restablecer la contraseña. Intente nuevamente.', 'error');
+          }
+        },
+      });
+    } else {
+      this.showSnackBar('Por favor, ingrese una contraseña válida.', 'warning');
+    }
+  }
+
+  private showSnackBar(message: string, type: 'success' | 'error' | 'warning') {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: type,  // Clase de estilo según el tipo (success, error, warning)
+    });
+  }
+ 
 }

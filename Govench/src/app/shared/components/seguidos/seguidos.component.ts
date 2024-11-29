@@ -24,13 +24,10 @@ export class SeguidosComponent {
     this.followService.getFollowingDetails().subscribe(
       (follow) => {
         this.Followings = follow;
-        console.log('Seguidos: ', this.Followings);
       });
   }
 
   navigateToDetailUser(userId: number) {
-    console.log('Navigating to user:', userId);
-  
     // Verifica si la ruta contiene '/organizer' o '/participant' para determinar a qué tipo de usuario pertenecemos
     const isOrganizer = this.router.url.includes('/organizer');
     const baseUrl = isOrganizer ? '/organizer/cuenta' : '/participant/cuenta';

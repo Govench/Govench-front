@@ -25,8 +25,7 @@ export class EventsRegisterComponent {
   myInscriptionssEvents() {
     this.eventService.getMyEventsInscriptions().subscribe(
       (inscription) => {
-        this.eventsIncriptions = inscription;
-        console.log('Eventos inscritos:', this.eventsIncriptions);
+        this.eventsIncriptions = inscription.filter(event => !event.deleted);;
       }
       );
   }

@@ -39,6 +39,17 @@ export class EventService {
         formData.append('file', file);
         return this.http.post<UploadMediaResponse>(`${this.fileUrl}/upload`, formData);
     }
+
+    getEventRatings(eventId: number): Observable<any> {
+        const url = `${environment.baseURL}/events/${eventId}/ratings`;
+        return this.http.get<any>(url);
+      }
+
+      rateEvent(eventId: number, ratingRequest: { valorPuntuacion: number }): Observable<string> {
+        const url = `${environment.baseURL}/user/ratingEvent/${eventId}`;
+        return this.http.post(url, ratingRequest, { responseType: 'text' });
+      }
+      
       
 }
   

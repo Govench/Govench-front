@@ -14,25 +14,27 @@ import { RegisterRequest } from '../../../shared/models/register/register-reques
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  maxDate: string;
+  minDate: string;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private snackbar = inject(MatSnackBar); 
-  private authService = inject(AuthServiceService)
+  private snackbar = inject(MatSnackBar);
+  private authService = inject(AuthServiceService);
 
   constructor() {
     this.registerForm = this.fb.group({
       name: [
         '', 
-        [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
+        [Validators.required, Validators.minLength(2), Validators.maxLength(100)]
       ],
       lastname: [
         '', 
-        [Validators.required, Validators.minLength(3)]
+        [Validators.required, Validators.minLength(2)]
       ],
       birthday: [
         '', 
-        [Validators.required, this.validateBirthDate]
+        [Validators.required]
       ],
       gender: ['', Validators.required],
       profileDesc: ['', Validators.maxLength(250)],
@@ -42,11 +44,10 @@ export class RegisterComponent {
       ],
       password: [
         '', 
-        [Validators.required, Validators.minLength(6)]
+        [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
-        '', 
-        [Validators.required]
+        '' ,[Validators.required, Validators.minLength(8)]
       ],
       termsAccepted: [false, Validators.requiredTrue]
     }, { 
@@ -54,60 +55,54 @@ export class RegisterComponent {
     }as AbstractControlOptions);
   }
 
-  validateBirthDate(control: any) {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-    const minDate = new Date(today.getFullYear() - 10, today.getMonth(), today.getDate());
-    
-    if (selectedDate > today) {
-      return { invalidDate: true }; // La fecha es en el futuro
-    }
-  
-    if (selectedDate > minDate) {
-      return { minDateError: true }; // La fecha no cumple con el mínimo de 10 años atrás
-    }
-  
-    return null;
+
+
+  // Formatear fechas a YYYY-MM-DD
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
+ 
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  controlHasError(control: string, error: string) {
-    return this.registerForm.controls[control].hasError(error);
+  controlHasError(control: string, error: string): boolean {
+    return this.registerForm.controls[control]?.hasError(error);
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const userData: RegisterRequest = { /* No usamos todos los datos del registerForm, por eso especificamos*/
+      const userData: RegisterRequest = {
         name: this.registerForm.value.name,
         lastname: this.registerForm.value.lastname,
         birthday: this.registerForm.value.birthday,
         gender: this.registerForm.value.gender,
         profileDesc: this.registerForm.value.profileDesc,
         email: this.registerForm.value.email,
-        password: this.registerForm.value.password
+        password: this.registerForm.value.password,
       };
-      console.log("Informacion del usuario: ", userData)
       this.authService.register(userData).subscribe({
         next: () => {
           this.showSnackBar('Usuario creado correctamente');
           this.router.navigate(['auth/login']);
         },
-        error: () => {
-          this.showSnackBar('Ocurrio un error registrando la cuenta'); 
-        }
+        error: (error) => {
+          this.showSnackBar(error.error);
+        },
       });
     }
   }
-  
+
   private showSnackBar(message: string): void {
     this.snackbar.open(message, 'Cerrar', {
       duration: 2000,
-      verticalPosition: 'top'
+      verticalPosition: 'top',
     });
   }
 }

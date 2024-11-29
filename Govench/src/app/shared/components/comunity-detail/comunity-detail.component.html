@@ -20,15 +20,93 @@
     </div>
     <div class="row comentarios">
         <strong>Comentarios: </strong>
-        <div class="comentario" *ngFor="let post of comunitieDetail.post">
-            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="User Avatar" class="avatar">
-            <div class="comentario-contenido">
-                <p class="autor">{{post.autor.name}}</p>
-                <p class="email">{{post.autor.email}}</p>
-                <p class="body">{{post.body}}</p>
-                <p class="fecha">Fecha: {{post.created}}</p>
+        <div *ngIf="comunitieDetail.post.length!==0 ; else noComent">
+            <div class="comentario" *ngFor="let post of comunitieDetail.post">
+                <img
+                        *ngIf="post.user?.profileImageUrl; else defaultImage"
+                        [src]="post.user?.profileImageUrl"
+                        alt="Profile Image"
+                        class="avatar"
+                      />
+                      <ng-template #defaultImage>
+                        <img
+                          src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png"
+                          alt="Profile Image"
+                          class="avatar"
+                        />
+                      </ng-template>
+                <div class="comentario-contenido">
+                    <p class="autor">{{post.autor.name}}</p>
+                    <p class="email">{{post.autor.email}}</p>
+                    <p class="body">{{post.body}}</p>
+                    <p class="fecha">Fecha: {{post.created}}</p>
+                </div>
+                <div class="col">
+                    <p class="fecha">Actualizado: {{post.updated}}</p>
+                </div>
             </div>
         </div>
+        <ng-template #noComent>
+            <div>
+                <h4 class="fw-bold">Vaya .... esta un poco vacio este lugar</h4>
+                <div class="imagecontainer">
+                    <img class="small-image text-center" src="https://i.imgur.com/dqC0xkL.png">
+                </div>
+                <p class="fw-bold text-primary">¿porque no animarlo un poco?</p>
+            </div>
+        </ng-template>
+        <form #ratingForm="ngForm" (ngSubmit)="submitRating(ratingForm)" *ngIf="existRating===false">
+            <div class="row d-flex justify-content-center p-5">
+              <div class="row">
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    <div>
+                      <img
+                        *ngIf="profileImageUrl; else defaultImage"
+                        [src]="profileImageUrl"
+                        alt="Profile Image"
+                        class="profile-image rounded-circle"
+                      />
+                      <ng-template #defaultImage>
+                        <img
+                          src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png"
+                          alt="Profile Image"
+                          class="profile-image rounded-circle"
+                        />
+                      </ng-template>
+                    </div>
+                  </div>
+                <div class="col-8">
+                    <div class="row">
+                        <p>{{MyuserProfile.name}} {{MyuserProfile.lastname}}</p>
+                    </div>
+                    <div class="row">
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          name="comment"
+                          [(ngModel)]="comment" 
+                          required
+                          placeholder="Escribe un comentario"
+                          maxlength="250"
+                        ></textarea>
+                        <small class="text-muted">
+                          <span>{{ 250 - (comment?.length || 0) }} caracteres restantes</span>
+                        </small>
+                      </div>
+                 
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <button
+                      class="btn btn-primary"
+                      type="submit"
+                      [disabled]="ratingForm.invalid"
+                    >
+                      Publicar
+                    </button>
+                  </div>
+              </div>
+            </div>
+        </form>
     </div>
 </div>
 

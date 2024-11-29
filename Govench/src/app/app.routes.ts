@@ -7,6 +7,7 @@ import { NewPasswordComponent } from './pages/password/new-password/new-password
 import { DetailsEventComponent } from './shared/components/details-event/details-event.component';
 import { PayCancelledComponent } from './shared/components/Payment-pages/pay-cancelled/pay-cancelled.component';
 import { PayConfirmationComponent } from './shared/components/Payment-pages/pay-confirmation/pay-confirmation.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routes: Routes = [
     { path: 'password', 
@@ -35,5 +36,6 @@ export const routes: Routes = [
     {path:'pago/confirmado',component:PayConfirmationComponent,canActivate:[authGuard]},
     {path:'eventos/:id', component:DetailsEventComponent},
     { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
-    { path: '**', redirectTo: '/inicio' } // Redirige cualquier ruta no encontrada a 'inicio'
+    { path: '404', component: NotFoundComponent},
+    { path: '**', redirectTo: '/404' } // Redirige cualquier ruta no encontrada a 'inicio'
 ];

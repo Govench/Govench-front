@@ -20,7 +20,6 @@ export class ContactanosComponent {
 
   onSubmit() {
     // Aquí puedes implementar la lógica para enviar el formulario
-    console.log('Formulario enviado', this.contactForm);
     // Reiniciar el formulario después de enviarlo
     this.contactForm = {
       name: '',

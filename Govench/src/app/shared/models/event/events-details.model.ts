@@ -14,4 +14,5 @@ export interface EventsDetails{
     maxCapacity:number;
     registeredCount:number;
     ownerId:number;
+    deleted:boolean;
 }

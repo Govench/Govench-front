@@ -73,6 +73,9 @@
                         placeholder="Ingrese su contraseña" />
                     <div *ngIf="controlHasError('password', 'required') && registerForm.controls['password'].touched"
                         class="alert alert-danger">La contraseña es obligatoria.</div>
+                    <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.controls['password'].touched"
+                        class="alert alert-danger">La contraseña no debe ser menor a 8 caracteres.
+                    </div>
                 </div>
 
                 <!-- Campo Confirmar Contraseña -->
@@ -82,33 +85,50 @@
                         type="password" placeholder="Ingrese nuevamente su contraseña" />
                     <div *ngIf="registerForm.errors?.['passwordMismatch']" class="alert alert-danger">Las contraseñas no
                         coinciden.</div>
+                        <div *ngIf="registerForm.get('confirmPassword')?.errors?.['minlength'] && registerForm.controls['confirmPassword'].touched"
+                        class="alert alert-danger">La contraseña no debe ser menor a 8 caracteres.
+                    </div>
                 </div>
             </div>
 
             <!-- Columna derecha -->
             <div class="col-md-6">
                 <!-- Campo Fecha de Nacimiento -->
-                <div class="mb-3">
+                <div class="row mb-3">
                     <label for="birthday">Fecha de nacimiento</label>
                     <input id="birthday" class="input-c p-2" formControlName="birthday" type="date" [min]="'1940-12-31'" [max]="'2014-12-31'"
                         placeholder="Selecciones su fecha de nacimiento">
                     <div *ngIf="controlHasError('birthday', 'required') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha de nacimiento es obligatoria.</div>
+                        class="alert alert-danger">La fecha de nacimiento es obligatoria.
+                    </div>
                     <div *ngIf="controlHasError('birthday', 'invalidDate') && registerForm.controls['birthday'].touched"
-                        class="alert alert-danger">La fecha no puede ser futura.</div>
+                        class="alert alert-danger">La fecha no puede ser futura.
+                    </div>
                     <div *ngIf="controlHasError('birthday', 'minDateError') && registerForm.controls['birthday'].touched"
                         class="alert alert-danger">
                         Debe ser al menos 10 años atrás.
                     </div>
                 </div>
 
+                <div class=" row mb-3">
+                    <label for="gender">Género</label>
+                    <select id="gender" class="input-c p-2" formControlName="gender">
+                        <option value="">Seleccione su género</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <div *ngIf="controlHasError('gender', 'required') && registerForm.controls['gender'].touched"
+                        class="alert alert-danger">El género es obligatorio.</div>
+                </div>
                 <!-- Descripción de Perfil -->
-                <div class="col-12 mb-3">
+                <div class="row mb-3">
                     <label for="profileDesc" class="form-label">Descripción de perfil</label>
                     <textarea id="profileDesc" class="input-c form-control" formControlName="profileDesc" rows="3"
                         maxlength="250" placeholder="Cuéntanos algo sobre ti"></textarea>
                     <p class="text-end">{{ registerForm.value.profileDesc?.length || 0 }}/250</p>
                 </div>
+                
             </div>
         </div>
 

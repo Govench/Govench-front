@@ -11,6 +11,7 @@ import { UserComunity } from '../../../shared/models/comunity/UserComunity-respo
 
 export class ComunityService{
 
+
     private baseURL = `${environment.baseURL}/community`;
     private baseURL2 = `${environment.baseURL}/admin/usercommunity`;
     private http = inject(HttpClient);
@@ -37,6 +38,17 @@ export class ComunityService{
 
   getComunitiesPertainByUser(): Observable<UserComunity[]> {
     return this.http.get<UserComunity[]>(`${this.baseURL2}/pertains`);
+  }
+
+  joinCommunity(idcommunity: number): Observable<string> {
+    return this.http.post(`${this.baseURL2}/${idcommunity}`, {}, {
+      responseType: 'text'
+    });
+  }
+  leaveCommunity(idUser: number, idCommunity: number): Observable<string> {
+    return this.http.delete(`${this.baseURL2}/${idUser}/${idCommunity}`, {
+      responseType: 'text'
+    });
   }
     
 }

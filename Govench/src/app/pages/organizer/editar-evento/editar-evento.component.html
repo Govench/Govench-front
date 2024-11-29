@@ -65,9 +65,9 @@
     <div class="form-row single-line-fields">
       <div class="form-group col-md-2">
         <label for="fecha">Fecha</label>
-        <input type="date" id="fecha" formControlName="date" class="form-control">
+        <input type="date" id="fecha" formControlName="date" class="form-control" [min]="minDate" [max]="'2027-12-31'">
         <div *ngIf="editEventForm.get('date')?.invalid && (editEventForm.get('date')?.dirty || editEventForm.get('date')?.touched)" class="alert alert-danger mt-2">
-          La fecha es requerida.
+          <span *ngIf="editEventForm.get('date')?.errors?.['required']">La fecha es obligatoria.</span>
         </div>
       </div>
 
@@ -130,7 +130,19 @@
           La dirección es requerida.
         </div>
       </div>
+      
+     
     </div>
+    <div class="form-row">
+       <div class="form-group col-md-1 mt-2" *ngIf="isVirtualMode">
+            <label for="link">Link</label>
+            <input type="text" id="link" formControlName="link" class="form-control" placeholder="www.">
+            <div *ngIf="editEventForm.get('link')?.invalid && (editEventForm.get('link')?.dirty || editEventForm.get('link')?.touched)" class="alert alert-danger mt-2">
+              <span *ngIf="editEventForm.get('link')?.errors?.['required']">El link es obligatorio.</span>
+            </div>
+      </div>
+    </div>
+   
 
     <div class="button-group">
       <button type="submit" class="create-button btn btn-primary" [disabled]="editEventForm.invalid">Actualizar Evento</button>

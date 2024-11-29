@@ -66,7 +66,7 @@ export class OtherUserProfileComponent implements OnInit {
         this.ratings = ratings;
       },
       error: (error) => {
-        console.log(error);
+        this.showSnackBar(error.error);
       }
     })
   }

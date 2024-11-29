@@ -22,11 +22,6 @@ export class RegisterComponent {
   private snackbar = inject(MatSnackBar);
   private authService = inject(AuthServiceService);
 
-  ngOnInit()
-  {
-
-  }
-
   constructor() {
     this.registerForm = this.fb.group({
       name: [
@@ -39,7 +34,7 @@ export class RegisterComponent {
       ],
       birthday: [
         '', 
-        [Validators.required, this.validateBirthDate]
+        [Validators.required]
       ],
       gender: ['', Validators.required],
       profileDesc: ['', Validators.maxLength(250)],
@@ -52,8 +47,7 @@ export class RegisterComponent {
         [Validators.required, Validators.minLength(8)]
       ],
       confirmPassword: [
-        '', 
-        [Validators.required]
+        '' ,[Validators.required, Validators.minLength(8)]
       ],
       termsAccepted: [false, Validators.requiredTrue]
     }, { 
@@ -62,16 +56,6 @@ export class RegisterComponent {
   }
 
 
-  validateBirthDate(control: any) {
-    const selectedDate = new Date(control.value);
-
-    const today = new Date();
-    const fourYearsAgo = new Date(today.getFullYear() - 4, today.getMonth(), today.getDate());
-  
-    this.maxDate = this.formatDate(fourYearsAgo);
-    this.minDate = '';
-
-  }
 
   // Formatear fechas a YYYY-MM-DD
   formatDate(date: Date): string {
@@ -80,6 +64,7 @@ export class RegisterComponent {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
  
   passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -107,8 +92,8 @@ export class RegisterComponent {
           this.showSnackBar('Usuario creado correctamente');
           this.router.navigate(['auth/login']);
         },
-        error: () => {
-          this.showSnackBar('Ocurrió un error registrando la cuenta');
+        error: (error) => {
+          this.showSnackBar(error.error);
         },
       });
     }

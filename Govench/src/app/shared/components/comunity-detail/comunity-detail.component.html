@@ -9,7 +9,8 @@
                 <p>Descripción: {{comunitieDetail.descripcion}}</p>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-outline-light mt-2">Unirme</button>
+                <button class="btn btn-uni" *ngIf="!isJoined" (click)="joinCommunity()">Unirse</button>
+                <button class="btn btn-uni" *ngIf="isJoined" (click)="leaveCommunity()">Salir</button>
             </div>
         </div>
         <div class="col-md-4">

@@ -66,7 +66,6 @@ export class DetailsEventComponent {
       },
       (error) => {
         if (error.status === 409) { // Verifica el código de estado HTTP
-          console.log("Mensaje de error:", error.error); // Imprime el mensaje de error
           this.showSnackBar(error.error); // Muestra el mensaje en un snackbar o similar
         } else {
           console.error("Error inesperado:", error);

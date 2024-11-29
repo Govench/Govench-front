@@ -5,11 +5,13 @@ import { SeguidoresComponent } from '../../../shared/components/seguidores/segui
 import { SeguidosComponent } from '../../../shared/components/seguidos/seguidos.component';
 import { OtherUserProfileComponent } from '../../../shared/components/profile/other-user-profile/other-user-profile.component';
 import { SearchUsersComponent } from '../../../shared/components/search-users/search-users.component';
+import { ReporteComponent } from '../../../shared/components/reporte/reporte.component';
 
 export const followpRoutes: Routes = [
 
     {path: "profile", component: UserProfileComponent},
     {path: "profile/update", component: UpdateProfileComponent},
+    {path: "reporte", component: ReporteComponent},
     {path: "seguidores", component: SeguidoresComponent},
     {path: "seguidos", component: SeguidosComponent},
     {path: "search", component: SearchUsersComponent},

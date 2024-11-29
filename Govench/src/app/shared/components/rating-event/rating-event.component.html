@@ -9,15 +9,16 @@
 <div *ngIf="eventRatings.length > 0; else noRatings">
   <ul>
     <li *ngFor="let rating of eventRatings">
-      <strong>Puntuación:</strong> {{ rating.valorPuntuacion }} estrellas
+      <p><strong>Usuario:</strong> {{rating.name}} {{rating.lastname}}</p>
+      <strong>Puntuación:</strong>
       <div class="rating-stars">
         <!-- Aquí podrías agregar una representación visual de las estrellas -->
         <span *ngFor="let star of [].constructor(rating.valorPuntuacion); let i = index">
           ★
         </span>
       </div>
-      <p *ngIf="rating.comment"><strong>Comentario:</strong> {{ rating.comment }}</p>
-      <p *ngIf="rating.date"><strong>Fecha:</strong> {{ rating.date | date }}</p>
+      <p>{{rating.email}}</p>
+      <p *ngIf="rating.fechaPuntuacion">{{ rating.fechaPuntuacion | date }}</p>
     </li>
   </ul>
 </div>

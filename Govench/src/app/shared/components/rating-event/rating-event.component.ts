@@ -4,6 +4,7 @@ import { EventService } from '../../../core/services/event/event.service';
 import { EventsDetails } from '../../../shared/models/event/events-details.model';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
+import { RatingEventResponseDTO } from '../../models/ratingEvent/ratingeventResponse.model';
 
 @Component({
   selector: 'app-rating-event',
@@ -16,7 +17,7 @@ export class RatingEventComponent implements OnInit {
 
   eventId: number;
   eventDetails: EventsDetails | null = null;
-  eventRatings: any[] = [];
+  eventRatings: RatingEventResponseDTO[] = [];
 
   constructor(private route: ActivatedRoute, private eventService: EventService, private location: Location ) { }
 

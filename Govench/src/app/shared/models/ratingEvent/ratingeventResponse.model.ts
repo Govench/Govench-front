@@ -1,5 +1,9 @@
 export interface RatingEventResponseDTO {
-    rating: number;
-    comment?: string;
-    date?: string; // Puedes ajustarlo según la fecha real que recibes
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+  valorPuntuacion: number;
+  fechaPuntuacion: string;
+  tittle: string;
   }  

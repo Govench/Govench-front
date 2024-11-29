@@ -17,7 +17,8 @@ export class CrearEventoComponent {
   
   createEventForm: FormGroup;
   isCostoVisible: boolean = false;
-  isVirtualMode: boolean = false; 
+  isVirtualMode: boolean = false;
+
 
   minDate: string="";
   minTime!: string;
@@ -32,12 +33,12 @@ export class CrearEventoComponent {
   
 ngOnInit(): void {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Asegura que esté en el inicio del día.
+  today.setHours(0, 0, 0, 0);
   this.minDate = today.toISOString().split('T')[0];
 
   const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0'); // Formato HH
-  const minutes = now.getMinutes().toString().padStart(2, '0'); // Formato MM
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
   this.minTime = `${hours}:${minutes}`;
   
   router : inject(Router);
@@ -62,7 +63,7 @@ ngOnInit(): void {
       exp: ['', [Validators.required]],
       maxCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]]
     });
-  }
+  } 
   checkStartTime(): void {
     const selectedTime = this.createEventForm.get('startTime')?.value;
     const currentTime = new Date();

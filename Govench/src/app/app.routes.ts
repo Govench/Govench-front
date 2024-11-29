@@ -38,4 +38,5 @@ export const routes: Routes = [
     { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Redirige la ruta raíz a 'inicio'
     { path: '404', component: NotFoundComponent},
     { path: '**', redirectTo: '/404' } // Redirige cualquier ruta no encontrada a 'inicio'
+
 ];

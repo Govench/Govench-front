@@ -15,10 +15,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './details-event.component.html',
   styleUrls: ['./details-event.component.scss'],
+
   imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink,CommonModule]
 })
+
 export class DetailsEventComponent {
   event: EventsDetails;
+  eventRatings: any[] = []; //nuevo ga
   authService = inject(AuthServiceService);
   router = inject(Router);
   eventService= inject(EventService);
@@ -48,6 +51,8 @@ export class DetailsEventComponent {
       error: (error) => console.error('Error al cargar el evento', error)
     });
   }
+
+
 
   public Inscribe() { 
 
@@ -81,4 +86,12 @@ export class DetailsEventComponent {
       verticalPosition : 'top'
     });
   }
+
+  calculateAverageRating(): number {
+    if (this.eventRatings.length === 0) {
+      return 0; // No hay calificaciones
+    }
+    const totalRating = this.eventRatings.reduce((sum, rating) => sum + rating.value, 0);
+    return totalRating / this.eventRatings.length;
+  }  
 }

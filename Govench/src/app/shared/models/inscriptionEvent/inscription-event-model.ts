@@ -9,5 +9,5 @@ export interface Inscription {
     registrationDate: string;
     link:string
     deleted:boolean
-    
+    eventId:number
 }

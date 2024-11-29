@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { EventUser } from '../../models/userEvent/user-event.model';
 import { EventUserService } from '../../../core/services/EventUser/eventUser.service';
 import { EventService } from '../../../core/services/event/event.service';
@@ -20,7 +20,7 @@ export class EventsCreateComponent {
   private router = inject(Router);
   private eventService = inject(EventService);
   private snackbar = inject(MatSnackBar);
-  
+
   modal = false;
   eventToDelete: EventUser | null = null;
 
@@ -45,13 +45,13 @@ export class EventsCreateComponent {
   }
 
   openDeleteModal(event: EventUser): void {
-    this.eventToDelete = event;  // Guarda el evento a eliminar
-    this.modal = true;           // Muestra el modal
+    this.eventToDelete = event;
+    this.modal = true;
   }
 
   closeModal(): void {
-    this.modal = false;           // Oculta el modal
-    this.eventToDelete = null;    // Reinicia el evento a eliminar
+    this.modal = false;
+    this.eventToDelete = null;
   }
 
   confirmDeleteEvent(): void {
@@ -59,8 +59,8 @@ export class EventsCreateComponent {
       this.eventService.eliminarEvento(this.eventToDelete.id).subscribe({
         next: () => {
           this.showSnackbar('Evento eliminado con éxito');
-          this.myEventsCreate(); // Recarga la lista de eventos
-          this.closeModal();     // Cierra el modal
+          this.myEventsCreate();
+          this.closeModal();
         },
         error: () => {
           this.showSnackbar('Error al eliminar el evento');
@@ -72,7 +72,12 @@ export class EventsCreateComponent {
 
   showSnackbar(message: string) {
     this.snackbar.open(message, 'Cerrar', {
-      duration: 2000, verticalPosition : 'top'
+      duration: 2000, verticalPosition: 'top'
     });
   }
+
+  navigateToRatings(eventId: number): void {
+    this.router.navigate(['/organizer/eventos/creados/rating-event', eventId]);
+  }
+
 }

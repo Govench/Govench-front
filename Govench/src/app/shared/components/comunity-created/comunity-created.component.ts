@@ -52,4 +52,12 @@ export class ComunityCreatedComponent implements OnInit {
     const url = `${this.baseRoute}/comunidades/creados/manage/${id}`;
     this.router.navigate([url]);
   }
+
+  goToCommunityAdd() {  
+    const url = `${this.baseRoute}/comunidades/creados/add`;
+    console.log('base route:',  this.baseRoute);
+    console.log('Navegando a:', url);
+
+    this.router.navigate([url]);
+  }
 }

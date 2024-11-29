@@ -4,6 +4,7 @@ import { ComunityAvailableComponent } from '../../../shared/components/comunity-
 import { ComunityCreatedComponent } from '../../../shared/components/comunity-created/comunity-created.component';
 import { ComunityDetailComponent } from '../../../shared/components/comunity-detail/comunity-detail.component';
 import { ComunityManageComponent } from '../../../shared/components/comunity-manage/comunity-manage.component';
+import { CommunityAddComponent } from '../../../shared/components/community-add/community-add.component';
 
 export const comunityRoutes: Routes = [
 
@@ -11,6 +12,7 @@ export const comunityRoutes: Routes = [
     { path: 'perteneces/comunidad/:id', component: ComunityDetailComponent },
     { path: 'disponibles', component: ComunityAvailableComponent },
     { path: 'creados', component: ComunityCreatedComponent },
+    { path: 'creados/add', component: CommunityAddComponent },
     { path: 'creados/manage/:id', component: ComunityManageComponent },
     { path: 'disponibles/comunidad/:id', component: ComunityDetailComponent },
     { path: '', redirectTo: 'perteneces', pathMatch: 'full' }

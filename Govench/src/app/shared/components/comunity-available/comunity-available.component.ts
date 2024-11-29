@@ -23,17 +23,28 @@ export class ComunityAvailableComponent {
   private snackBar = inject(MatSnackBar);
   private authService = inject(AuthServiceService);
   private communityStateService = inject(CommunityStateService);
-
+  isloading:boolean;
   ngOnInit(): void {
     this.getCommunitiesAvailable();
   }
 
   getCommunitiesAvailable() {
-    this.communityService.getAllCommunities().subscribe(
-      (comunitiesAvailable) => {
-        this.comunitiesAvailable = comunitiesAvailable;
-      }
-    )
+    this.isloading = true;
+    this.communityService.getAllCommunities().subscribe({
+      next: (comunitiesAvailable) => {
+        this.isloading = false;
+  
+        // Añadir el estado de unión a cada comunidad
+        this.comunitiesAvailable = comunitiesAvailable.map((community) => ({
+          ...community,
+          joined: this.communityStateService.isJoined(community.id),
+        }));
+      },
+      error: (error) => {
+        this.isloading = false;
+        this.showSnackBar(error.error);
+      },
+    });
   }
   
   navigateToDetail(communityId: number) {

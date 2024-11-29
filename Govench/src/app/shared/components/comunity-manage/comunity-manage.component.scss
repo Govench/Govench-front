@@ -1,3 +1,11 @@
 .btnd{
     width: 150px;
 }
+.ins {
+    background-color: #03129B;
+    color: #fff;
+    &:hover {
+      background-color: darken(#03129B, 10%);
+      border-color: darken(#03129B, 10%);
+    }
+  }

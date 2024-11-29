@@ -1,5 +1,9 @@
+import { UserProfile } from "../user/user-profile-model";
+
 export interface RatingResponse {
     ratingValue: number;
-    userCalificado: string;
+    idUserCalificador:number;
+    userCalificador: string;
+    userCalificadorProfile?:UserProfile;
     comment: string;
 }

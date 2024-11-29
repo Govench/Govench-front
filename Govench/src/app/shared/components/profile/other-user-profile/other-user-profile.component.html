@@ -80,11 +80,23 @@
     <h5>Calificaciones del Usuario</h5>
     <div class="col-8 d-flex flex-row p-3" *ngFor="let calificacion of ratings">
         <div class="col-2">
-            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img rounded-circle">
-        </div>
+           <img
+              *ngIf="profileImageUrl1; else defaultImage"
+              [src]="calificacion.userCalificadorProfile?.profileImageUrl"
+              alt="Profile Image"
+              class="img-thumbnail rounded-circle"
+            />
+            <ng-template #defaultImage>
+              <img
+                src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png"
+                alt="Profile Image"
+                class="img-thumbnail rounded-circle"
+              />
+            </ng-template>
+            </div>
         <div class="col-6">
             <div class="row">
-                <p>{{calificacion.userCalificado}}</p>
+                <p>{{calificacion.userCalificadorProfile?.name}} {{calificacion.userCalificadorProfile?.lastname}} - {{calificacion.userCalificador}}</p>
                 <p>{{calificacion.comment}}</p>
             </div>
         </div>
@@ -101,36 +113,62 @@
     </div>
 </div>
 
-<div class="row d-flex justify-content-center p-5">
-    <div class="row d-flex">
+<form #ratingForm="ngForm" (ngSubmit)="submitRating(ratingForm)" *ngIf="existRating===false">
+    <div class="row d-flex justify-content-center p-5">
+      <div class="row d-flex">
         <ul class="rating r1 justify-content-center">
-            <li *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
-                [ngClass]="{'filled': i < hoverRating || i < newRating}"
-                (click)="rate(i + 1)"
-                (mouseover)="setHoverRating(i + 1)"
-                (mouseout)="setHoverRating(0)">
-              &#9733;  <!-- Aquí usamos el símbolo de estrella -->
-            </li>
-          </ul>
-        
-        <p>{{newRating}} puntos</p>
-    </div>
-    <div class="row">
+          <li
+            *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+            [ngClass]="{'filled': i < hoverRating || i < newRating}"
+            (click)="rate(i + 1)"
+            (mouseover)="setHoverRating(i + 1)"
+            (mouseout)="setHoverRating(0)"
+          >
+            &#9733;
+          </li>
+        </ul>
+        <p>{{ newRating }} puntos</p>
+      </div>
+      <div class="row">
         <div class="col-2">
-            <div>
-            <img *ngIf="profileImageUrl; else defaultImage" [src]="profileImageUrl" alt="Profile Image" class="img-thumbnail rounded-circle">
-                        <ng-template #defaultImage>
-                            <img src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png" alt="Profile Image" class="img-thumbnail rounded-circle">
-                        </ng-template></div>
+          <div>
+            <img
+              *ngIf="profileImageUrl1; else defaultImage"
+              [src]="profileImageUrl1"
+              alt="Profile Image"
+              class="img-thumbnail rounded-circle"
+            />
+            <ng-template #defaultImage>
+              <img
+                src="https://banffventureforum.com/wp-content/uploads/2019/08/no-photo-icon-22.png"
+                alt="Profile Image"
+                class="img-thumbnail rounded-circle"
+              />
+            </ng-template>
+          </div>
         </div>
         <div class="col-8">
-            <textarea class="form-control" rows="3" placeholder="Escribe un comentario"></textarea>
+          <textarea
+            class="form-control"
+            rows="3"
+            name="comment"
+            ngModel
+            required
+            placeholder="Escribe un comentario"
+          ></textarea>
         </div>
-    </div>
-    <div class="row d-flex justify-content-end">
+      </div>
+      <div class="row d-flex justify-content-end">
         <div class="col-2">
-            <button class="btn"> Publicar </button>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="ratingForm.invalid || newRating === 0"
+          >
+            Publicar
+          </button>
         </div>
+      </div>
     </div>
+  </form>
 
-</div>

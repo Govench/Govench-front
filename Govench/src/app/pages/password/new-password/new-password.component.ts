@@ -48,7 +48,17 @@ export class NewPasswordComponent {
         },
         error: (err) => {
           console.error('Error al restablecer la contraseña:', err);
-          alert('No se pudo restablecer la contraseña. Intente nuevamente.');
+          
+          // Manejo de errores según el código de estado
+          if (err.status === 404) {
+            alert('El token no fue encontrado. Intente nuevamente.');
+          } else if (err.status === 410) {
+            alert('El token ha expirado. Por favor, solicite uno nuevo.');
+          } else if (err.status === 409) {
+            alert('La nueva contraseña no puede ser igual a la actual.');
+          } else {
+            alert('No se pudo restablecer la contraseña. Intente nuevamente.');
+          }
         },
       });
     } else {

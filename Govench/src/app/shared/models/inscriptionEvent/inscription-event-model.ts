@@ -7,5 +7,7 @@ export interface Inscription {
     date: string;
     startTime: string;
     registrationDate: string;
-    
+    link:string
+    deleted:boolean
+    eventId:number
 }

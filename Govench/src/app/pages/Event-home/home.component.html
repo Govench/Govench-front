@@ -1,0 +1,112 @@
+<app-nav></app-nav>
+<div class="container-fluid">
+    <div class="row p-3">
+        <div class="col-md-3">
+            <div class="d-flex p-2" role="search">
+                <input class="form-control me-2 border border-primary rounded-pill border border-3" placeholder="Buscar por nombre o nivel de experiencia" [(ngModel)]="searchQuery" (ngModelChange)="onSearch()">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title p-2"><i class="fas fa-filter"></i> Filtros</h5>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item border-primary">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <i class="fa-regular fa-calendar"></i> -- Fecha
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <input type="date" class="form-control" [(ngModel)]="selectedDate" (change)="onSearch()" />
+                        </div>
+                      </div>           
+                    </div>
+                    <div class="accordion-item border-primary">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            <i class="fas fa-medal"></i>-- Experiencia
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <select class="form-select" [(ngModel)]="selectedExp" (change)="onSearch()">
+                                <option value="">Selecciona experiencia</option>
+                                <option value="Principiante">Principiante</option>
+                                <option value="Intermedio">Intermedio</option>
+                                <option value="Avanzado">Avanzado</option>
+                              </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item border-primary">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            <i class="fas fa-map-marker-alt"></i>-- Ubicacion
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <select class="form-select" placeholder="Distrito" [(ngModel)]="selectedLocation" (change)="onSearch()">
+                                <option value="">Selecciona Distrito</option>
+                                <option value="El Porvenir">El Porvenir</option>
+                                <option value="Florencia de Mora">Florencia de Mora</option>
+                                <option value="Huanchaco">Huanchaco</option>
+                                <option value="La Esperanza">La Esperanza</option>
+                                <option value="Laredo">Laredo</option>
+                                <option value="Moche">Moche</option>
+                                <option value="Poroto">Poroto</option>
+                                <option value="Salaverry">Salaverry</option>
+                                <option value="Simbal">Simbal</option>
+                                <option value="Trujillo">Trujillo</option>
+                                <option value="Víctor Larco Herrera">Víctor Larco Herrera</option>
+                              </select>
+                        </div>
+                        </div>
+                      </div>
+            </div>     
+            </div>
+           
+        </div>
+        <div class="col-md-9">
+            <div class="row p-3">
+                <div class="col-md-4 p-2" *ngFor="let evento of filterEvents">
+                    <div class="card" style="width: 18rem;">
+                        <img [src]="evento.coverPath | apiImg" class="card-img-top" alt="imagen del evento">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{evento.tittle}}</h5>
+                            <p class="card-text"><i class="fa-regular fa-calendar"></i> Fecha: {{evento.date}}</p>
+                            <p class="card-text"><i class="fas fa-medal"></i> Exp: {{evento.exp}}</p>
+                            <p *ngIf="evento.location.address==='Virtual'"> Dirección:
+                                {{evento.location.address}}
+                            </p>
+                            
+                            <p *ngIf="evento.location.address!=='Virtual'"
+                            class="card-text"><i class="fas fa-map-marker-alt"></i> Dirección: 
+                                  {{evento.location.departament}},
+                                  {{evento.location.province}},
+                                  {{evento.location.district}},
+                                  {{evento.location.address}}
+                            </p>
+                            <p *ngIf="evento.cost != 0">
+                                <i class="fas fa-dollar-sign"></i> Precio: $/.{{evento.cost}}
+                            </p>
+                            <p *ngIf="evento.cost == 0">
+                                Evento Gratuito
+                          </p>
+                          <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <!-- Usamos (click) para llamar al método navigateToEventDetail -->
+                                <button (click)="navigateToEventDetail(evento.id)" class="btn btn-outline-primary rounded-pill">Ver detalles</button>
+                            </div>
+
+                          </div>      
+                        </div>
+                    </div>
+                </div>
+  
+            </div>
+
+        </div>
+    </div>
+   
+<!-- <router-outlet></router-outlet> -->
+<app-footer></app-footer>

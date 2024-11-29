@@ -1,41 +1,49 @@
-<h5>Anteriores</h5>
-<div class="table-responsive" *ngIf="eventsPast.length > 0; else noEvents">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Titulo</th>
-        <th>Ubicacion</th>
-        <th>Tipo</th>
-        <th>Hora de Inicio</th>
-        <th>Acción</th> 
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="event-row" *ngFor="let eventsIn of eventsPast; let i = index">
-        <td>{{ eventsIn.tittle }}</td>
-        <td>{{ eventsIn.location.address }}-{{ eventsIn.location.departament }}-{{ eventsIn.location.province }}-{{ eventsIn.location.district }}</td>
-        <td>{{ eventsIn.type }}</td>
-        <td>{{ eventsIn.startTime }}</td>
-        
-        <td>
-          <button 
-            class="btn btn-primary" 
-            *ngIf="!isEventRated(eventsIn.id)" 
-            (click)="openRatingModal(eventsIn)">
-            Calificar evento
-          </button>
-        
-          
-          <button 
-            class="btn btn-secondary" 
-            *ngIf="isEventRated(eventsIn.id)" 
-            disabled>
-            Ya calificado
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+<h5>Pasados</h5>
+<div class="table-responsive" *ngIf="filterevents.length> 0; else noEvents">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Ubicacion</th>
+                <th>Tipo</th>
+                <th class="text-center" >Fecha Termino</th>
+                <th>Fecha Inscripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="event-row" *ngFor="let eventsIn of filterevents, let i = index">
+                <td>{{eventsIn.tittle}}</td>
+                <td *ngIf="eventsIn.location.address==='Virtual'">
+                    {{eventsIn.location.address}}
+                </td>
+                <td 
+                *ngIf="eventsIn.location.address!=='Virtual'">
+                {{eventsIn.location.address}}-{{eventsIn.location.departament}}-{{eventsIn.location.province}}
+                </td>
+                <td>{{eventsIn.type}}</td>
+                <td class="long-column text-center" >{{eventsIn.date}}</td>
+                <td>{{eventsIn.registrationDate}}</td>
+                <td>
+                  <button 
+                    class="btn btn-primary" 
+                    *ngIf="!isEventRated(eventsIn.eventId)" 
+                    (click)="openRatingModal(eventsIn)">
+                    Calificar evento
+                  </button>
+                
+                  
+                  <button 
+                    class="btn btn-secondary" 
+                    *ngIf="isEventRated(eventsIn.eventId)" 
+                    disabled>
+                    Ya calificado
+                  </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 <ng-template #noEvents>
   <strong>Aún no te has inscrito en ningún evento.</strong>

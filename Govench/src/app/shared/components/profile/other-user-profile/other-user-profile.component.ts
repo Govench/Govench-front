@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { RatingService } from '../../../../core/services/rating/rating.service';
 import { RatingResponse } from '../../../models/rating/rating-response.model';
+import { FollowStorage } from '../../../../core/services/follow/follow-storage.service';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -16,11 +17,10 @@ import { RatingResponse } from '../../../models/rating/rating-response.model';
   styleUrls: ['./other-user-profile.component.scss']
 })
 export class OtherUserProfileComponent implements OnInit {
-  userId!: number; // El valor de userId será recibido desde la URL
+  userId!: number; 
   profile: UserProfile = {} as UserProfile;
   profileImageUrl: SafeUrl;
   ratings: RatingResponse[];
-  // Variable para perfil del usuario mismo
   profile1!: UserProfile;
   profileImageUrl1: SafeUrl;
   isFollowing: boolean = false;
@@ -30,23 +30,22 @@ export class OtherUserProfileComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
   private route = inject(ActivatedRoute);  // Inyectamos ActivatedRoute para acceder a los parámetros de la ruta
   private ratingService = inject(RatingService);
+  private followStorage = inject(FollowStorage);
 
   ngOnInit(): void {
-    // Obtenemos el userId desde los parámetros de la URL
     this.route.paramMap.subscribe(params => {
-      this.userId = +params.get('id')!; // Extraemos el parámetro 'id' de la URL y lo convertimos a número
-      this.loadOtherUserProfile();  // Llamamos a la función para cargar el perfil
+      this.userId = +params.get('id')!; 
+      this.loadOtherUserProfile();
     });
 
     this.loadRatingsUser();
   }
 
   loadOtherUserProfile(): void {
-    // Usamos userId para hacer la consulta del perfil
     this.userProfileService.getUserProfile(this.userId).subscribe({
       next: (profile) => {
         this.profile = profile;
-        this.showSnackBar('Perfil cargado con éxito.');
+        this.checkFollowingStatus();
       },
       error: (error) => {
         this.showSnackBar('Error al cargar el perfil');
@@ -67,7 +66,7 @@ export class OtherUserProfileComponent implements OnInit {
         this.ratings = ratings;
       },
       error: (error) => {
-        console.log(error);
+        this.showSnackBar(error.error);
       }
     })
   }
@@ -84,28 +83,37 @@ export class OtherUserProfileComponent implements OnInit {
     this.hoverRating = value;
   }
 
+  checkFollowingStatus(): void {
+    this.isFollowing = this.followStorage.isFollowing(this.userId);
+  }
+
   followUser(){
     this.userProfileService.followUser(this.userId).subscribe({
       next: () => {
+        this.followStorage.addFollowingUser(this.userId);
+        this.isFollowing = true;
+        this.loadOtherUserProfile();
         this.showSnackBar('Usuario seguido con exito.');
+
       },
       error: (error) => {
         this.showSnackBar('Error al seguir al usuario');
       }
     });
-    this.isFollowing = true;
   }
 
   unfollowUser(){
     this.userProfileService.unfollowUser(this.userId).subscribe({
       next: () => {
+        this.followStorage.removeFollowingUser(this.userId);
+        this.isFollowing = false;
+        this.loadOtherUserProfile();
         this.showSnackBar('A dejado de seguir al usuario con exito.');
       },
       error: (error) => {
         this.showSnackBar('Error al dejar de seguir al usuario');
       }
     });
-    this.isFollowing = false;
   }
   
 }

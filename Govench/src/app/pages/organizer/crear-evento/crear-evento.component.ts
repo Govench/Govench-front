@@ -19,6 +19,7 @@ export class CrearEventoComponent {
   isCostoVisible: boolean = false;
   isVirtualMode: boolean = false;
 
+
   minDate: string="";
   minTime!: string;
   private fb = inject(FormBuilder);
@@ -42,7 +43,6 @@ ngOnInit(): void {
   
   router : inject(Router);
 
-
 }
   constructor() {
     this.createEventForm = this.fb.group({
@@ -59,6 +59,7 @@ ngOnInit(): void {
       province: ['', [Validators.required]],
       district: ['', [Validators.required]],
       mode: ['', [Validators.required]],
+      link:['', [Validators.required]],
       exp: ['', [Validators.required]],
       maxCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]]
     });
@@ -108,16 +109,19 @@ ngOnInit(): void {
       this.createEventForm.get('department')?.disable();
       this.createEventForm.get('province')?.disable();
       this.createEventForm.get('district')?.disable();
+      this.createEventForm.get('link')?.enable();
     } else {
       this.createEventForm.get('address')?.enable();
       this.createEventForm.get('department')?.enable();
       this.createEventForm.get('province')?.enable();
       this.createEventForm.get('district')?.enable();
+      this.createEventForm.get('link')?.disable();
       this.createEventForm.patchValue({
         address: '',
         department: '',
         province: '',
-        district: ''
+        district: '',
+        link:''
       });
     }
   }
@@ -149,8 +153,7 @@ ngOnInit(): void {
                 this.router.navigateByUrl('/organizer/eventos/creados');
               },
               error: (error) => {
-                const errorMessage = error.error?.message || error.error?.error || 'Ocurrió un error al crear el evento';
-                console.log('Error del servidor:', errorMessage);
+                const errorMessage = error.error  || 'Ocurrió un error al crear el evento';
                 this.showSnackbar(errorMessage);
                 console.error("Error del servidor:", error.error?.value); // Imprime el error del servidor en consola
                 

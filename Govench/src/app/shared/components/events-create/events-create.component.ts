@@ -15,6 +15,7 @@ import { EventService } from '../../../core/services/event/event.service';
 })
 export class EventsCreateComponent {
   eventsuser: EventUser[];
+  notdeletEventUser:EventUser[];
   private eventUserService = inject(EventUserService);
   private router = inject(Router);
   private eventService = inject(EventService);
@@ -30,7 +31,7 @@ export class EventsCreateComponent {
   myEventsCreate() {
     this.eventUserService.getMyEventsCreate().subscribe(
       (eventUser) => {
-        this.eventsuser = eventUser;
+        this.eventsuser = eventUser.filter(event => !event.deleted);;
       }
     );
   }

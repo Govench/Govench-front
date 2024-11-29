@@ -9,7 +9,12 @@
   padding: 10px;
   font-weight: bold;
 }
-
+.long-column {
+  width: 200px;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto si es muy largo */
+  text-overflow: ellipsis; /* Agrega "..." si el texto se corta */
+}
 .event-row {
   background-color: #ffffff;
   border-radius: 10px;
@@ -66,7 +71,10 @@ tfoot{
   padding: 10px;
   text-align: right;
 }
-
+.modal{
+  background-color: transparent;
+}
+/*
 .modal{
   position: fixed;
   top: 0;
@@ -86,13 +94,13 @@ tfoot{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #0f0c3b; /* color de fondo oscuro */
+  background-color: #0f0c3b; 
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 300px;
-  max-height: 200px; /* Limita la altura del modal */
-  overflow: hidden; /* Elimina el scroll */
+  max-height: 200px;
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,7 +110,7 @@ tfoot{
   z-index: 1000;
 }
 
-
+/*
 .modal p {
   font-size: 18px;
   margin-bottom: 20px;
@@ -116,7 +124,7 @@ tfoot{
 }
 
 .modal button:first-of-type {
-  background-color: #e0e0e0; /* Botón de "Cancelar" */
+  background-color: #e0e0e0; /* Botón de "Cancelar" 
   color: black;
   border: none;
 }
@@ -126,3 +134,4 @@ tfoot{
   color: white;
   border: 2px solid white;
 }
+*/

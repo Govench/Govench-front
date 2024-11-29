@@ -1,0 +1,69 @@
+<h2 class="strong">Gestionar Comunidad</h2>
+
+<div class="row d-flex justify-content-center m-5">
+    <div class="col-md-8">
+        <form>
+            <div class="form-group">
+                <label for="nombreComunidad">Nombre de la Comunidad</label>
+                <input type="text" class="form-control" id="nombreComunidad" [(ngModel)]="communityRequest.name" name="name" [placeholder]="community.name">
+            </div>
+
+            <div class="form-group">
+                <label for="descripcionComunidad">Descripcion de la comunidad</label>
+                <textarea class="form-control" id="descripcionComunidad" rows="3" [(ngModel)]="communityRequest.descripcion" name="description" [placeholder]="community.descripcion"></textarea>
+            </div>
+        </form>
+        <div class="row d-flex justify-content-evenly m-5">
+            <!-- Botón para abrir el modal de confirmación -->
+            <button type="button" class="btn btn-primary btn-lg btnd" data-bs-toggle="modal" data-bs-target="#updateModal">
+                Actualizar
+            </button>
+            <button class="btn btn-outline-dark btn-lg btnd" (click)="cancel()">Cancelar</button>
+        </div>
+        
+        <div class="row m-5">
+            <!-- Botón para abrir el modal de eliminación -->
+            <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Eliminar Comunidad
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación de Actualización -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Confirmar Actualización</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas cambiar los datos?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="updateCommunity()" data-bs-dismiss="modal">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta comunidad?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteCommunity()" data-bs-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

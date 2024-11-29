@@ -28,20 +28,21 @@
                         <p>{{ event.exp}}</p>
                     </div>
                     <div>
-                        <p><strong>Modalidad</strong></p>
-                        <p>{{ event.location.address}}</p>
+                        <p><strong>Tipo</strong></p>
+                        <p>{{ event.type}}</p>
                     </div>
                     <div>
-                        <p><strong>Tipo de evento</strong></p>
-                        <p>{{ event.type }}</p>
+                        <p *ngIf="event.location.address!=='Virtual'" ><strong>Región</strong></p>
+                        <p *ngIf="event.location.address!=='Virtual'"
+                        >{{ event.location.departament}}</p>           
                     </div>
-                    <div>
-                        <p><strong>Región</strong></p>
-                        <p>{{ event.location.departament}}</p>
-                    </div>
-                    <div>
+                    <div *ngIf="event.type !=='Gratuito'" >
                         <p><strong>Costo</strong></p>
                         <p>{{ event.cost}}</p>
+                    </div>
+                    <div *ngIf="event.type ==='Gratuito'" >
+                        <p><strong>Costo</strong></p>
+                        <p>Gratuito</p>
                     </div>
                 </div>
             </div>

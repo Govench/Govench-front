@@ -15,8 +15,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './details-event.component.html',
   styleUrls: ['./details-event.component.scss'],
-  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink, CommonModule]
+
+  imports: [NavComponent, FooterComponent,ApiImgPipe,RouterLink,CommonModule]
 })
+
 export class DetailsEventComponent {
   event: EventsDetails;
   eventRatings: any[] = []; //nuevo ga
@@ -65,13 +67,10 @@ export class DetailsEventComponent {
             this.showSnackBar("Registro exitoso");
             this.router.navigate(['/eventos']);
           }
-          console.error("Error: URL de pago no válida.");
-          this.showSnackBar("No se pudo generar el enlace de pago.");
         }
       },
       (error) => {
         if (error.status === 409) { // Verifica el código de estado HTTP
-          console.log("Mensaje de error:", error.error); // Imprime el mensaje de error
           this.showSnackBar(error.error); // Muestra el mensaje en un snackbar o similar
         } else {
           console.error("Error inesperado:", error);

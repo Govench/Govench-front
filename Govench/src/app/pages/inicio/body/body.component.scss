@@ -1,151 +1,177 @@
-.body {
-    background: linear-gradient(192deg, #FFF 23.99%, #8B8EA3 48.58%, #010635 83.26%);
-}
-
-.noso{
-    padding-top: 50px;
-    color: #010635;
-    font-size: 65px;
-}
-
-.misVisi{
-    padding: 100px;
-
-    .mis{
-        border-radius: 30px;
-        border: 1px solid #000;
-        border-right: 10px solid #000;
-        border-bottom: 10px solid #000;
-        opacity: 0.8;
-        background: #FFF;
-        box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.25);
-        margin-right: 40px;
-    }
-
-    .vis{
-        border-radius: 35px;
-        border: 1px solid #000;
-        border-right: 10px solid #000;
-        border-bottom: 10px solid #000;
-        opacity: 0.8;
-        background: #FFF;
-        box-shadow: 5px 10px 10px 0px rgba(0, 0, 0, 0.25);
-        margin-left: 40px;
-    }
-
-    h3{
-        color: #000000;
-        font-size: 45px;
-    }
-    p{
-        font-size: 18px;
-    }
-}
-
-.team-section{
-    color: #FFF;
-    img{
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 15px;
-    }
-    .subTitle{
-        padding-left: 30px;
-        font-size: 65px;
-    }
-    .team{
-        padding: 100px;
-    }
-}
-
-.faq{
-    .pregu{
-        color: #FFF;
-        padding: 175px;
-        font-size: 70px;
-    }
-
-    .accordion{
-        background: none;
-        margin-top: -100px;
-        border-bottom: 1px solid #000;
-    }
-    
-}
-
-.acor{
-    background: none;
-    padding: 175px;
-}
-
 .carru {
     background: url(https://img.pikbest.com/origin/09/18/09/14spIkbEsTkRF.jpg!w700wp);
-    width: 1903px;
-    height: 1080px;
-    background-position: center center;
     background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 2rem 0;
+
+  .title {
+    font-size: 2rem;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    .ah {
+      font-size: 2.5rem;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  .register-btn {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .carousel-item {
+    img {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .t {
+      h5 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .carousel-control-icon {
+    color: #0056b3;
+  }
+}
+
+.carrusel {
+    background-color: rgba(255, 255, 255, 0.8); // Fondo blanco semi-transparente
+    border-radius: 10px; // Bordes redondeados
+    padding: 20px; // Espaciado interno
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra suave
+}
+.carousel-item img {
+    border-radius: 8px; // Bordes redondeados para las imágenes
+  }
+  
+  .carousel-control-icon {
+    color: #010635; // Color oscuro para los controles del carrusel
+  }
+  
+  .t {
+    color: #010635; // Color oscuro para el texto debajo de las imágenes
+  }
+
+
+.body {
+    background: linear-gradient(192deg, #FFF 23.99%, #8B8EA3 48.58%, #010635 83.26%);
+    padding: 2rem 0;
+
+  .noso {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .misVisi {
+    .mis, .vis {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+
+      h3 {
+        color: #0056b3;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .team-section {
+    margin-top: 3rem;
+
+    .subTitle {
+     color: #FFF;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+  }
+
+  .faq {
     color: #FFF;
-}
+    margin-top: 3rem;
 
-.columnaP{
-    padding-top: 290px;
-}
-.title{
-    padding-left: 120px;
-    font-size: 80px;
-    .ah{
-        color: #90bbbb;
-    }
-}
-
-.decription{
-    padding-left: 180px;
-    font-size: 30px;
-}
-
-.boton{
-    padding-top: 20px;
-    padding-left: 180px;
-}
-.carrusel{
-    padding-top: 120px;
-    padding-right: 180px;
-    padding-left: 200px;
-    
-    .carousel-inner{
-        color: #000;
-        img{
-            margin: 0 auto;
-            border-radius: 10%;
-            height: 450px;
-            width: 450px;
-        }
-        padding: 100px;
-        background: #FFF;
-        opacity: 0.8;
-        border-radius: 30px;
-        border: 1px solid #000;
-    }
-    .carousel-control-icon{
-        color: #083b7e;
-    }
-    h5{
-        font-size: 40px;
-    }
-    p{
-        font-size: 20px;
+    .pregu {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
     }
 
-}
+    .accordion-item {
+      margin-bottom: 1rem;
 
-.register-btn{
-    transition: all 0.3s ease;
-
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      .accordion-button {
+        font-weight: bold;
+      }
     }
+  }
 }
 
+@media (max-width: 768px) {
+  .carru {
+    text-align: center;
+
+    .register-btn {
+      width: 100%;
+    }
+  }
+
+  .body {
+    .noso {
+      text-align: center;
+    }
+
+    .team-section {
+      .col {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

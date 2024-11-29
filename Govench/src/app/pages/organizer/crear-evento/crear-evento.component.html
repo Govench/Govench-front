@@ -64,7 +64,7 @@
             <div class="form-group col-md-1">
               <label>Tipo de evento</label>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="type" id="eventTypeFree" (change)="toggleCostoInput()" formControlName="type" value="Gratis">
+                <input class="form-check-input" type="radio" name="type" id="eventTypeFree" (change)="toggleCostoInput()" formControlName="type" value="Gratuito">
                 <label class="form-check-label" for="eventTypeFree">Gratuito</label>
               </div>
               <div class="form-check">
@@ -94,6 +94,8 @@
             </div>
           </div>
 
+
+
       <div class="form-group mt-2">
         <label for="experience">Nivel de Experiencia</label>
         <select class="form-select" id="experience" formControlName="exp">
@@ -119,9 +121,6 @@
         <div class="form-group col-md-2">
           <label for="hora-inicio">Hora de Inicio</label>
           <input type="time" id="hora-inicio" formControlName="startTime" class="form-control" type="time" [min]="minTime"  (change)="checkStartTime()">
-            <div *ngIf="showTimeWarning===true" class="alert alert-warning mt-2">
-              <span>La hora seleccionada es anterior a la hora actual.</span>
-             </div>
           <div *ngIf="createEventForm.get('startTime')?.invalid && (createEventForm.get('startTime')?.dirty || createEventForm.get('startTime')?.touched)" class="alert alert-danger mt-2">
             <span *ngIf="createEventForm.get('startTime')?.errors?.['required']">La hora de inicio es obligatoria.</span>
           </div>
@@ -130,9 +129,6 @@
         <div class="form-group col-md-2">
           <label for="hora-fin">Hora de Fin</label>
           <input type="time" id="hora-fin" formControlName="endTime" class="form-control" type="time" [min]="minTime"  (change)="checkStartTime()">
-          <div *ngIf="showTimeWarning===true" class="alert alert-warning mt-2">
-            <span>La hora seleccionada es anterior a la hora actual.</span>
-           </div>
           <div *ngIf="createEventForm.get('endTime')?.invalid && (createEventForm.get('endTime')?.dirty || createEventForm.get('endTime')?.touched)" class="alert alert-danger mt-2">
             <span *ngIf="createEventForm.get('endTime')?.errors?.['required']">La hora de fin es obligatoria.</span>
           </div>
@@ -148,8 +144,8 @@
           </div>
         </div>
       </div>
-      
 
+      
     <!-- Campos de dirección -->
     <div class="form-row">
       <div class="form-group">
@@ -171,6 +167,15 @@
         <label for="direccion">Dirección</label>
         <input type="text" id="direccion" formControlName="address" class="form-control" placeholder="Ingrese dirección" [readonly]="isVirtualMode">
       </div>
+      
+      <div class="form-group col-md-1 mt-2" *ngIf="isVirtualMode">
+        <label for="link">Link</label>
+        <input type="text" id="link" formControlName="link" class="form-control" placeholder="www.">
+        <div *ngIf="createEventForm.get('link')?.invalid && (createEventForm.get('link')?.dirty || createEventForm.get('link')?.touched)" class="alert alert-danger mt-2">
+          <span *ngIf="createEventForm.get('link')?.errors?.['required']">El link es obligatorio.</span>
+        </div>
+      </div>
+
     </div>
 
     <div class="button-group">

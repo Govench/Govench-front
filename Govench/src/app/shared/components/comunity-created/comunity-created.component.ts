@@ -15,7 +15,7 @@ import { ComunityResponse } from '../../../shared/models/comunity/comunity-respo
 export class ComunityCreatedComponent implements OnInit {
   comunities: ComunityResponse[] = [];
   baseRoute: string;
-
+  isLoading :boolean;
   constructor(
     private comunityService: ComunityService,
     private router: Router,
@@ -38,8 +38,9 @@ export class ComunityCreatedComponent implements OnInit {
   }
 
   getMyComunities() {
+    this.isLoading=true;
     this.comunityService.getCommunitiesByUser().subscribe((comunities) => {
-  
+      this.isLoading=false;
       this.comunities = comunities;
     });
   }

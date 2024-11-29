@@ -73,3 +73,34 @@
       }
     }
   }
+  .no-comu {
+    text-align: center;
+    padding: 3rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 2rem;
+  
+    i {
+      font-size: 4rem;
+      color: #285db8;
+      margin-bottom: 1rem;
+    }
+  
+    h3 {
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+  
+    p {
+      color: #666;
+    }
+  }
+  .ins {
+    background-color: #03129B;
+    color: #fff;
+    &:hover {
+      background-color: darken(#03129B, 10%);
+      border-color: darken(#03129B, 10%);
+    }
+  }
+  

@@ -32,9 +32,9 @@ export class ComunityService{
       return this.http.put<ComunityResponse>(`${this.baseURL}/update/${id}`, community);
     }
 
-    deleteCommunity(id: number): Observable<any> {
-        return this.http.delete(`${this.baseURL}/delete/${id}`);
-      }
+    deleteCommunity(communityId: number): Observable<string> {
+      return this.http.delete<string>(`${this.baseURL}/delete/${communityId}`, { responseType: 'text' as 'json' });
+    }
 
   getComunitiesPertainByUser(): Observable<UserComunity[]> {
     return this.http.get<UserComunity[]>(`${this.baseURL2}/pertains`);

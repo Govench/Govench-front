@@ -33,8 +33,9 @@ export class ComunityDetailComponent {
     const communityId = parseInt(this.router.url.split('/')[5])
     this.communityService.getCommunityById(communityId).subscribe(
       (comunitieDetail) => {
-        this.comunitieDetail = comunitieDetail;
         this.isJoined = this.communityStateService.isJoined(communityId);
+        console.log(this.isJoined);
+        this.comunitieDetail = comunitieDetail;
       }
     )
   }

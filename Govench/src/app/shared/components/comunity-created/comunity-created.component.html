@@ -1,18 +1,37 @@
-<p>Mis comunidades creadas</p>
-<div class="row">
-<!-- Para colocar boton crear comunidad -->
-</div>
-
-<div class="row">
-    <div class="col-md-4 card-comu" *ngFor="let comunity of comunities">
-        <div class="row">
-            <div class="col-md-8">
-                <strong>{{ comunity.name }}</strong>
-                <p>{{ comunity.descripcion }}</p>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-com" (click)="goDetail(comunity.id)">Editar</button>
-            </div>
-        </div>
+<div *ngIf="isLoading; else Loaded" class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
     </div>
 </div>
+
+<ng-template #Loaded>
+    <div *ngIf="comunities.length !== 0; else noCommunities" >
+        <h3>Mis comunidades creadas</h3>
+        <div class="row">
+            <!-- Para colocar boton crear comunidad -->
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 card-comu" *ngFor="let comunity of comunities">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <strong class="text-break">{{ comunity.name }}</strong>
+                            <p>{{ comunity.descripcion }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-com" (click)="goDetail(comunity.id)">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <ng-template #noCommunities>
+        <div class="no-comu">
+            <h3>Aun no has creado ninguna comunidad</h3>
+            <i class="fa-solid fa-users-slash"></i>
+        </div>
+        <div class="col offset-9">
+            <button class="btn ins" ><i class="fa-solid fa-plus"></i>Crear una comunidadd</button>
+        </div>
+    </ng-template>
+</ng-template>

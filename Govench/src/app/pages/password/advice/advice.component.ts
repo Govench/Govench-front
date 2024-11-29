@@ -5,7 +5,7 @@ import { NavComponent } from "../../../shared/components/nav/nav.component";
 @Component({
   selector: 'app-advice',
   standalone: true,
-  imports: [FooterComponent, NavComponent],
+  imports: [],
   templateUrl: './advice.component.html',
   styleUrl: './advice.component.scss'
 })

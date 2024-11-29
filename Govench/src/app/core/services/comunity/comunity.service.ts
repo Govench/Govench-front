@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { ComunityResponse } from '../../../shared/models/comunity/comunity-response.model';
 import { UserComunity } from '../../../shared/models/comunity/UserComunity-response.model';
+import { PostRequest } from '../../../shared/models/post/post-request.model';
 
 @Injectable({
     providedIn: 'root'
@@ -49,6 +50,9 @@ export class ComunityService{
     return this.http.delete(`${this.baseURL2}/${idUser}/${idCommunity}`, {
       responseType: 'text'
     });
+  }
+  createPost(communityId: number, postRequestDTO: PostRequest): Observable<{ [key: string]: string }> {
+    return this.http.post<{ [key: string]: string }>(`${this.baseURL}/${communityId}/posts/create`, postRequestDTO);
   }
     
 }

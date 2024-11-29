@@ -1,7 +1,18 @@
 .container-fluid {
   padding: 2rem;
 }
+.image-container {
+  text-align: center;
+}
 
+.small-image {
+  max-width: 100%; 
+  height: auto;
+}
+.profile-image{
+  max-width: 100px;
+  max-height: 100px;
+}
 .encabezado {
   background: linear-gradient(270deg, #010635 0%, #03129B 100%);
   color: white;

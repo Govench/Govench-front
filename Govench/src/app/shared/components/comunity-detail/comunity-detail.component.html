@@ -22,7 +22,7 @@
         <strong>Comentarios: </strong>
         <div *ngIf="comunitieDetail.post.length!==0 ; else noComent">
             <div class="comentario" *ngFor="let post of comunitieDetail.post">
-                <img
+                      <img
                         *ngIf="post.user?.profileImageUrl; else defaultImage"
                         [src]="post.user?.profileImageUrl"
                         alt="Profile Image"
@@ -44,6 +44,49 @@
                 <div class="col">
                     <p class="fecha">Actualizado: {{post.updated}}</p>
                 </div>
+                <div *ngIf="post.autor.id===MyId" class="col">
+                  <button class="btn btn-outline-danger m-1" (click)="deletePostFromCommunity(post.comunidadId,post.id)">Eliminar</button>
+                  <button class="btn btn-outline-secondary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="guardarIdPost(post.id)">Editar</button>
+              </div>
+
+              <div class="modal fade" id="exampleModal"  tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="editPostModalLabel">Editar Post</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form #editForm="ngForm">
+                        <div class="mb-3">
+                          <label for="postBody" class="form-label">Nuevo cuerpo del post</label>
+                          <textarea
+                            id="postBody"
+                            name="postBody"
+                            [(ngModel)]="postBody"
+                            class="form-control"
+                            rows="3"
+                            required
+                            placeholder="Escribe el nuevo contenido aquí"
+                          ></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        [disabled]="!editForm.valid"
+                        (click)="savePostChanges()"
+                        data-bs-dismiss="modal"
+                      >
+                        Guardar Cambios
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
         <ng-template #noComent>
@@ -90,7 +133,7 @@
                           maxlength="250"
                         ></textarea>
                         <small class="text-muted">
-                          <span>{{ 250 - (comment?.length || 0) }} caracteres restantes</span>
+                            <span>{{ 250 - (comment.length || 0) }} caracteres restantes</span>
                         </small>
                       </div>
                  

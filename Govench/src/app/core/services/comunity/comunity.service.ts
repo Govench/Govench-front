@@ -53,6 +53,13 @@ export class ComunityService {
     });
   }
 
+  deletePost(communityId: number, postId: number): Observable<string> {
+    return this.http.delete(`${this.baseURL}/${communityId}/posts/${postId}`, { responseType: 'text' });
+  }
+
+  updatePost(communityId: number, postId: number, updatedPost: { body: string }): Observable<any> {
+    return this.http.put(`${this.baseURL}/${communityId}/posts/${postId}`, updatedPost,{ responseType: 'text' });
+  }
   createPost(communityId: number, postRequestDTO: PostRequest): Observable<{ [key: string]: string }> {
     return this.http.post<{ [key: string]: string }>(`${this.baseURL}/${communityId}/posts/create`, postRequestDTO);
   }

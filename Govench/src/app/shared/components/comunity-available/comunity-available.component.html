@@ -7,23 +7,26 @@
     </div>
     
     <div *ngIf="isloading !==true" class="container-fluid row">
-        <div class="col-md-4 card-comu" *ngFor="let comunity of comunitiesAvailable">
+        <div class="col-md-4 card-comu" *ngFor="let community of comunitiesAvailable">
             <div class="row">
-                <div class="col-md-8">
-    
-                    <strong>{{ comunity.name }}</strong>
-                    <p>{{ comunity.descripcion }}</p>
-                    <p> Comunidad de {{comunity.owner.name}}</p>
-                    
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-uni" *ngIf="!isJoined(comunity.id)" (click)="joinCommunity(comunity.id)">Unirse</button>
-                    <button class="btn btn-uni" *ngIf="isJoined(comunity.id)" (click)="leaveCommunity(comunity.id)">Salir</button>
-                    <button class="btn btn-com" (click)="navigateToDetail(comunity.id)"> ver</button>
-                </div>
+              <div class="col-md-8">
+                <strong>{{ community.name }}</strong>
+                <p>{{ community.descripcion }}</p>
+                <p>Comunidad de {{ community.owner.name }}</p>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-uni" *ngIf="!community.joined" (click)="joinCommunity(community.id)">
+                  Unirse
+                </button>
+                <button class="btn btn-uni" *ngIf="community.joined" (click)="leaveCommunity(community.id)">
+                  Salir
+                </button>
+                <button class="btn btn-com" (click)="navigateToDetail(community.id)">
+                  Ver
+                </button>
+              </div>
             </div>
-    
-        </div>
+          </div>
     </div>
     
 </div>
